@@ -4,18 +4,17 @@
 \usepackage[margin=1.0in]{geometry}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{xcolor}
 \begin{document}
 
 \section{Introduction and methods}
-\textit{The goal of the introduction is to show the reader that the project is valuable. Should be x pages, other 5-x page will be methods.}
-
 \paragraph{Overall goal} We want to be able to systematically develop low-energy effective models for strongly correlated electron systems.
 
 \paragraph{Barrier to achieving goal} Non-perturbative interactions between various degrees of freedom - for example, lattice, spin and charge - makes writing down low-energy effective theories for strongly correlated materials very challenging.
 
-\paragraph{Current state of the art} ??
+\paragraph{Current state of the art} \textcolor{red}{Talk about methods people use for model fitting now. Will fill out as I do literature review.}
 
-\paragraph{Advancement to the state of the art} We propose using a density matrix downfolding (DMD) procedure to develop low-energy effective theories of the 1-band nearest-neighbor Hubbard model on a square lattice as a stepping stone towards usage on \textit{ab-initio} Hamiltonians of strongly correlated materials.
+\paragraph{Advancement to the state of the art} We propose using a density matrix downfolding (DMD) procedure to develop low-energy effective theories of the 1-band nearest-neighbor Hubbard model on a square lattice as a stepping stone towards effective theories starting from \textit{ab-initio} Hamiltonians of strongly correlated materials.
 
 \paragraph{Density matrix down folding} 
 The DMD procedure allows us to develop low-energy effective theories for physical systems in a systematic manner beginning with a higher energy Hamiltonian, like the \textit{ab-initio} Hamiltonian $H_{ab}$.
@@ -23,25 +22,27 @@ The DMD procedure allows us to develop low-energy effective theories for physica
 \paragraph{Fixed node diffusion Monte Carlo}
 We will use fixed node diffusion Monte Carlo (FN-DMC) to generate wave functions in our chosen low-energy subspace and to accurately calculate \textit{ab-initio} energies and reduced density matrices.
 
-\pagebreak
-
 \section{Preliminary results and discussion}
 \textit{The goal of the preliminary results is to indicate that I have the tools to actually complete the proposed research.}
 
 \paragraph{CuO: Introduction} As a first step towards developing accurate models for extended systems like solids using DMD, we constructed a many-body effective model for the CuO molecule which accurately describes the eigenstates and spectra seen in experiment up to 2eV above the ground state. 
 
-\paragraph{CuO: Methods} In order to fit a model using DMD we had to construct a low energy space (LES), choose a sampling scheme for states within the LES resulting in our sample space (SS), and develop a basis which can accurately describe variations within the LES.
+\paragraph{CuO: Methods} In order to fit a model using DMD we had to construct a low energy space (LES), choose a sampling scheme for states within the LES resulting in our sample space (SS), develop a basis which can accurately describe variations within the LES, identify and select descriptors built out of these basis elements, and appropriately fit the data from our SS onto our selected descriptors. 
 
 \paragraph{CuO: Results and Discussion} The resultant model from our analysis accurately describes the various eigenstates as measured in experiment up to 2eV, and is quantitatively and qualitatively more accurate than competing methods like density functional theory.
 
-\paragraph{Hubbard: Preliminary results} Our preliminary calculations on the 2x2 1-band Hubbard model at half-filling indicate the emergence of a gapped low-energy subspace for U/t $\ge$ 10 described well by a nearest neighbor Heisenberg model, and a set of models with 0 $<$ U/t $\leq$ 4 which are poorly described by either a non-interacting fermion or Heisenberg model.
+\paragraph{Hubbard: Preliminary results} Our preliminary calculations on the 2x2 half-filled 1-band Hubbard model map out the limiting behavior in the U-T model space by investigating the effectiveness of the single descriptor models.
 
 \section{Proposed work}
-\paragraph{Hubbard stuff?}
+\paragraph{Hubbard: Effective models at half-filling} We want to develop low-energy effective theories for the half-filled Hubbard model over the space U: 0 - 12, 1/$k_B$T: 0 - 3, particularly on the medium coupling region of U: 2 - 6 and 1/$k_B$T $\sim$ 1 where perturbative effective theories seem to break down.
+
+\paragraph{Hubbard: Effective models away from half-filling} A farther reaching goal would be to develop effective theories in the U-T-$\delta$ space, where more complex behavior similar to the cuprates have been found.
+
+\paragraph{Hubbard: Finite size effects} Our initial calculations can be done using exact diagonalization, but memory limitations will require us to use approximate quantum Monte Carlo methods to calculate energies and density matrix elements for states in our LES.
 
 
-\section{Conclusion and Summary}
-
+\section{Proposed timeline}
+\textit{Do this after proposed work nailed down}.
 
 \end{document}
 
