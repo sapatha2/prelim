@@ -12,18 +12,22 @@
 
 \begin{document}
 \section{Introduction}
-A core problem of condensed matter physics is understanding how to systematically develop low-energy effective models for strongly correlated electron systems. In the forefront of modern research are high temperature superconductors, heavy fermion materials, materials with strong spin-orbit coupling effects, and more for which simple effective theories have not yet been found. For example, cuprate family of high-Tc superconductors have an intricate phase diagram in the doping-temperature space \textbf{ref} with a robust anti-ferromagnetic (AFM) charge-transfer insulator state near zero doping, a prominent superconducting dome in the 0.1 - 0.2 hole doped region at low temperatures with psuedo-gap and non-Fermi liquid metallic phases at higher temperatures and Fermi liquid like behavior in the overdoped area, of which only the AFM insulating and Fermi liquid phases have well understood mechanism and models \textbf{ref}. The iron-pnictides also have superconducting domes, non-Fermi liquid like metallic phases, a spin-density-wave antiferommagnetic phase, all under various dopings and temperatures \textbf{ref}. As in the cuprate case, models for these phases have not been fully fleshed out \textbf{ref}. Heavy-fermion materials have a purported quantum critical point between an AFM and Fermi-liquid phase which houses a superconducting dome, leading to another phase diagram for which building model Hamiltonians is very challenging \textbf{ref}. Materials with strong spin-orbit coupling effects exhibit a host of properties like \textbf{LIST THESE HERE!}. 
+A core problem of condensed matter physics is understanding how to systematically develop low-energy effective models for strongly correlated electron systems. In the forefront of modern research are materials like high temperature superconductors and heavy fermion systems for which simple effective theories have not yet been found. For example, the cuprate family of high-Tc superconductors have an intricate phase diagram in the doping-temperature space  with a robust anti-ferromagnetic (AFM) charge-transfer insulator state near zero doping, a prominent superconducting dome in the 0.1 - 0.2 hole doped region at low temperatures with psuedo-gap and non-Fermi liquid metallic phases at higher temperatures and Fermi liquid like behavior in the overdoped area, of which only the AFM insulating and Fermi liquid phases have well understood mechanism and models. The iron-pnictides also have superconducting domes, non-Fermi liquid like metallic phases, a spin-density-wave antiferommagnetic phase, all under various dopings and temperatures. As in the cuprate case, models for these phases have not been fully fleshed out. Heavy-fermion materials have a purported quantum critical point between an AFM and Fermi-liquid phase which houses a superconducting dome, leading to another phase diagram for which building model Hamiltonians is very challenging. 
 
-The fundamental barrier in writing down low-energy theories for strong correlated materials is the existence of non-perturbative interactions between various degrees of freedom - for example, lattice, spin and charge. Consider just the cuprate case for now, the two phases which are well understood contain a singular important degree of freedom in the low-energy space. Near zero doping the cuprates are charge-transfer insulators with an optical gap around 2 eV \textbf{ref}, indicating that the lowest energy excitations are primarily spin-like, allowing for a simple nearest-neighbor spin-only model like an AFM Heisenberg model to describe the low-energy physics quite accurately. In the heavily overdoped side, the lowest energy excitations look like well defined Fermi-liquid quasiparticles \textbf{ref}, indicating our lowest energy excitations are electron-like, and a simple non-interacting electron model (with renormalized masses, etc) will suffice. In the intermediate doping region where the low-energy excitations cannot be easily sectioned into spin-like or electron-like only, we see the emergence of exotic phases and where most difficulties arise in writing down low-energy effective models. On top of that, this entire discussion did not include any lattice effects like structural phase transitions which many strongly-correlated materials have as well \textbf{ref}.
+The fundamental barrier in writing down low-energy theories for strong correlated materials is the existence of non-perturbative interactions between various degrees of freedom - for example, lattice, spin and charge. Consider just the cuprate case for now, the two phases which are well understood contain a singular important degree of freedom in the low-energy space. Near zero doping the cuprates are charge-transfer insulators with an optical gap around 2 eV , indicating that the lowest energy excitations are primarily spin-like, allowing for a simple nearest-neighbor spin-only model like an AFM Heisenberg model to describe the low-energy physics quite accurately. In the heavily overdoped side, the lowest energy excitations look like well defined Fermi-liquid quasiparticles , indicating our lowest energy excitations are electron-like, and a simple non-interacting electron model (with renormalized masses, etc) will suffice. In the intermediate doping region where the low-energy excitations cannot be easily sectioned into spin-like or electron-like only, we see the emergence of exotic phases and where most difficulties arise in writing down low-energy effective models. On top of that, this entire discussion did not include any lattice effects like structural phase transitions which many strongly-correlated materials have as well.
 
-\textbf{Current state of the art.}
+Common approaches to building suitable model Hamiltonians for strongly correlated materials involve using single particle theories like density functional theory (DFT).
+One-body terms are typically obtained by projecting the solutions from the DFT band structure onto a localized single-particle basis, giving an estimate of hoppings and occupations on a lattice model.
+Two-body terms in the model are developed by assuming a screened Coulomb interaction based on constrained DFT or RPA.
+Aside from this method, Lowdin methods coupled to a stochastic method and canonical transformations have also been used to develop effective theories.
+These methods have the drawback that the constructed effective theory typically does not come with any estimate of the quality of the model, therefore making model validation a phenomenological task which can lead to unclear biases in the model construction.
 
-We propose using a density matrix downfolding (DMD) procedure\textbf{ref} to systematically develop low-energy effective theories of the 1-band nearest-neighbor Hubbard model on a square lattice as a stepping stone towards building effective theories for strongly correlated materials. The Hubbard model is a simple model with nearest-neighbor hopping and a local on-site Coulomb repulsion, parameterized by a single ratio U/t: 
+We propose using a density matrix downfolding (DMD) procedure to systematically develop low-energy effective theories of the 1-band nearest-neighbor Hubbard model on a square lattice as a stepping stone towards building effective theories for strongly correlated materials. The Hubbard model is a simple model with nearest-neighbor hopping and a local on-site Coulomb repulsion, parameterized by a single ratio U/t: 
 \begin{equation}
 H_\text{hub} = -t \sum_{\langle i,j \rangle,\sigma}( c_{i^\dagger,\sigma} c_{j,\sigma} + h.c.) + U \sum_i n_{i\uparrow} n_{i\downarrow}
 \label{hubbard}.
 \end{equation}
-The solutions in 1-d are well understood via the Bethe ansatz \textbf{ref}, however the 2-d square lattice Hubbard model has no known exact solution.  In the very strong coupling limit $U/t \rightarrow \infty$ an emergent low-energy spin-space exists with an effective nearest-neighbor AFM Heisenberg Hamiltonian \textbf{ref}. In the region $U = 0$ a trivial non-interacting theory holds. Between these two limits, in particular the intermediate coupling region $2 < U < 8$, no well established effective theory exists. In this region there is a metal-insulator transition at $U_c/t \sim 4$ \textbf{ref}, and the pseudogap opens up at finite temperature around $U/t \sim 7$, leading to the development of a Mott gap for large $U/t > 11$ \textbf{ref}. In addition to the half-filling phase diagram, this model exhibits a plethora of interesting ground state properties when doped including stripe phases and d-wave pairing \textbf{ref}. The relative simplicity of the Hubbard model and the lack of a well-established low-energy theory in a broad intermediate coupling region lends the model as a useful playground for our new downfolding procedure in preparation for tackling realistic strongly correlated electron systems. 
+The solutions in 1-d are well understood via the Bethe ansatz , however the 2-d square lattice Hubbard model has no known exact solution.  In the very strong coupling limit $U/t \rightarrow \infty$ an emergent low-energy spin-space exists with an effective nearest-neighbor AFM Heisenberg Hamiltonian. In the region $U = 0$ a trivial non-interacting theory holds. Between these two limits, in particular the intermediate coupling region $2 < U < 8$, no well established effective theory exists. In this region there is a metal-insulator transition at $U_c/t \sim 4$ , and the pseudogap opens up at finite temperature around $U/t \sim 7$, leading to the development of a Mott gap for large $U/t > 11$. In addition to the half-filling phase diagram, this model exhibits a plethora of interesting ground state properties when doped including stripe phases and d-wave pairing. The relative simplicity of the Hubbard model and the lack of a well-established low-energy theory in a broad intermediate coupling region lends the model as a useful playground for our new downfolding procedure in preparation for tackling realistic strongly correlated electron systems. 
 
 The DMD procedure allows us to develop low-energy effective theories for physical systems in a systematic manner beginning with the \textit{ab-initio} Hamiltonian:
 \begin{equation}
@@ -73,7 +77,6 @@ We make use of this variational principle to access low-energy states within $\m
 To calculate the expectation value of an operator $\hat{A}$ in FN-DMC we will use a mixed estimator $\langle \Psi_{DMC}(\tau) |\hat{A} | \Psi_T \rangle/\langle \Psi_\text{DMC}(\tau) | \Psi_T \rangle$ which allows us to use the importance sampled distribution $f = \Psi_\text{DMC}(\tau)\Psi_T$ for our Monte Carlo estimates.
 Details for calculating reduced density matrix elements in FN-DMC can be found in Wagner.
 
-\pagebreak
 \section{Preliminary Work}
 \subsection{Non-orthogonal determinants in FN-DMC trial wave functions}
 In order to become acquainted with our code QWalk \cite{WAGNER20093390} and QMC algorithms in general I worked on implementing and testing multi-Slater-Jastrow trial functions with optimized non-orthogonal determinants (MSJ+NO) in FN-DMC \cite{Pathak2018}.
@@ -116,7 +119,7 @@ We will discuss the consequences of this restriction later on.
 A single three-body Jastrow factor $J$ was used for every $|\text{D}_i\rangle$ and was optimized on the lowest energy UKS state using a linear energy optimization method.
 The FN-DMC calculations were conducted with T-moves, to make the calculation variational while using pseudopotentials, with a timestep of $\tau = 0.01$.
 The coefficients $\{c_j\}$ for our sample states were chosen via a shell-sampling method. 
-We begin by fixing the coefficient $c_0 = \sqrt{w}$ where $w \in \{1.0, 0.8, ..., 0.2\}$. 
+We begin by fixing the coefficient $c_0 = \sqrt{w}$ where $w \in \{1.0, 0.8,..., 0.2\}$. 
 For each choice of $w$ we sample n = 5 states by randomly selecting the unassigned coefficients from a uniform distribution such that $\sum_i c_i^2 = 1$. 
 This procedure generates shells of samples at decreasing distance from the eigenstate $|\Phi_0\rangle$. 
 We can then loop over all $i$ to generate shells near each eigenstate.
@@ -139,7 +142,7 @@ In addition to these important parameters, we will consider models which contain
 In total our space of canditate models is then 
 \begin{equation}
 \begin{split}
-\{\bar{n}_{4s}, \bar{n}_{p_\pi}, \bar{n}_{p_z}, \hat{n}_{4s\uparrow} \hat{n}_{4s\downarrow},\sum_{i \in \{xy, xz, ...\}}\vec{S}_{4s}\cdot \vec{S}_{d_i}\} \ + \\
+\{\bar{n}_{4s}, \bar{n}_{p_\pi}, \bar{n}_{p_z}, \hat{n}_{4s\uparrow} \hat{n}_{4s\downarrow},\sum_{i \in \{xy, xz,...\}}\vec{S}_{4s}\cdot \vec{S}_{d_i}\} \ + \\
 \text{P}(\bar{c}_{d_\pi}^\dagger \bar{c}_{p_\pi} + h.c.,\ \bar{c}_{d_z^2}^\dagger \bar{c}_{p_z} + h.c.,\ \bar{c}_{4s}^\dagger \bar{c}_{p_z} + h.c.,\ \bar{c}_{d_z^2}^\dagger \bar{c}_{4s} + h.c.)
 \end{split}
 \label{eq:models}
@@ -212,7 +215,7 @@ According to experiment there is also such a state at 1eV and is usually denoted
 A second excited state at 1.2 eV exists which corresponds to an excitation 
 O 2p$_\pi \rightarrow$ Cu 4s, has configuration 1$\sigma^2$1$\pi^4$1$\delta^4$2$\sigma^2$2$\pi^2$4$\sigma^1$, and can either be S$_z = \frac{1}{2}, \frac{3}{2}$. 
 This is also the lowest energy eigenstate which can be a spin quartet.
-\textbf{ref} agree that this excitation should be the lowest spin quartet excitation, but argue that this state should be at an energy of 1.9 eV. 
+ agree that this excitation should be the lowest spin quartet excitation, but argue that this state should be at an energy of 1.9 eV. 
 Our model has a different spin quartet state with a full Cu d shell at 1.9 eV, corresponding to an excitation O 2p$_z \rightarrow$ Cu 4s, with configuration 1$\sigma^2$1$\pi^4$1$\delta^4$2$\sigma^1$2$\pi^4$4$\sigma^1$. 
 There are another host of eigenstates for our models at 2 eV corresponding to singles excitations of the form Cu 3d $\rightarrow$ O 2p$_\pi$. 
 This matches measurements which indicate that the lowest energy eigenstates with a single hole in the Cu 3d shell lie at 2.2 eV above the ground state.
@@ -272,7 +275,14 @@ In order to include temperature into the mix we can work with the full model Hil
 This way, our sample space will still be able to probe every excitation within a certain temperature range, the samples will be biased towards lower energy states according to the Boltzmann weight, and hence the fit model will also be biased towards describing more accurately the energy functional on the states with highest weight.
 The Monte Carlo sampling may need to be altered further in order to deal with entropic effects when the density of states is very low in an energy range of interest and relatively high elsewhere. 
 
-In order to make any statements about effective theories for the Hubbard model we will have to work with larger system sizes and approximate methods like lattice quantum Monte Carlo to generate low-energy states for the DMD procedure.
+In order to make any statements about effective theories for the Hubbard model we will have to work with larger system sizes and approximate methods like auxiliary field quantum Monte Carlo (AFQMC) to generate low-energy states for the DMD procedure.
+The auxiliary field quantum Monte Carlo (AFQMC) method has been used extensively in accurate calculations on both \textit{ab-initio} and lattice systems.
+AFQMC begins with a trial wave function which is projected using a Trotter expansion of the operator $e^{-\tau H}$ using a stochastic method.
+The final projected state from AFQMC can be used to calculate expectation values of operators using a similar mixed-estimator method as FN-DMC.
+The AFQMC method is especially useful for the Hubbard model as the auxiliary fields are real with potential values $\pm$ 1, only N such fields need to be considered, and at least at half-filling there is no sign problem and the method is numerically exact. 
+Away from half-filling the effects of the fermion sign problem are especially potent and the nodes of the projected wave function are fixed to those of the trial wave function making the method variational in the same way FN-DMC is.
+In the weak and strong coupling regimes typical choices for trial wave functions are non-interacting and Gutzwiller trial functions respectively, but other post-Gutzwiller and generalized Hartree Fock (GHF) trial functions have been shown to give accurate results in the moderate coupling regimes.
+A rigorous prescription for finite size extrapolation specifically for the 1-band square lattice Hubbard model will be followed to extend our conclusions to the thermodynamic limit.
 
 We conclude by showing some very preliminary results on model fitting for the half-filled, 2x2 square Hubbard model for U: 0 - 12 which put our approach to model fitting with exact diagonalization at T$\geq 0$ into practice.
 We start off by exactly diagonalizing each model, define $\mathcal{LE} = \mathcal{H}$, and treat as our full sample space as just the eigenstates of the model.
@@ -298,6 +308,32 @@ We would be particularly interested in whether an effective theory for this regi
 \label{fig:Hubbard}
 \end{figure}	
 
-
+\subsection{Proposed timeline: 2 years}
+\begin{enumerate}
+\item Half-filled model ED
+	\begin{enumerate}
+	\item Constructing a sampling scheme for $\mathcal{LE}$: 2 months
+	\item DMD for 2x2, 2$\sqrt{2}$x2$\sqrt{2}$, 3x3, 4x4
+	system sizes: 4 months
+	\end{enumerate}
+\item Half-filled model AFQMC
+	\begin{enumerate}
+	\item Learning and benchmarking calculations: 1 month
+	\item Extending sampling scheme for $\mathcal{LE}$: 1 month
+	\item DMD calculations up to 16x16 cells: 4 months
+	\item Finite size scaling of results: 2 months
+	\end{enumerate}
+\item Doped model ED
+	\begin{enumerate}
+	\item DMD for  2x2, 2$\sqrt{2}$x2$\sqrt{2}$, 3x3, 4x4
+	system sizes, various dopings: 4 months
+	\end{enumerate}
+\item Doped model AFQMC
+	\begin{enumerate}
+	\item Constructing a sampling scheme - trial functions for constrained
+	path: 2 months
+	\item DMD calculations up to 16x16 cells: 4 months
+	\end{enumerate}
+\end{enumerate}
 
 \end{document}
