@@ -9,12 +9,31 @@
 \usepackage{mathtools}
 \usepackage{wrapfig}
 \renewcommand{\baselinestretch}{1.5}
+\author{Shivesh Pathak, Lucas Wagner}
+\title{Developing effective theories for the square lattice Hubbard model using density matrix downfolding}
 
 \begin{document}
-\section{Introduction}
-A core problem of condensed matter physics is understanding how to systematically develop low-energy effective models for strongly correlated electron systems. In the forefront of modern research are materials like high temperature superconductors and heavy fermion systems for which simple effective theories have not yet been found. For example, the cuprate family of high-Tc superconductors have an intricate phase diagram in the doping-temperature space  with a robust anti-ferromagnetic (AFM) charge-transfer insulator state near zero doping, a prominent superconducting dome in the 0.1 - 0.2 hole doped region at low temperatures with psuedo-gap and non-Fermi liquid metallic phases at higher temperatures and Fermi liquid like behavior in the overdoped area, of which only the AFM insulating and Fermi liquid phases have well understood mechanism and models. The iron-pnictides also have superconducting domes, non-Fermi liquid like metallic phases, a spin-density-wave antiferommagnetic phase, all under various dopings and temperatures. Heavy-fermion materials have a purported quantum critical point between an AFM and Fermi-liquid phase which houses a superconducting dome, leading to another phase diagram for which building model Hamiltonians is very challenging. 
+\maketitle
+\begin{abstract}
+A core problem of condensed matter physics is understanding how to systematically develop low-energy effective models for strongly correlated electron systems. 
+We believe that a density matrix downfolding (DMD) method can be used to systematically build effective theories for such systems beginning with a high energy theory like the \textit{ab-initio} Hamiltonian H$_\text{ab}$.
+We present as a preliminary result an effective theory developed using DMD which can accurately reproduce the spectra and properties of the lowest lying excitations of the CuO molecule.
+As a step towards bulk strongly correlated materials, we propose developing effective theories using DMD for the simplest toy system which exhibits strongly correlated behavior: the 1-band square lattice Hubbard model for various couplings U, temperatures T and dopings $\delta$. 
+\end{abstract}
+\pagebreak
 
-The fundamental barrier in writing down low-energy theories for strong correlated materials is the existence of non-perturbative interactions between various degrees of freedom - for example, lattice, spin and charge. Consider just the cuprate case for now, the two phases which are well understood contain a singular important degree of freedom in the low-energy space. Near zero doping the cuprates are charge-transfer insulators with localized spin-1/2 low-energy degrees of freedom. In the heavily overdoped side, the lowest energy excitations look like well defined Fermi-liquid quasiparticles. In the intermediate doping region where the low-energy excitations cannot be easily sectioned into spin-like or electron-like only, we see the emergence of exotic phases and where most difficulties arise in writing down low-energy effective models. On top of that, this entire discussion did not include any lattice effects like structural phase transitions which many strongly-correlated materials have as well.
+\section{Introduction}
+A core problem of condensed matter physics is understanding how to systematically develop low-energy effective models for strongly correlated electron systems. 
+In the forefront of modern research are materials like high temperature superconductors and heavy fermion systems for which simple effective theories have not yet been found. 
+For example, the cuprate family of high-Tc superconductors have an intricate phase diagram in the doping-temperature space  with a robust anti-ferromagnetic (AFM) charge-transfer insulator state near zero doping, a prominent superconducting dome in the 0.1 - 0.2 hole doped region at low temperatures with psuedo-gap and non-Fermi liquid metallic phases at higher temperatures and Fermi liquid like behavior in the overdoped area, of which only the AFM insulating and Fermi liquid phases have well understood mechanism and models. 
+The iron-pnictides also have superconducting domes, non-Fermi liquid like metallic phases, a spin-density-wave antiferommagnetic phase, all under various dopings and temperatures. 
+Heavy-fermion materials have a purported quantum critical point between an AFM and Fermi-liquid phase which houses a superconducting dome, leading to another phase diagram for which building model Hamiltonians is very challenging. 
+
+The fundamental barrier in writing down low-energy theories for strong correlated materials is the existence of non-perturbative interactions between various degrees of freedom - for example, lattice, spin and charge. 
+Consider just the cuprate case for now, the two phases which are well understood contain a singular important degree of freedom in the low-energy space. 
+Near zero doping the cuprates are charge-transfer insulators with localized spin-1/2 low-energy degrees of freedom. In the heavily overdoped side, the lowest energy excitations look like well defined Fermi-liquid quasiparticles. 
+In the intermediate doping region where the low-energy excitations cannot be easily sectioned into spin-like or electron-like only, we see the emergence of exotic phases and where most difficulties arise in writing down low-energy effective models. 
+On top of that, this entire discussion did not include any lattice effects like structural phase transitions which many strongly-correlated materials have as well.
 
 Common approaches to building suitable model Hamiltonians for strongly correlated materials involve using single particle theories like density functional theory (DFT).
 One-body terms are typically obtained by projecting the solutions from the DFT band structure onto a localized single-particle basis, giving an estimate of hoppings and occupations on a lattice model.
@@ -22,12 +41,18 @@ Two-body terms in the model are developed by assuming a screened Coulomb interac
 Aside from this method, Lowdin methods coupled to a stochastic method and canonical transformations have also been used to develop effective theories.
 These methods have the drawback that the constructed effective theory typically does not come with any estimate of the quality of the model, therefore making model validation a phenomenological task which can lead to unclear biases in the model construction.
 
-We propose using a density matrix downfolding (DMD) procedure to systematically develop low-energy effective theories of the 1-band nearest-neighbor Hubbard model on a square lattice as a stepping stone towards building effective theories for strongly correlated materials. The Hubbard model is a simple model with nearest-neighbor hopping and a local on-site Coulomb repulsion, parameterized by a single ratio U/t: 
+We propose using a density matrix downfolding (DMD) procedure to systematically develop low-energy effective theories of the 1-band nearest-neighbor Hubbard model on a square lattice as a stepping stone towards building effective theories for strongly correlated materials. 
+The Hubbard model is a simple model with nearest-neighbor hopping and a local on-site Coulomb repulsion, parameterized by a single ratio U/t: 
 \begin{equation}
 H_\text{hub} = -t \sum_{\langle i,j \rangle,\sigma}( c_{i^\dagger,\sigma} c_{j,\sigma} + h.c.) + U \sum_i n_{i\uparrow} n_{i\downarrow}
 \label{hubbard}.
 \end{equation}
-The solutions in 1-d are well understood via the Bethe ansatz , however the 2-d square lattice Hubbard model has no known exact solution.  In the very strong coupling limit $U/t \rightarrow \infty$ an emergent low-energy spin-space exists with an effective nearest-neighbor AFM Heisenberg Hamiltonian. In the region $U = 0$ a trivial non-interacting theory holds. Between these two limits, in particular the intermediate coupling region $2 < U < 8$, no well established effective theory exists. In this region there is a metal-insulator transition at $U_c/t \sim 4$, and the pseudogap opens up at finite temperature around $U/t \sim 7$, leading to the development of a Mott gap for large $U/t > 11$. In addition to the half-filling phase diagram, this model exhibits a plethora of interesting ground state properties when doped including stripe phases and d-wave pairing. The relative simplicity of the Hubbard model and the lack of a well-established low-energy theory in a broad intermediate coupling region lends the model as a useful playground for our new downfolding procedure in preparation for tackling realistic strongly correlated electron systems. 
+The solutions in 1-d are well understood via the Bethe ansatz , however the 2-d square lattice Hubbard model has no known exact solution.  
+In the very strong coupling limit $U/t \rightarrow \infty$ an emergent low-energy spin-space exists with an effective nearest-neighbor AFM Heisenberg Hamiltonian. In the region $U = 0$ a trivial non-interacting theory holds. 
+Between these two limits, in particular the intermediate coupling region $2 < U < 8$, no well established effective theory exists. 
+In this region there is a metal-insulator transition at $U_c/t \sim 4$, and the pseudogap opens up at finite temperature around $U/t \sim 7$, leading to the development of a Mott gap for large $U/t > 11$. 
+In addition to the half-filling phase diagram, this model exhibits a plethora of interesting ground state properties when doped including stripe phases and d-wave pairing. 
+The relative simplicity of the Hubbard model and the lack of a well-established low-energy theory in a broad intermediate coupling region lends the model as a useful playground for our new downfolding procedure in preparation for tackling realistic strongly correlated electron systems. 
 
 The DMD procedure allows us to systematically develop low-energy effective theories for any Hamiltonian and Hilbert space $(H, \mathcal{H})$.
 The procedure defines a method for downfolding the \textit{ab-initio} energy functional and Hilbert space onto an effective energy functional defined on a low-energy subspace of the Hilbert space 
@@ -59,7 +84,7 @@ For real world systems we will work with $H = H_\text{ab}$, the \textit{ab-initi
 \end{equation}
 where $i$ indicates electrons and $I$ nuclei, and the unit of energy is Hartree (Ha).
 
-When downfolding $\hat{H}_\text{ab}$ we will use FN-DMC to access states in $\mathcal{LE}$ and accurately calculate their \textit{ab-initio} energies and RDM elements.
+When downfolding $\hat{H}_\text{ab}$ we will use fixed-node diffusion Monte Carlo (FN-DMC) to access states in $\mathcal{LE}$ and accurately calculate their \textit{ab-initio} energies and RDM elements.
 Diffusion Monte Carlo (DMC) is a quantum Monte Carlo method which projects out the ground state of a Hamiltonian given some initial trial wave function.
 Consider a trial wave function $|\Psi_T\rangle$ and the Hamiltonian $\hat{H}_\text{ab}$ with ground state $|\Phi_0\rangle$. We apply the projector $e^{-\tau \hat{H}_\text{ab}}$ as $\tau \rightarrow \infty$ to $|\Psi_T \rangle$
 \begin{equation}
