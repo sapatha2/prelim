@@ -166,12 +166,12 @@ In Figure \ref{fig:Intruder} we present all eigenstates among the three potentia
 	\centering
 	\subfigure[Results of exact diagonalization showing the energies and properties of the first twenty eigenstates for three candidate models fit using ordinary linear regression. The ground state and first excited state are colored and have enlarged markers for clarity. Error bars are 95\% CI calculated by a bootstrap estimate.]{
 	 	\label{fig:InitED}
-		\includegraphics[width=0.45\textwidth]{../cuo/qwalk/old/ub3lyp_s1_/analysis/figs/init_ed.pdf}
+		\includegraphics[width=0.45\textwidth]{figs/init_ed.pdf}
 	}
 	\qquad
 	\subfigure[Collection of unique intruder states from our three potential models selected using a k-nearest neighbor approach with k = 5.]{	
 		\label{fig:Intruder}
-		\includegraphics[width=0.45\textwidth]{../cuo/qwalk/old/ub3lyp_s1_/analysis/figs/intruder.pdf}
+		\includegraphics[width=0.45\textwidth]{figs/intruder.pdf}
 	}
 	\caption{Results of OLS fitting on sampled data and selected intruder states.}
 \end{figure}
@@ -191,12 +191,12 @@ where $\lambda>0$ is a parameter which can be varied, QHL is a quadratic hinge l
 	\centering
 	\subfigure[On the left, scores of the three candidate models at various $\lambda$ when fitting our effective theories using the cost function \eqref{eq:cost}. On the right we show predicted versus calculated energies for our low-energy sampled states for the minimal model fit at $\lambda = 20$.]{
 	 	\label{fig:Prior}
-		\includegraphics[width=0.45\textwidth]{../cuo/qwalk/old/ub3lyp_s1_/analysis/figs/prior_and_regr.pdf}
+		\includegraphics[width=0.45\textwidth]{figs/prior_and_regr.pdf}
 	}
 	\qquad
 	\subfigure[Results of exact diagonalization showing the energies and properties of the first thirty eigenstates for three candidate models using linear regression with cost function \ref{eq:cost} and $\lambda = 20$. The ground state and first excited state are colored and have enlarged markers for clarity. Error bars are 95\% CI calculated by a bootstrap estimate.]{	
 		\label{fig:FinalED}
-		\includegraphics[width=0.45\textwidth]{../cuo/qwalk/old/ub3lyp_s1_/analysis/figs/final_ed.pdf}
+		\includegraphics[width=0.45\textwidth]{figs/final_ed.pdf}
 	}
 	\caption{Results of linear regression using augmented cost function \eqref{eq:cost}.}
 \end{figure}
@@ -253,7 +253,7 @@ A rigorous prescription for finite size extrapolation specifically for the 1-ban
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\linewidth]{../hubbard/eff_eig_prelim.pdf}
+\includegraphics[width=0.6\linewidth]{figs/eff_eig_prelim.pdf}
 \caption{Results of weighted single parameter model fits to the eigenstates of a Hubbard model for various U and temperature. Darker hues indicate a higher R$^2$ score.}
 \label{fig:Hubbard}
 \end{figure}	
