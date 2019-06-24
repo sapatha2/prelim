@@ -18,7 +18,7 @@
 A core problem of condensed matter physics is understanding how to systematically develop low-energy effective models for strongly correlated electron systems. 
 We believe that a density matrix downfolding (DMD) method can be used to systematically build effective theories for such systems beginning with a high energy theory like the \textit{ab-initio} Hamiltonian H$_\text{ab}$.
 We present as a preliminary result an effective theory developed using DMD which can accurately reproduce the spectra and properties of the lowest lying excitations of the CuO molecule.
-As a step towards bulk strongly correlated materials, we propose developing effective theories using DMD for the simplest toy system which exhibits strongly correlated behavior: the 1-band square lattice Hubbard model for various couplings U, temperatures T and dopings $\delta$. 
+As a step towards bulk strongly correlated materials, we propose developing effective theories using DMD for the simplest toy system which exhibits strongly correlated behavior: the 1-band square lattice Hubbard model at half-filling for various couplings U and temperatures T.
 \end{abstract}
 \pagebreak
 
@@ -41,18 +41,20 @@ Two-body terms in the model are developed by assuming a screened Coulomb interac
 Aside from this method, Lowdin methods coupled to a stochastic method and canonical transformations have also been used to develop effective theories.
 These methods have the drawback that the constructed effective theory typically does not come with any estimate of the quality of the model, therefore making model validation a phenomenological task which can lead to unclear biases in the model construction.
 
-We propose using a density matrix downfolding (DMD) procedure to systematically develop low-energy effective theories of the 1-band nearest-neighbor Hubbard model on a square lattice as a stepping stone towards building effective theories for strongly correlated materials. 
+We propose using a density matrix downfolding (DMD) procedure to systematically develop low-energy effective theories of the 1-band nearest-neighbor Hubbard model on a square lattice for various couplings U and temperatures T at half-filling as a stepping stone towards building effective theories for strongly correlated materials. 
 The Hubbard model is a simple model with nearest-neighbor hopping and a local on-site Coulomb repulsion, parameterized by a single ratio U/t: 
 \begin{equation}
 H_\text{hub} = -t \sum_{\langle i,j \rangle,\sigma}( c_{i^\dagger,\sigma} c_{j,\sigma} + h.c.) + U \sum_i n_{i\uparrow} n_{i\downarrow}
 \label{hubbard}.
 \end{equation}
-The solutions in 1-d are well understood via the Bethe ansatz , however the 2-d square lattice Hubbard model has no known exact solution.  
-In the very strong coupling limit $U/t \rightarrow \infty$ an emergent low-energy spin-space exists with an effective nearest-neighbor AFM Heisenberg Hamiltonian. In the region $U = 0$ a trivial non-interacting theory holds. 
-Between these two limits, in particular the intermediate coupling region $2 < U < 8$, no well established effective theory exists. 
-In this region there is a metal-insulator transition at $U_c/t \sim 4$, and the pseudogap opens up at finite temperature around $U/t \sim 7$, leading to the development of a Mott gap for large $U/t > 11$. 
-In addition to the half-filling phase diagram, this model exhibits a plethora of interesting ground state properties when doped including stripe phases and d-wave pairing. 
-The relative simplicity of the Hubbard model and the lack of a well-established low-energy theory in a broad intermediate coupling region lends the model as a useful playground for our new downfolding procedure in preparation for tackling realistic strongly correlated electron systems. 
+The solutions in 1-d are well understood via the Bethe ansatz, however, the 2-d square lattice Hubbard model has no known exact solution.  
+A few well accepted facts do exist for this model, such as the existence of long-range anti-ferromagnetic (AFM) order for any U$>$0 at T = 0 and a Mott-Heisenberg limit as $U/t \rightarrow \infty$ at low temperatures.
+The T = 0 diagram of the model at half-filling has been a long-standing source of controversy between two groups:  those who believe that for any U $>$ 0 the model exhibits Mott-Heisenberg behavior, and those who believe that there is a transition at finite U$^*$ between Slater and Mott-Heisenberg behavior.
+While recent numerical and theoretical calculations tend to agree with the latter position, non-negligible evidence for the prior does exist. 
+Further, modern finite temperature calculations indicate thermal transitions in the weak to moderate coupling region between the Slater phase at T = 0, pseudogap phase below T$_{pg}$ and a Fermi liquid phase above.
+A finite temperature psuedogap to Mott insulator transition has also been found between the weak to strong coupling limits.
+The nature of these transitions as phase transitions or simply crossovers is poorly understood.
+The relative simplicity of the half-filled Hubbard model, potential complexity of its phase diagram in U-T space,  and the lack of well-established low-energy theories for moderate U/t lends the model as a useful playground for our new downfolding procedure in preparation for tackling realistic strongly correlated electron systems. 
 
 The DMD procedure allows us to systematically develop low-energy effective theories for any Hamiltonian and Hilbert space $(H, \mathcal{H})$.
 The procedure defines a method for downfolding the \textit{ab-initio} energy functional and Hilbert space onto an effective energy functional defined on a low-energy subspace of the Hilbert space 
@@ -233,22 +235,27 @@ Table 1: Parameters in eV for our three potential models when fit using \eqref{e
 \end{table}
 
 \section{Proposed work}
-Our goal is to develop low-energy effective theories for the
-Hubbard model over the space U-T-$\delta$ using the DMD method, particularly focusing on the medium coupling regions and moderate dopings where perturbative effective theories break down.
-Similar to the case of the \textit{ab-initio} downfolding, we will need to construct low-energy spaces, sample the constructed spaces, build effective theories and respective bases, and fit our models.
-We will begin from a starting point of highest control, namely for system sizes small enough where we can exactly diagonalize the Hubbard model.
-In this case selecting $\mathcal{LE}$ can be done exactly as the span of some chosen $N$ lowest energy eigenstates. 
-We can guarantee that our sample set fully encapsulates all low-energy degrees of freedom by sampling states parameterized as $|\Psi\rangle = \sum_{j=1}^N c_j |\Phi_j\rangle$ where $|\Phi_j\rangle$ are eigenstates of the Hubbard Hamiltonian.
-Basis construction for the Hubbard Hamiltonian is also explicitly clear as any possible single particle basis we can use is just an orthogonal transformation of the basis the Hubbard model is defined on.
-In order to include temperature into the mix we can work with the full model Hilbert space such that $\mathcal{LE} = \mathcal{H}$ but generate samples within our space using a Monte Carlo sampling method according to a Boltzmann probability distribution with variable parameter $\beta = 1/k_BT$, biasing our final model towards describing more accurately the energy functional on the states with highest weight.
+My goal is to develop low-energy effective theories for the square lattice 1-band Hubbard model in order to map out the phases and transitions in the U-T space.
+Recent attempts at solving this problem involve constructing single particle properties like densities of states using approximate numerical or effective theory techniques to classify different phases.
+While instructive, reliance on single particle properties to identify phases instead of studying changes in the many-body Hilbert space and low-energy effective theory can lead to ambiguities regarding the nature of the phases.
+I believe the DMD method can remove these ambiguities as the method explicitly involves studying changes in the low-energy Hilbert space and provides us with accurate many-body effective theories which can precisely differentiate different phases.
 
-In order to make any statements about effective theories for the Hubbard model we will have to work with larger system sizes and approximate methods like auxiliary field quantum Monte Carlo (AFQMC) to generate low-energy states for the DMD procedure.
-The auxiliary field quantum Monte Carlo (AFQMC) method has been used extensively in accurate calculations on both \textit{ab-initio} and lattice systems.
-AFQMC begins with a trial wave function which is projected using a Trotter expansion of the operator $e^{-\tau H}$ using a stochastic method.
-The final projected state from AFQMC can be used to calculate expectation values of operators using a similar mixed-estimator method as FN-DMC.
-The AFQMC method is especially useful for the Hubbard model as the auxiliary fields are real with potential values $\pm$ 1, only N such fields need to be considered, and at least at half-filling there is no sign problem and the method is numerically exact. 
-Away from half-filling the effects of the fermion sign problem are especially potent and the nodes of the projected wave function are fixed to those of the trial wave function making the method variational in the same way FN-DMC is.
-In the weak and strong coupling regimes typical choices for trial wave functions are non-interacting and Gutzwiller trial functions respectively, but other post-Gutzwiller and generalized Hartree Fock (GHF) trial functions have been shown to give accurate results in the moderate coupling regimes.
+My first step would be to show whether the model supports more than one phase at T/t = 0 with respect to U, and if so what the features of these phases and the transition between them are.
+I will investigate in particular the hypothesis that for $U/t<<1$ the model exhibits gapped Slater AFM behavior and for $U/t>>1$ Mott-Heisenberg behavior and whether the transition between them is a genuine phase transition or simply a crossover due to rearrangement of a few states.
+To do so I will initially develop effective theories using DMD at two points U/t = 2, 12 and T/t = 0, allowing me to argue the existence or non-existence of multiple phases and investigate the properties of each phase.
+I will follow by developing theories for various intermediate U in order to locate and study the transition between the two phases, if it exists, focusing on the hypothesis of a crossover U$^*/t\sim 4 - 5$ between the Slater and Mott-Heisenberg regimes.
+Repeating this exercise for finite temperature I will build four more models at U/t = 2, 12 and T/t = 0.05, 0.20 to investigate the finite temperature phases at strong- and weak-coupling, in particular the claim of pseudogap and Fermi liquid phases at T/t = 0.05, 0.20 at weak coupling.
+Filling in the U-T diagram will allow me to locate and study thermal transitions in the system. 
+Building the T$>$0 effective theories will require special attention as they must satisfy the Mermin-Wagner theorem.
+
+Similar to the case of the \textit{ab-initio} downfolding, I will need to construct low-energy spaces, sample the constructed spaces, build effective theories and respective bases, and fit candidate models.
+I will begin from a starting point of highest control, namely for system sizes small enough where we can exactly diagonalize the Hubbard model.
+In this case selecting $\mathcal{LE}$ can be done exactly as the span of some chosen $N$ lowest energy eigenstates. 
+One can guarantee that the sample set fully encapsulates all low-energy degrees of freedom by sampling states parameterized as $|\Psi\rangle = \sum_{j=1}^N c_j |\Phi_j\rangle$ where $|\Phi_j\rangle$ are eigenstates of the Hubbard Hamiltonian.
+Basis construction for the Hubbard Hamiltonian is also explicitly clear as any possible single particle basis we can use is just an orthogonal transformation of the basis the Hubbard model is defined on.
+In order to include temperature into the mix one can work with the full model Hilbert space such that $\mathcal{LE} = \mathcal{H}$ but generate samples within the space using a Monte Carlo sampling method according to a Boltzmann probability distribution with variable parameter $\beta = 1/k_BT$, biasing the final model towards describing more accurately the energy functional on the states with highest weight.
+Finite size extrapolation to the thermodynamic limit requires working with lattice sizes for which exact diagonalization is no longer feasible, and approximate methods like lattice variational Monte Carlo (VMC) will be employed to sample low-energy states as well as calculate energies and RDM elements.
+In the weak and strong coupling regimes typical choices for varitional wave functions are non-interacting and Gutzwiller trial functions respectively, but other post-Gutzwiller and generalized Hartree Fock (GHF) trial functions have been shown to give accurate results in the moderate coupling regimes.
 A rigorous prescription for finite size extrapolation specifically for the 1-band square lattice Hubbard model will be followed to extend our conclusions to the thermodynamic limit.
 
 \begin{figure}[H]
@@ -258,31 +265,29 @@ A rigorous prescription for finite size extrapolation specifically for the 1-ban
 \label{fig:Hubbard}
 \end{figure}	
 
-We conclude by showing some very preliminary results on model fitting for the half-filled, 2x2 square Hubbard model for U: 0 - 12 which put our approach to model fitting with exact diagonalization at T$\geq 0$ into practice.
-We start off by exactly diagonalizing each model, define $\mathcal{LE} = \mathcal{H}$, and treat as our full sample space as just the eigenstates of the model.
-We then fit three single parameter models to the eigenstates: A) 
+I will conclude by showing some very preliminary results on model fitting for the half-filled, 2x2 square Hubbard model for U: 0 - 12 which put the outlined approach to model fitting with exact diagonalization at T$\geq 0$ into practice.
+I started off by exactly diagonalizing each model, defining $\mathcal{LE} = \mathcal{H}$, and treating the full sample space as just the eigenstates of the model.
+I then fit three single parameter models to the eigenstates: A) 
 A "t" only model $t \sum_{\langle i, j \rangle, \sigma} c_{i\sigma}^\dagger c_{j\sigma} + h.c.$, B) A "U" only model $U \sum_{i} n_{i\uparrow} n_{i\downarrow}$, and C) A "J" only model $J \sum_{\langle i,j \rangle} \vec{S}_i \cdot \vec{S}_j$ using a weighted linear regression with weights $e^{-\beta E}$.
 The basis for all of these operators are just the bare Hubbard Hamiltonian basis.
 The weighted linear regression approximates the effect of generating samples using a Markov Chain Monte Carlo method with a Boltzmann distribution.
-For small U the t-only model is an accurate effective theory as the temperature increases, which is to be expected in this perturbative limit.
-At large U and high temperature a U-only model is quite good since the dominant and relevant energy scale at higher temperatures is related to double occupation.
-At large U and low temperature we see that the expected Heisenberg model accurately describes the low-energy excitations. 
-In this region a t-only model also works quite accurately since for large U the hopping descriptor $\sum_{\langle i, j \rangle, \sigma} c_{i\sigma}^\dagger c_{j\sigma} + h.c.$ is correlated to the exchange operator $J \sum_{\langle i,j \rangle} \vec{S}_i \cdot \vec{S}_j$ for the lowest energy excitations in the system.
-It should be noted that this t-only model would have to be explicitly written to only act on states with no double occupancy, an assumption inherent in the Heisenberg model. 
-Finally, in the region beginning at 4 $<$ U $<$ 8 and moderate $\beta$: 0.1 - 0.4 we see that none of the candidate single parameter models can accurately describe the low-energy excitations of the system.
-This poorly explained region indicates the breakdown of perturbative expansions of the Hubbard model about the strong- or weak-coupling limits.
-In order to make more conclusive statements we would have to actually sample the Hilbert space to construct a more robust estimate of the best models for different $U, \beta$.
-We would be particularly interested in whether an effective theory for this region exists and how this region and corresponding effective theory change as we increase the system size.
+At low-temperatures there is a crossover between the weak coupling regime, best described by a non-interacting t-only model, and the strong coupling regime, best described by a J-only model, around U$^*/t \sim 5$ providing some evidence of a Slater to Mott-Heisenberg transition.
+In the crossover region T = 0 and U = 4 - 8 both models perform poorly and is a region of particular interest when developing our low-energy theories.
+At high temperatures there is a crossover between a non-interacting t-only and U-only model which can also be investigated.
 
 \subsection{Proposed timeline}
-We believe that developing effective theories for the half-filled Hubbard model should take 1 year. 
-Six months should be spent on the exact diagonalization calculations. 
-The first two months would be spent developing an efficient sampling scheme for $\mathcal{LE}$.
-The following four months will be geared towards DMD for increasing system sizes from 2x2 to 4x4 lattices and will be heavily exploratory.
-The next six months will be focused on extending our exploration to the thermodynamic system.
-The first two months will be dedicated to learning the AFQMC method and extending our ED sampling scheme to AFQMC.
-The following four months will be focused on using AFQMC DMD to construct effective theories up to 16x16 system size and extrapolating our results for the half-filled model to the thermodynamic limit.
-This timeline can then be copied as we extend our analysis to the doped model. 
-The only change being the two months previously dedicated to learning AFQMC will be focused instead on developing efficient trial wave functions for constrained path calculations.
-In total our goal is to finish the project within two years.
+I believe that developing effective theories for the half-filled Hubbard model should take 2 years. 
+16 months should be spent on T = 0 calculations.
+The first 8 months will be focused on exact diagonalization.
+In this period, the first two months would be spent developing an efficient sampling scheme for $\mathcal{LE}$.
+The following three months will be geared towards DMD for increasing system sizes from 2x2 to 4x4 lattices for U = 2, 12 in order to identify the existence of multiple zero temperature phases and will be primarily exploratory.
+The next three months will be focused on studying intermediate U and the transition between the two phases, if they exist.
+The following 8 months will be focused on finite size extrapolation.
+The first two months here will be dedicated to extending our ED sampling scheme to VMC.
+The following six months will involve extending our finite size results to the thermodynamic limit.
+At the end of the first 16 months I should have a phase diagram at T = 0 with effective theories at various U.
+The last 8 month chunk will be dedicated to the T $>$ 0 model fitting.
+The first four months will be dedicated to exact diagonalization calculations and should be a relatively simple extension of the T = 0 model fitting with samples drawn according to an additional importance criteria $e^{-\beta E}$.
+The last four months will be focused on extending our T = 0 VMC scheme to T $>$ 0 and conducting finite size extrapolation.
+At the end of the 2 years I should have a phase diagram in the U - T space with effective theories at various values of U, T and an understanding of the phases and transitions between them.
 \end{document}
