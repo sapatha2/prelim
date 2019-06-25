@@ -9,7 +9,8 @@
 \usepackage{mathtools}
 \usepackage{wrapfig}
 \renewcommand{\baselinestretch}{1.5}
-\author{Shivesh Pathak, Lucas Wagner}
+\usepackage[utf8]{inputenc}
+\author{Shivesh Pathak}
 \title{Developing effective theories for the square lattice Hubbard model using density matrix downfolding}
 
 \begin{document}
@@ -20,6 +21,7 @@ We believe that a density matrix downfolding (DMD) method can be used to systema
 We present as a preliminary result an effective theory developed using DMD which can accurately reproduce the spectra and properties of the lowest lying excitations of the CuO molecule.
 As a step towards bulk strongly correlated materials, we propose developing effective theories using DMD for the simplest toy system which exhibits strongly correlated behavior: the 1-band square lattice Hubbard model at half-filling for various couplings U and temperatures T.
 \end{abstract}
+Committee: Lucas Wagner, ...
 \pagebreak
 
 \section{Introduction}
@@ -30,15 +32,16 @@ The iron-pnictides also have superconducting domes, non-Fermi liquid like metall
 Heavy-fermion materials have a purported quantum critical point between an AFM and Fermi-liquid phase which houses a superconducting dome, leading to another phase diagram for which building model Hamiltonians is very challenging. 
 
 The fundamental barrier in writing down low-energy theories for strong correlated materials is the existence of non-perturbative interactions between various degrees of freedom - for example, lattice, spin and charge. 
-Consider just the cuprate case for now, the two phases which are well understood contain a singular important degree of freedom in the low-energy space. 
-Near zero doping the cuprates are charge-transfer insulators with localized spin-1/2 low-energy degrees of freedom. In the heavily overdoped side, the lowest energy excitations look like well defined Fermi-liquid quasiparticles. 
+Consider just the cuprate case for now, the two phases which are relatively well understood contain a singular important degree of freedom in the low-energy space. 
+Near zero doping the cuprates are charge-transfer insulators with localized spin-1/2 low-energy degrees of freedom and resemble a Heisenberg antiferromagnet away from the magnetic Brillouin zone. 
+In the heavily overdoped side, the lowest energy single-particle excitations look like well defined quasiparticles resembling a Fermi liquid apart from non-standard plasmonic modes. 
 In the intermediate doping region where the low-energy excitations cannot be easily sectioned into spin-like or electron-like only, we see the emergence of exotic phases and where most difficulties arise in writing down low-energy effective models. 
 On top of that, this entire discussion did not include any lattice effects like structural phase transitions which many strongly-correlated materials have as well.
 
 Common approaches to building suitable model Hamiltonians for strongly correlated materials involve using single particle theories like density functional theory (DFT).
 One-body terms are typically obtained by projecting the solutions from the DFT band structure onto a localized single-particle basis, giving an estimate of hoppings and occupations on a lattice model.
 Two-body terms in the model are developed by assuming a screened Coulomb interaction based on constrained DFT or RPA.
-Aside from this method, Lowdin methods coupled to a stochastic method and canonical transformations have also been used to develop effective theories.
+Aside from this method, L\''{o}wdin methods coupled to a stochastic method and canonical transformations have also been used to develop effective theories.
 These methods have the drawback that the constructed effective theory typically does not come with any estimate of the quality of the model, therefore making model validation a phenomenological task which can lead to unclear biases in the model construction.
 
 We propose using a density matrix downfolding (DMD) procedure to systematically develop low-energy effective theories of the 1-band nearest-neighbor Hubbard model on a square lattice for various couplings U and temperatures T at half-filling as a stepping stone towards building effective theories for strongly correlated materials. 
@@ -107,8 +110,10 @@ Details for calculating reduced density matrix elements in FN-DMC can be found i
 \subsection{Non-orthogonal determinants in FN-DMC trial wave functions}
 In order to become acquainted with our code QWalk \cite{WAGNER20093390} and QMC algorithms in general I worked on implementing and testing multi-Slater-Jastrow trial functions with optimized non-orthogonal determinants (MSJ+NO) in FN-DMC \cite{Pathak2018}.
 We assessed the efficiency and compactness of this new trial function by calculating the ground state energy and single particle densities of a C$_2$ molecule using FN-DMC and comparing to the results when using multi-Slater-Jastrow trial functions with optimized orthogonal determinant trial functions (MSJ+O). 
-The workflow involved constructing the un-optimized trial wave functions, optimizing the parameters using an energy optimization method \cite{Toulouse2007}, and finally using the optimized trial functions in an FN-DMC calculation. 
-We found that the FN-DMC energy calculated using an MSJ+NO trial function with only 24 determinants was lower than the FN-DMC energy using an MSJ+O trial function with 55 determinants. 
+The workflow involved constructing the un-optimized trial wave functions, optimizing the parameters using an energy optimization method \cite{Toulouse2007}, and finally using the optimized trial functions in both variational Monte Carlo (VMC) and FN-DMC calculations. 
+We found the average improvement in variational energy when using optimized orthogonal determinants is $\langle E_\text{MSJ} - E_\text{MSJ+O} \rangle = $ 0.32 eV with a standard deviation of 0.08 eV, with an additional improvement from the non-orthogonal determinants of 0.031 eV with a standard deviation of 0.021 eV.
+The average improvement in the FN-DMC energy with the MSJ+O trial wave functions was 0.14 eV (standard deviation 0.03 eV) with an additional reduction of 0.032 eV (standard deviation 0.019 eV) when using the MSJ+NO trial wave function.
+While the benefit using the MSJ+NO trial wave function seems small, we saw that the FN-DMC energy calculated using an MSJ+NO trial function with only 24 determinants was lower than the FN-DMC energy using an MSJ+O trial function with 55 determinants.
 Further, the FN-DMC charge density calculated using MSJ+NO trial functions had stronger bonding character than when using MSJ+O trial functions, a reasonable result as introducing correlations into trial functions allows for electrons to avoid each other while still occupying the same bonding region. 
 Our results indicated that using non-orthogonal determinants may lead to more compact multi-Slater-Jastrow trial wave functions for small molecules.
 
@@ -261,19 +266,19 @@ A rigorous prescription for finite size extrapolation specifically for the 1-ban
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\linewidth]{figs/eff_eig_prelim.pdf}
-\caption{Results of weighted single parameter model fits to the eigenstates of a Hubbard model for various U and temperature. Darker hues indicate a higher R$^2$ score.}
+\caption{Results of weighted single parameter model fits to the eigenstates of a Hubbard model for various U and temperature. Darker hues indicate a higher R$^2$ score. Vertical dashed line denotes the bulk Slater to Mott-Heisenberg transition U$^*$/t = 4.7 calculated in [ref].}
 \label{fig:Hubbard}
 \end{figure}	
 
 I will conclude by showing some very preliminary results on model fitting for the half-filled, 2x2 square Hubbard model for U: 0 - 12 which put the outlined approach to model fitting with exact diagonalization at T$\geq 0$ into practice.
 I started off by exactly diagonalizing each model, defining $\mathcal{LE} = \mathcal{H}$, and treating the full sample space as just the eigenstates of the model.
 I then fit three single parameter models to the eigenstates: A) 
-A "t" only model $t \sum_{\langle i, j \rangle, \sigma} c_{i\sigma}^\dagger c_{j\sigma} + h.c.$, B) A "U" only model $U \sum_{i} n_{i\uparrow} n_{i\downarrow}$, and C) A "J" only model $J \sum_{\langle i,j \rangle} \vec{S}_i \cdot \vec{S}_j$ using a weighted linear regression with weights $e^{-\beta E}$.
+A "effective t" model $t_\text{eff} \sum_{\langle i, j \rangle, \sigma} c_{i\sigma}^\dagger c_{j\sigma} + h.c.$, B) An "effective U" model $U_\text{eff} \sum_{i} n_{i\uparrow} n_{i\downarrow}$, and C) An "effective J" model $J_\text{eff} \sum_{\langle i,j \rangle} \vec{S}_i \cdot \vec{S}_j$ using a weighted linear regression with weights $e^{-\beta E}$.
 The basis for all of these operators are just the bare Hubbard Hamiltonian basis.
 The weighted linear regression approximates the effect of generating samples using a Markov Chain Monte Carlo method with a Boltzmann distribution.
-At low-temperatures there is a crossover between the weak coupling regime, best described by a non-interacting t-only model, and the strong coupling regime, best described by a J-only model, around U$^*/t \sim 5$ providing some evidence of a Slater to Mott-Heisenberg transition.
+At low-temperatures there is a crossover between the weak coupling regime, best described by an effective t model, and the strong coupling regime, best described by an effective J model, around U$^*/t \sim 5$ providing some evidence of a Slater to Mott-Heisenberg transition.
 In the crossover region T = 0 and U = 4 - 8 both models perform poorly and is a region of particular interest when developing our low-energy theories.
-At high temperatures there is a crossover between a non-interacting t-only and U-only model which can also be investigated.
+At high temperatures there is a crossover between the effective t and effective U models which can also be investigated.
 
 \subsection{Proposed timeline}
 I believe that developing effective theories for the half-filled Hubbard model should take 2 years. 
