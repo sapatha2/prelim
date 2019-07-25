@@ -27,7 +27,7 @@ Committee: Lucas Wagner, ...
 \section{Introduction}
 A core problem of condensed matter physics is understanding how to systematically develop low-energy effective models for strongly correlated electron systems. 
 In the forefront of modern research are materials like high temperature superconductors and heavy fermion systems for which simple effective theories have not yet been found. 
-For example, the cuprate family of high-Tc superconductors have an intricate phase diagram in the doping-temperature space  with a robust anti-ferromagnetic (AFM) charge-transfer insulator state near zero doping, a prominent superconducting dome in the 0.1 - 0.2 hole doped region at low temperatures with psuedo-gap and non-Fermi liquid metallic phases at higher temperatures and Fermi liquid like behavior in the overdoped area, of which only the AFM insulating and Fermi liquid phases have well understood mechanism and models. 
+For example, the cuprate family of high-Tc superconductors have an intricate phase diagram in the doping-temperature space with anti-ferromagnetic (AFM) insulating, superconducting, psuedo-gap, "bad metal", and Fermi-liquid like phases of which only the first and last are well understood.
 The iron-pnictides also have superconducting domes, non-Fermi liquid like metallic phases, a spin-density-wave antiferommagnetic phase, all under various dopings and temperatures. 
 Heavy-fermion materials have a purported quantum critical point between an AFM and Fermi-liquid phase which houses a superconducting dome, leading to another phase diagram for which building model Hamiltonians is very challenging. 
 
@@ -36,7 +36,6 @@ Consider just the cuprate case for now, the two phases which are relatively well
 Near zero doping the cuprates are charge-transfer insulators with localized spin-1/2 low-energy degrees of freedom and resemble a Heisenberg antiferromagnet away from the magnetic Brillouin zone. 
 In the heavily overdoped side, the lowest energy single-particle excitations look like well defined quasiparticles resembling a Fermi liquid apart from non-standard plasmonic modes. 
 In the intermediate doping region where the low-energy excitations cannot be easily sectioned into spin-like or electron-like only, we see the emergence of exotic phases and where most difficulties arise in writing down low-energy effective models. 
-On top of that, this entire discussion did not include any lattice effects like structural phase transitions which many strongly-correlated materials have as well.
 
 Common approaches to building suitable model Hamiltonians for strongly correlated materials involve using single particle theories like density functional theory (DFT).
 One-body terms are typically obtained by projecting the solutions from the DFT band structure onto a localized single-particle basis, giving an estimate of hoppings and occupations on a lattice model.
@@ -44,6 +43,8 @@ Two-body terms in the model are developed by assuming a screened Coulomb interac
 Aside from this method, L\''{o}wdin methods coupled to a stochastic method and canonical transformations have also been used to develop effective theories.
 These methods have the drawback that the constructed effective theory typically does not come with any estimate of the quality of the model, therefore making model validation a phenomenological task which can lead to unclear biases in the model construction.
 
+
+\textcolor{red}{
 We propose using a density matrix downfolding (DMD) procedure to systematically develop low-energy effective theories of the 1-band nearest-neighbor Hubbard model on a square lattice for various couplings U and temperatures T at half-filling as a stepping stone towards building effective theories for strongly correlated materials. 
 The Hubbard model is a simple model with nearest-neighbor hopping and a local on-site Coulomb repulsion, parameterized by a single ratio U/t: 
 \begin{equation}
@@ -58,52 +59,88 @@ Further, modern finite temperature calculations indicate thermal transitions in 
 A finite temperature psuedogap to Mott insulator transition has also been found between the weak to strong coupling limits.
 The nature of these transitions as phase transitions or simply crossovers is poorly understood.
 The relative simplicity of the half-filled Hubbard model, potential complexity of its phase diagram in U-T space,  and the lack of well-established low-energy theories for moderate U/t lends the model as a useful playground for our new downfolding procedure in preparation for tackling realistic strongly correlated electron systems. 
+}
 
-The DMD procedure allows us to systematically develop low-energy effective theories for any Hamiltonian and Hilbert space $(H, \mathcal{H})$.
-The procedure defines a method for downfolding the \textit{ab-initio} energy functional and Hilbert space onto an effective energy functional defined on a low-energy subspace of the Hilbert space 
+\section{Methods}
+\subsection{Density Matrix Downfolding (DMD)}
+\textbf{We begin by defining what we mean by a low-energy effective Hamiltonian and downfolding.}
+Consider a Hamiltonian $\hat{H}$ defined on a Hilbert space $\mathcal{H}$.
+A low-energy effective Hamiltonian is an operator $\hat{H}_\text{eff}$ which can accurately reproduce the spectra, up to a constant, and eigenstates of $\hat{H}$ on a subpsace $\mathcal{LE}$ of the Hilbert space $\mathcal{H}$.
+Here $\mathcal{LE}$ is taken to be the span of the N lowest energy eigenstates of $\hat{H}$, and $\hat{H}_\text{eff}$ is a linear combination of Hermitian operators $\hat{d}_k$ with a constant energy shift $E_0$
 \begin{equation}
-(E, \mathcal{H}) \xrightarrow{\text{DMD}} (E_\text{eff}, \mathcal{LE} \subset \mathcal{H}), \text{ s.t. }
-\forall |\Psi\rangle \in \mathcal{LE}, \ E_\text{eff}[\Psi] - E[\Psi] = \epsilon[\Psi] + E_0.
+\hat{H}_\text{eff} = \sum_{k} g_k \hat{d}_k  + E_0.
+\label{eq:Heff}
+\end{equation}
+The objective of Hamiltonian downfolding is to construct such an $\hat{H}_\text{eff}$ given $\hat{H}, \mathcal{H}$.
+
+\textbf{The key insight of DMD is that the Hamiltonian downfolding problem can be mapped onto a linear regression problem.}
+It has been shown that the above definition of $\hat{H}_\text{eff}$ is equivalent to the following: a low-energy effective Hamiltonian is an operator on a subspace $\mathcal{LE}$ of $\mathcal{H}$ such that 
+\begin{equation}
+\begin{split}
+\forall |\Psi\rangle \in \mathcal{LE},\ (E[\Psi] \equiv \langle \Psi|\hat{H} | \Psi \rangle)  = \\ (E_\text{eff}[\Psi] \equiv \langle \Psi | \hat{H}_\text{eff} | \Psi \rangle) + \epsilon[\Psi]
+\end{split}
 \label{eq:DMD}
-\end{equation} 
-The energy functionals can be written as expectations over Hamiltonian operators $E = \langle \Psi | \hat{H} |\Psi \rangle$, $E_\text{eff} = \langle \Psi | \hat{H}_\text{eff} |\Psi \rangle$, $\epsilon$ represents the error in our effective theory, and $E_0$ is a constant energy shift.
-Broadly the DMD method consists of four steps which will be discussed in detail later: 
-A) Defining the space of low-energy excitations which $E_\text{eff}$ should be able to describe accurately.
-B) Sampling, at minimum, a set of states in $\mathcal{H}$ which probe the chosen low-energy excitations in a statistically independent manner. The selected states need not be eigenstates. 
-C) Constructing a set of candidate models which are linear in reduced density matrix (RDM) descriptors with variable coefficients $\{c\}$
-\begin{equation}
-E_\text{eff} = \sum_k c_k \langle \Psi | \hat{d}_k |\Psi \rangle + E_0.
-\label{eq:Eeff}
 \end{equation}
-Here $\hat{d}_k$ are Hermitian operators typically composed of 1- or 2-RDM elements. 
-Examples of possible $\hat{d}_k$ are number operators $\hat{n}_i$ and exchange operators $\vec{S}_i \cdot \vec{S}_j$.
-Additionally, a single particle basis must be built to express RDM elements on and should be chosen such that variations among states in $\mathcal{LE}$ are mostly described by variations in the projection of these states onto the basis.
-D) Using the samples to fit the coefficients $\{c\}$ by linear regression such that $E_\text{eff}$ satisfies the conditions in \eqref{eq:DMD} with the smallest error $\epsilon$ possible. 
-The fitting procedure is typically an ordinary linear regression, however, one may use a custom cost function in the regression as well. 
-In order to conduct the linear regression for a functional like \eqref{eq:Eeff}, one needs to calculate for each state sampled from $\mathcal{LE}$ the expectation values of $\hat{H}$ and every descriptor $\{\hat{d}_k\}$ used in the regression.
-In principle, if conducted with no approximations, the DMD method is rigorously guaranteed to obtain exact results, namely $\epsilon[\Psi] = 0$.
-For real world systems we will work with $H = H_\text{ab}$, the \textit{ab-initio} Hamiltonian under the Born-Oppenheimer approximation with psuedopotentials:
-\begin{equation}
-\hat{H}_\text{ab} = -\frac{1}{2} \sum_{i} \nabla_i^2 - \sum_{i,I}\frac{Z}{|r_i - R_I|} + \sum_{i<j}\frac{1}{|r_i - r_j|}
-\label{eq:Hab}
-\end{equation}
-where $i$ indicates electrons and $I$ nuclei, and the unit of energy is Hartree (Ha).
+where $\epsilon[\Psi]$ is the error in the effective theory.
+Given the general linear form of $\hat{H}_\text{eff}$ seen in \eqref{eq:Heff}, 
+the task of building an effective Hamiltonian then reduces to fitting a linear model that minimizes the error $\epsilon[\Psi]$ over $\mathcal{LE}$.
+The independent variables (descriptors) in the fitting are expectation values of the operators $d_k[\Psi] \equiv \langle \Psi |\hat{d}_k|\Psi \rangle$ and the target variable is $E[\Psi]$.
 
-When downfolding $\hat{H}_\text{ab}$ we will use fixed-node diffusion Monte Carlo (FN-DMC) to access states in $\mathcal{LE}$ and accurately calculate their \textit{ab-initio} energies and RDM elements.
-Diffusion Monte Carlo (DMC) is a quantum Monte Carlo method which projects out the ground state of a Hamiltonian given some initial trial wave function.
-Consider a trial wave function $|\Psi_T\rangle$ and the Hamiltonian $\hat{H}_\text{ab}$ with ground state $|\Phi_0\rangle$. We apply the projector $e^{-\tau \hat{H}_\text{ab}}$ as $\tau \rightarrow \infty$ to $|\Psi_T \rangle$
+\textbf{This linear regression problem can be tackled in three steps, beginning with sampling states from $\mathcal{LE}$.}
+Ideally the linear regression would be conducted over the entire space $\mathcal{LE}$. 
+In practice, the space is too large, and instead a representative sample set is drawn and used for fitting.
+For each sampled state $|\Psi_s\rangle$, the quantities $E[\Psi_s], \{d_k[\Psi_s]\}$ are calculated to be used in the linear regression.
+Optimal sampling schemes vary between systems and can significantly reduce the number of samples required to achieve robust statistics.
+
+\textbf{Generally, however, one cannot sample the true low-energy subspace and low-energy wave functions are sampled from an approximate subspace $\mathcal{LE}^\prime$.}
+A model fit to an arbitrary subspace of $\mathcal{H}$ will generally fail in describing the low-energy excitations of $\hat{H}$.
+Rather, the choice of approximate subspace must be made carefully to ensure the fit model is transferable to the true low-energy space.
+We describe in detail later how we selected $\mathcal{LE}^\prime$ for the CuO molecule and the scheme used to draw samples from it.
+
+\textbf{Next, a set of candidate descriptors which form the effective Hamiltonian are selected.}
+Descriptors will typically be selected if their values co-vary with the energy over the set of sampled states. 
+Knowledge of the low-energy degrees of the freedom from experiment and physical intuition can help restrict the set of candidate descriptors further.
+In principle there is no restriction on the form of the candidate operators other than Hermiticity, but second quantized operators are commonly used.
+
+\textbf{Typically, candidate operators are written in second quantized form, and an appropriate single particle basis to express these operators must be constructed.}
+An appropriate choice of single particle basis can simplify the representation of the effective theory and typically depends on the system of interest.
+Common choices include Bloch waves and molecular orbitals for delocalized basis elements or Wannier and intrinsic atomic orbitals for localized ones.
+The selected single particle basis can be validated by ensuring it accurately describes single particle properties among the sampled states like the total number of electrons in the system.
+
+\textbf{ Finally, the sampled data are used to fit the coefficients $\{g_k\}$ by linear regression.}
+A typical fitting workflow involves feature selection, model regression and model validation.
+Feature selection methods for choosing appropriate descriptors can range from wrapper methods like orthogonal matching pursuit and principal component analysis to embedded methods like LASSO, ridge and elastic net regularizations. 
+Fitting the effective Hamiltonian usually involves an ordinary least squares linear regression, but the cost function can be altered as in the cases of the embedded methods above or weighted least squares linear regression.
+Model validation can be carried out by calculating cross validated single parameter measures like R$^2$ scores which carry information about goodness of fit and overfitting.
+
+\textbf{Importantly, the fit effective Hamiltonian carries with it a quantitative measure of its validity.}
+The ability to quantify the accuracy of an effective Hamiltonian sets DMD apart from contemporary downfolding approaches which typically report only a final model.
+Given the statistical nature of the fitting procedure, model quality assessment can be carried out and reported in exhaustive detail if one is interested.
+Typically, however, simple single parameter measures like cross validated R$^2$ scores and root mean squared errors are used to quantify the accuracy of the effective Hamiltonian.
+
+\subsection{Fixed-node diffusion Monte Carlo (FN-DMC)}
+\textbf{Diffusion Monte Carlo (DMC) is a quantum Monte Carlo method which projects out the ground state of a real-space Hamiltonian given some initial trial wave function.}
+Consider a trial wave function $|\Psi_T\rangle$ and the Hamiltonian $\hat{H}$ with ground state $|\Phi_0\rangle$. 
+Applying the projector $e^{-\tau \hat{H}}$ as $\tau \rightarrow \infty$ to $|\Psi_T \rangle$
 \begin{equation}
-\lim_{\tau \rightarrow \infty} e^{-\tau \hat{H}_\text{ab}} |\Psi_T\rangle 
+\lim_{\tau \rightarrow \infty} e^{-\tau \hat{H}} |\Psi_T\rangle 
 \equiv \lim_{\tau \rightarrow \infty} |\Psi_\text{DMC}(\tau)\rangle \propto \langle \Phi_0|\Psi_T\rangle |\Phi_0\rangle,
 \end{equation}
-projecting out the ground state as long as the trial wave function we choose is not orthogonal to the ground state. 
-The stochastic implementation involves moving samples from the trial function $\Psi_T(R)$ using the Green function $G(R, R^\prime, \tau) = \langle R | e^{-\tau(\hat{H}_\text{ab} - E_T)} | R^\prime \rangle$. Since $H_\text{ab} = T + V$, kinetic and potential energy terms, the Green function is approximated by a Trotter expansion $G(R, R^\prime, \tau) = \langle R | e^{-\tau(\hat{H} - E_T)} | R^\prime \rangle \sim \Big[e^{-d\tau(V(R) + V(R^\prime))/2} \langle R| e^{-d\tau(\hat{T} - E_T)}|R^\prime \rangle + O(d\tau^2) \Big]^N $ where $d\tau = \tau/N$.
+projects out the ground state as long as the trial wave function is not orthogonal to the ground state. 
+DMC provides a stochastic implementation of this projector method and involves moving samples from the trial function $\Psi_T(R)$ using the Green function $G(R, R^\prime, \tau) = \langle R | e^{-\tau(\hat{H} - E_T)} | R^\prime \rangle$. 
+Since $\hat{H} = \hat{T} + \hat{V}$, kinetic and potential energy terms, the Green function is approximated by a Trotter expansion $G(R, R^\prime, \tau) = \langle R | e^{-\tau(\hat{H} - E_T)} | R^\prime \rangle \sim \Big[e^{-d\tau(\frac{V(R) + V(R^\prime)}{2} - E_T)} \langle R| e^{-d\tau\hat{T}}|R^\prime \rangle + O(d\tau^2) \Big]^N $ where $d\tau = \tau/N$.
 This expansion can be interpreted as an interative procedure where samples are moved N times with a small timestep $d\tau$ until convergence.
 The constant $E_T$ is a trial energy used to control the normalization of $\Psi_\text{DMC}(\tau, R)$ and is updated at each move.
-This implementation suffers from a fermion sign problem which is dealt with through a fixed-node approximation where the nodal surface of $\Psi_\text{DMC}(\tau, R)$ is forced to match that of the initial trial wave function for all $\tau$.
-This approximation makes FN-DMC variational, and will only return the exact ground state of $\hat{H}_\text{ab}$ if the nodal surfaces of $|\Psi_T\rangle$ and $|\Phi_0\rangle$ are identical.
-We make use of this variational principle to access low-energy states within $\mathcal{H}$ by choosing trial wave functions with nodes that differ from the nodes of $|\Phi_0 \rangle$.
-To calculate the expectation value of an operator $\hat{A}$ in FN-DMC we will use a mixed estimator $\langle \Psi_{DMC}(\tau) |\hat{A} | \Psi_T \rangle/\langle \Psi_\text{DMC}(\tau) | \Psi_T \rangle$ which allows us to use the importance sampled distribution $f = \Psi_\text{DMC}(\tau)\Psi_T$ for our Monte Carlo estimates.
+
+\textbf{DMC, however, suffers from a fermion sign problem which is alleviated via a fixed-node approximation.}
+Under the fixed-node approximation the nodal surface of $\Psi_\text{DMC}(\tau, R)$ is forced to match that of the initial trial wave function for all $\tau$.
+This approximation makes FN-DMC variational, and will only return the exact ground state of $\hat{H}$ if the nodal surfaces of $|\Psi_T\rangle$ and $|\Phi_0\rangle$ are identical.
+
+\textbf{We take advantage of the variational nature of FN-DMC to sample the low-energy states necessary for DMD.}
+Consider a set of trial wave functions with varying nodal structures.
+The final projected $\Psi_\text{DMC}$ for these different trial functions will be the lowest energy states in $\mathcal{H}$ for the given nodal structures.
+If the initial trial wave functions are appropriately chosen, the final projected states will be low-energy states within $\Psi_\text{DMC}$.
+We calculate the expectation values $E[\Psi_\text{DMC}], \{d_k[\Psi_\text{DMC}]\}$ necessary for the model regression using a mixed estimator.
 Details for calculating reduced density matrix elements in FN-DMC can be found in Wagner.
 
 \section{Preliminary Work}
