@@ -26,25 +26,15 @@ Committee: Lucas Wagner, ...
 
 \section{Introduction}
 Systematically developing model Hamiltonians which can accurately describe the energies and properties of the lowest lying eigenstates for strongly correlated electron systems is a pressing problem in modern condensed matter physics. 
+At the forefront of modern research are materials such as the cuprate supercondutors, heavy fermion systems, and most recently, twisted bilayer graphene (TBLG).
+These materials exhibit various phases of matter which are far from understood, like unconventional superconductivity, psuedogap and bad metal phases, quantum critical points, and stripe ordering.
+While no definitive models for these phases have been introduced, it is expected that strong correlations between electronic degrees of freedom lead to these phases.
 
 The necessity for non-perturbative, many-body models in describing the low-lying excited states of strongly correlated electron systems poses a difficult challenge when developing effective theories for real world systems.
-
-Common approaches to building suitable model Hamiltonians for strongly correlated materials involve using single particle theories like density functional theory (DFT).
-
-We propose using a DMD procedure to develop accurate many-body effective theories for single (SLG) and bi-layer graphene (BLG) systems as a step towards building a many-body model for twisted bilayer graphene (TBLG).
-
-
-A core problem of condensed matter physics is understanding how to systematically develop low-energy effective models for strongly correlated electron systems. 
-In the forefront of modern research are materials like high temperature superconductors and heavy fermion systems for which simple effective theories have not yet been found. 
-For example, the cuprate family of high-Tc superconductors have an intricate phase diagram in the doping-temperature space with anti-ferromagnetic (AFM) insulating, superconducting, psuedo-gap, "bad metal", and Fermi-liquid like phases of which only the first and last are well understood.
-The iron-pnictides also have superconducting domes, non-Fermi liquid like metallic phases, a spin-density-wave antiferommagnetic phase, all under various dopings and temperatures. 
-Heavy-fermion materials have a purported quantum critical point between an AFM and Fermi-liquid phase which houses a superconducting dome, leading to another phase diagram for which building model Hamiltonians is very challenging. 
-
-The fundamental barrier in writing down low-energy theories for strong correlated materials is the existence of non-perturbative interactions between various degrees of freedom - for example, lattice, spin and charge. 
-Consider just the cuprate case for now, the two phases which are relatively well understood contain a singular important degree of freedom in the low-energy space. 
-Near zero doping the cuprates are charge-transfer insulators with localized spin-1/2 low-energy degrees of freedom and resemble a Heisenberg antiferromagnet away from the magnetic Brillouin zone. 
-In the heavily overdoped side, the lowest energy single-particle excitations look like well defined quasiparticles resembling a Fermi liquid apart from non-standard plasmonic modes. 
-In the intermediate doping region where the low-energy excitations cannot be easily sectioned into spin-like or electron-like only, we see the emergence of exotic phases and where most difficulties arise in writing down low-energy effective models. 
+Consider for now just the case of TBLG, where for certain magic twist angles, bands near the Fermi surface flatten out to a bandwidth of O(10) meV.
+At these magic angles, a small doping can lead to superconductivity and many-body insulating phases in the material, indicative of electronic interaction effects which cannot be explained by a simple band theory.
+The effects of the interaction are also beyond just simple renormalization of the non-interacting parameters in a band theory.
+A non-perturbative, many-body effective theory is therefore necessary to describe these interesting phases in TBLG.
 
 Common approaches to building suitable model Hamiltonians for strongly correlated materials involve using single particle theories like density functional theory (DFT).
 One-body terms are typically obtained by projecting the solutions from the DFT band structure onto a localized single-particle basis, giving an estimate of hoppings and occupations on a lattice model.
@@ -52,12 +42,11 @@ Two-body terms in the model are developed by assuming a screened Coulomb interac
 Aside from this method, L\''{o}wdin methods coupled to a stochastic method and canonical transformations have also been used to develop effective theories.
 These methods have the drawback that the constructed effective theory typically does not come with any estimate of the quality of the model, therefore making model validation a phenomenological task which can lead to unclear biases in the model construction.
 
-
-We propose using a density matrix downfolding (DMD) procedure to develop an accurate low-energy effective theory for twisted bilayer graphene (TBLG) beginning from the \textit{ab-initio} Hamiltonian.
-TBLG exhibits strong correlation effects like unconventional superconductivity and many-body insulating states for extremely small, gate-tunable, dopings near charge neutrality for certain magic twist angles.
-These strong correlation effects arise from the emergence of very flat bands near the Fermi level as one approaches the magic angles.
-While some DFT calculations have generated effective single particle theories, no accurate many-body model Hamiltonian for TBLG which can describe these strong electronic correlations exists.
-As discussed below, DMD provides us the unique ability to generate such accurate many-body models directly from the \textit{ab-initio} Hamiltonian.
+I propose using a quantum Monte Carlo (QMC) density matrix downfolding (DMD) procedure to develop accurate many-body effective theories for single (SLG) and bi-layer graphene (BLG) systems as a step towards building a many-body model for the strongly correlated TBLG system.
+DMD is a relatively new method which allows one to systematically downfold the \textit{ab-initio} Hamiltonian for a system to a many-body lattice model.
+While it can be applied to any system, the methods necessary to carry out the downfolding accurately and efficiently have not yet been developed and tested for strong correlated materials.
+Both BLG and SLG provide useful playgrounds for developing methods for DMD since they have moderate interaction effects, with non-interacting theories describing the lowest lying excitations relatively accurately.
+Fitting models for SLG and BLG from DMD will not only provide a useful stepping stone towards understanding TBLG, but will also help mature the DMD method for its application to other strongly correlated systems.
 
 \section{Methods}
 \subsection{Density Matrix Downfolding (DMD)}
@@ -275,102 +264,131 @@ Table 1: Parameters in eV for our three potential models when fit using \eqref{e
 \end{table}
 
 \section{Proposed work}
-My proposed plan involves building a sequence of model Hamiltonians for increasing complicated systems using DMD, working towards an accurate many-body model for TBLG.
+My proposed plan involves building a sequence of model Hamiltonians for increasing complicated systems using QMC DMD, working towards an accurate many-body model for TBLG.
+The systems I will be interested in are the benzene molecule, single layer graphene, AA stacked bilayer graphene and AB stacked bilayer graphene.
+Conceptually, the benzene molecule is a kind of building block for SLG, SLG is a building block for BLG, and BLG for TBLG, creating a sequence of systems from least to most complex.
+I do not believe I will be able to build a general model for TBLG in the time span of my thesis, but my work should lay the foundation for further studies using QMC DMD focused on bilayer models with twists.
 
 The first system I will develop a model for is the benzene molecule.
+The benzene molecule has chemical formula $C_6 H_6$ and contains a hexagonal ring of carbon atoms with hydrogen atoms sticking out from each carbon.
+These carbon atoms are linked by sp$^2$ hybridized $\sigma$ bonds and an alternating sequence of $\pi$ bonds from the C 2p$_z$ orbitals.
+Intuitively, the ground state of the system can be seen as a superposition of two configurations of alternating $\pi$ bonds as seen in Figure \textbf{ref} rotated 30$^o$ relative to each other.
 
 While relatively simple, this molecule shares many similarities with and forms the basic unit of SLG.
-
+SLG can be viewed as a tiling of benzene molecules where the external hydrogen legs are replaced by carbon atoms.
+The delocalized $\pi$ orbitals in benzene carry over directly into SLG where they are the primary contributors to the well known Dirac bands.
+Interaction effects seen in the benzene molecule are also reflected in SLG, such as on-site double occupation energies for the carbon atoms.
 As such, developing a model for benzene will help me become familiar with model fitting for 2-D carbon based systems.
 
 The candidate descriptors I will use for DMD are motivated by a previous calculation on the benzene molecule.
+In that study, an extended Hubbard model built on the six $\pi$ orbitals was found to perform well in describing the low-lying excitations of the material.
+The final model took the form 
+\begin{equation}
+H_\text{benz} = -\sum_{\langle i,j \rangle} t_{ij}c_i^\dagger c_j + U \sum_i n_{i\uparrow}n_{i\downarrow}  + \sum_{\langle i,j \rangle}V_{ij} n_i n_j + \sum_{\langle \langle i,j \rangle\rangle}V_{ij} n_i n_j
+\label{Hbenz}
+\end{equation}
+where the brackets denote nearest neighbor and next-nearest neighbor summations.
+I will consider at least all the descriptors above and also longer range hopping terms.
+The single particle orbitals used to express these descriptors will be IAOs.
 
 A new constrained variational Monte Carlo (CVMC) method will be used to sample the low-energy wave functions necessary for DMD.
+The CVMC method works by minimizing the following cost function for a parameterized wave function $|\Psi(\vec{p})\rangle$:
+\begin{equation}
+\vec{p}^* = \text{argmin} \ \langle \Psi(\vec{p}) | \hat{H}_\text{ab} | \Psi(\vec{p}) \rangle - \vec{\lambda} \cdot \langle \Psi(\vec{p}) | (\vec{d} - \vec{d}_0)^2 | \Psi(\vec{p}) \rangle 
+\end{equation}
+with respect to the parameters $\vec{p}$.
+The quantity $\vec{d}$ is short hand for a list of candidate descriptors to sample variations in, $\vec{d}_0$ is the target values of those candidate descriptors, and $\vec{\lambda}$ controls the importance of finding a state with low-energy versus one with descriptor values near $\vec{d}_0$.
+Essentially this method allows us, for a given parameterization of $|\Psi(\vec{p})\rangle$, to generate low-energy wave functions which sit near a target point $\vec{d}_0$ in candidate descriptor space.
 
-Note also that a model for benzene has already been developed using DMD.
+I will use a multi-Slater-Jastrow (MSJ) parameterization in the CVMC sampling for the benzene molecule.
+The multi-Slater expansion will consist of determinants of single particle orbitals calculated using a self consistent field calculation like DFT.
+The determinants will include the DFT ground state as well as molecular orbital excitations among the $\pi$ and $\pi^*$ orbitals which form our active space, allowing us to probe variation in all the descriptors above.
+A three body Jastrow factor will be applied to ensure that we include correlations in our wave function and that our wave function is low in energy.
+The total set of parameters $\vec{p}$ will include both Jastrow and determinental coefficients.
 
-This makes benzene a useful system not only for my personal learning, but as a benchmarking system for new methods like CVMC which have been developed recently.
+Since a model for benzene has already been developed using DMD, my calculation will also serve as a benchmark for new methods like CVMC sampling.
+The CVMC method is relatively new and has not been tested extensively on realistic systems.
+The final model that I will produce should be exactly comparable to previous calculations, and as such can give insight into the workings of the CVMC method.
+A few questions of interest include whether the CVMC is more statistically efficient in terms of regression, how to select values like $\vec{\lambda}$ and $\vec{d}_0$, and whether the final model fit with CVMC is similar to the one fit previously using a different sampling technique.
 
 The second system I will be interested in working on is SLG.
+Single layer graphene is composed of a triangular Bravais lattice with two carbon atoms per unit cell.
+In terms of a non-interacting picture, the $\sigma$ orbitals composed of C $2s, 2p_x,$ and $2p_y$ lie below the Fermi level.
+The bands which cross the Fermi level, and compose the distinct Dirac cones seen in SLG, are primary $\pi$ bonded molecular orbitals composed of C $2p_z$ orbitals.
+The lack of significant screening in SLG leads to long range Coulomb interactions in the system.
 
 The model I am interested in working on will be an extension of a previous model developed for SLG using DMD.
+The fit model was a single band, on-site Hubbard model which contained only the $\pi$ orbital degrees of freedom in the system.
+The fit model parameters were $U/t \sim$ 2.00, which is smaller than the critical value of $(U/t)_c \sim$ 3.8 for the semimetal-insulator transition in the honeycomb lattice, as expected.
+It is interesting to note that if the $\sigma$ orbitals in graphene are treated as a constant negative charge background, then the effective $U$ on site nearly doubles, indicating the importance of including these degrees of freedom in the low-energy sampling.
 
 I will extend the previous model by introducing long range density-density interactions into the effective theory.
-
-The candidate model I anticipate to work with is an extended Hubbard model of the form.
+As mentioned previously, one expects to see long range Coulomb interactions in graphene due to the vanishing density of states near the Fermi level, in contrast to other metals where electron-hole pairs screen the long range interaction.
+I will work on developing a model for SLG of the following form:
+\begin{equation}
+H_\text{SLG} = -\sum_{i,j} t_{ij}c_i^\dagger c_j + U \sum_i n_{i\uparrow}n_{i\downarrow}  + \sum_{i,j} V_{ij} n_i n_j
+\label{Hslg}
+\end{equation}
+where the indices correspond to the $\pi$ orbitals on the copper atoms, represented by IAO basis elements.
+I will consider arbitrarily long range hopping and density-density interaction terms in my model, in contrast to the benzene calculation where the finite size of the system imposes a cutoff in the possible range of interaction.
 
 CVMC will be used to sample the low-energy wave functions necessary to fit the model.
+The trial wave function will also be of MSJ type as explained for the benzene molecule, with the determinants built from the single particle orbitals of DFT calculations.
+I will consider the DFT ground state determinant and all excitations built on in restricted to the $\pi, \pi^*$ molecular orbitals.
+A three-body Jastrow will be used to introduce correlations into the wave function and ensure our sampled states are low in energy.
 
 The last systems I will develop models for are AA and AB stacked BLG.
+AA stacked BLG is simply two sheets of graphene placed on top of one another where each atom is aligned with the atom beneath it.
+In AB stacked BLG, a carbon atom from the lower layer is present in the center of each carbon hexagon of the upper layer, and vice versa.
+As such, one can think of AB BLG as a shifted version of AA BLG, where the shift is half the size of a single carbonic hexagon.
 
 Being the simplest BLG configuration, these models will form a starting point for a more thorough development of models for TBLG.
+The ultimate goal of developing a model for TBLG would be a model which has the parameters as a function of the twist angle.
+The twist angle changes the local chemistry of a particular atom in a single layer of graphene by introducing neighbors on the other layer at various non-commensurate distances.
+As such, the first avenue of investigation would be to see how the model parameters change as one shifts the position of interlayer neighbor carbon atoms. 
+The AA and AB BLG configurations provide the simplest systems where this position dependence on model parameters can be probed.
 
 I anticipate that the candidate descriptors should include interlayer couplings as well as the terms seen in SLG.
+As such, a candidate model that we may consider initially for BLG would be
+\begin{equation}
+H_\text{BLG} = H_\text{SLG}^{(1)} + H_\text{SLG}^{(2)} - \sum_{i_1, i_2} t_{i_1, i_2}^\prime c_{i_1}^\dagger c_{i_2} + h.c.
+\label{Hblg}
+\end{equation}
+Here we have two models for the single layers from \eqref{Hslg} plus an interlayer hopping given by the term $t_{i_1, i_2}^\prime.$
+I suspect that the hopping values will be very different between the AA and AB models as the distance between interlayer neighbors differs greatly between the two stackings.
 
 I will again use CVMC to generate the low-energy wave functions for the model regression.
+As before, I think that an MSJ parameterization will serve the purpose well.
+Similarly, the determinants used will include a DFT ground state alongside all excitations within the $\pi, \pi^*$ orbitals of the system.
+Note that excitations between the $\pi, \pi^*$ orbitals from both sheets should be included in the multi-Slater expansion.
+A three-body Jastrow factor will be used for the reasons listed before.
 
-The final four models can be used to investigate the transferrability of model parameters between these different carbon-based systems.
+The final product of my thesis would be four models for these increasingly complex systems.
+The model for benzene should reproduce previous results and provide an intro calculation for me, as well as a benchmark test for the CVMC sampling method.
+The model for SLG will extend on previous studies, incorporating long range Coulomb interactions.
+The models for BLG will be a first step in understanding how interlaying coupling depends on interlayer neighbor distances in the bilayer systems, an important stepping stone towards a general model for TBLG.
 
-I will conclude by briefly discussing potential avenues of further study in using DMD to develop model Hamiltonians for TBLG. 
+Apart from their individual value, the four models can be used to investigate the transferrability of model parameters between these different carbon-based systems.
+The first question would be whether the parameter values between a finite size system, like benzene, match those seen in the bulk SLG system.
+The second would be whether the intralayer parameter values change in each sheet of SLG when they are brought together in the AA and AB configuration.
+The latter question hints at a broader question, whether the SLG intralayer parameters are transferrable to TBLG, especially near the magic twist angles whre interlayer coupling becomes very large.
 
-My proposed plan involves building a sequence of model Hamiltonians for increasingly complicated systems using DMD, working towards a model for TBLG.
-I will begin with the basic building block of SLG, the benzene molecule, as an exercise to become familiar with the structure and chemistry of graphene like materials.
-The benzene molecule consists of a hexagonal carbon ring capped by hydrogen atoms. 
-It shares many features with SLG such as delocalized $\pi$ electrons and long-range charge density-density interactions.
-Alongside the fact that previous DMD work has already developed an accurate model for benzene, this molecule provides a useful playground for building my familiarity with the chemistry and effective interactions in graphene like systems.
-
-The benzene model fitting will also serve as a benchmark study for new model fitting methods developed since the first DMD calculations on it.
-I will be particularly interested in testing a constrained variation Monte Carlo (CVMC) sampling method which allows us to target low-energy states with specified descriptor values.
-This sampling method will be the core sampling method used in all the proposed work, with the calculations on benzene serving as an familiarizing exercise for me.
-The results of my model fit using CVMC can be validated by comparing the effective theory I have built to the many-body model previous developed for benzene.
-
-The next step will be developing a model with long range interactions for SLG, expanding on previous work.
-An on-site effective Hubbard model has already been built using DMD for single-layer graphene with parameters $U/t \sim 2.00$ eV.
-Following the example of the benzene molecule, however, one would expect that longer range density-density interactions would be important in describing SLG more accurately.
-The goal of this step of the project would be to develop a model of the following form:
-\begin{equation}
-\sum_{ij} t_{ij} c_i^\dagger c_j + h.c. +  \sum_i U n_{i\uparrow} n_{i\downarrow} + \sum_{ij} V_{ij} n_i^\dagger n_j
-\end{equation}
-with hopping terms $t_{ij}$, an on-site Hubbard $U$, and long range density-density interaction $V_{ij}$.
-
-The last part of my plan involves developing a model for AA and AB stacked bilayer graphene.
-These stackings are the simplest forms of bilayer graphene as the supercell is much smaller than those for even moderate commensurate twist angles.
-The relative shift in distance among the atoms between the AA and AB stackings will serve as a first step to understand how the interlayer coupling between graphene layers may depend on the distance between atoms in the layers.
-The final model to fit for these cases would be identical to the one above, but with additional interlayer hopping terms.
-
-The end result of my proposed project is four model Hamiltonians for the  benzene molecule, SLG, AA stacked BLG, and AB stacked BLG.
-These four models will include, at least, nearest neighbor hoppings, on-site Hubbard interactions, and long range density-density interactions.
-For the AA and AB stacked BLG we will also consider interlayer couplings starting with just hoppings between the layers.
-Each model will come with fit parameter values, an appropriate single particle basis, and a measure of the goodness of fit for the model.
-These models can be solved and compared to experiment.
-
-With these models we can resolve an interesting question: are model parameters transferable between benzene, SLG and BLG?
-The question of transferability of model parameters between SLG and BLG is quite interesting because it may inform us about how much the behavior of each graphene sheet changes once we stack them.
-If the interlayer coupling does not affect the effective behavior on the single sheets, then one can easily treat the final model for bi-layer graphene in two independent pieces: an accurate model for the graphene sheets with a position dependent interlaying coupling.
-However, if the interlayer coupling plays a large role in the effective theory then it may be impossible to separate the BLG model into these two pieces.
-A similar study can be done for the single particle basis, giving some information about orbital relaxation going from SLG to BLG.
-
-My work will provide a useful baseline to begin studies on TBLG.
-The approach to TBLG is still very far away and will require all of the previous steps above. 
-Afterwards, work on TBLG will require building effective theories of BLG with multiple twist angles, or at least varying local distances between atoms.
-The goal here is to develop models for BLG where the parameters, like interlayer coupling, are defined continuously as a function of atomic distance.
-The resulting interacting lattice model can then be solved over very large supercell sizes and a second step of downfolding can be done.
-The goal of this second step would be to downfold the lattice model into a continuum model over the length scale of the Moire patterns seen in small twist angle BLG.
-Work on TBLG would be highly exploratory, and the steps detailed here are very speculative, outlining a possible avenue of work continuing after my thesis.
+I conclude by briefly discussing potential avenues of further study in using DMD to develop model Hamiltonians for TBLG. 
+One would have to begin by building atomic length scale lattice models for TBLG using DMD, which itself is a monumental task.
+When dealing with small commensurate twists, the size of the Moire supercell is enormous and prohibitive to QMC calculations.
+As such, a computationally feasible method for probing small shifts, either by translation or angle, between the graphene sheets must be constructed.
+This short length scale Hamiltonian can then be downfolded again, using DMD, to a continuum Hamiltonian on the length scale of the Moire superlattice.
+This kind of downfolding will require using large-scale tight binding codes like \textbf{ref}.
+Iterating over various twist angles can then give insight into the behavior of the long-range effective theory of TBLG as a function of the twist angle.
 
 \subsection{Proposed timeline}
-I believe that developing effective theories for the half-filled Hubbard model should take 2 years. 
-16 months should be spent on T = 0 calculations.
-The first 8 months will be focused on exact diagonalization.
-In this period, the first two months would be spent developing an efficient sampling scheme for $\mathcal{LE}$.
-The following three months will be geared towards DMD for increasing system sizes from 2x2 to 4x4 lattices for U = 2, 12 in order to identify the existence of multiple zero temperature phases and will be primarily exploratory.
-The next three months will be focused on studying intermediate U and the transition between the two phases, if they exist.
-The following 8 months will be focused on finite size extrapolation.
-The first two months here will be dedicated to extending our ED sampling scheme to VMC.
-The following six months will involve extending our finite size results to the thermodynamic limit.
-At the end of the first 16 months I should have a phase diagram at T = 0 with effective theories at various U.
-The last 8 month chunk will be dedicated to the T $>$ 0 model fitting.
-The first four months will be dedicated to exact diagonalization calculations and should be a relatively simple extension of the T = 0 model fitting with samples drawn according to an additional importance criteria $e^{-\beta E}$.
-The last four months will be focused on extending our T = 0 VMC scheme to T $>$ 0 and conducting finite size extrapolation.
-At the end of the 2 years I should have a phase diagram in the U - T space with effective theories at various values of U, T and an understanding of the phases and transitions between them.
+I believe that developing effective theories for the benzene molecule, SLG, AA and AB stacked BLG should take 2 years. 
+The model fitting for benzene should take no more than four months.
+The goal is to reproduce prior DMD calculations for the same material while benchmarking and familiarizing myself with the new CVMC sampling technique that I will use extensively in my project.
+The SLG model fitting should take another eight months.
+This is an extension of a previous work, and the first three months will be dedicate to reproducing the results from that work, namely a single band on-site Hubbard model.
+Inclusion of long range Coulomb interactions into the effective theory should take another three months.
+The last two months will be geared towards finite size extrapolation in order to ensure our final model is applicable to bulk systems.
+The last year of the project will be geared towards the AA and AB stacked BLG, with each project taking about six months to complete.
+For each stacking, I expect four months will be necessary to build an effective theory, and the final two months will be dedicated to finite size extrapolation.
 \end{document}
