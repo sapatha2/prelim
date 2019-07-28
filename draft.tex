@@ -42,11 +42,11 @@ Two-body terms in the model are developed by assuming a screened Coulomb interac
 Aside from this method, L\''{o}wdin methods coupled to a stochastic method and canonical transformations have also been used to develop effective theories.
 These methods have the drawback that the constructed effective theory typically does not come with any estimate of the quality of the model, therefore making model validation a phenomenological task which can lead to unclear biases in the model construction.
 
-I propose using a quantum Monte Carlo (QMC) density matrix downfolding (DMD) procedure to develop accurate many-body effective theories for single (SLG) and bi-layer graphene (BLG) systems as a step towards building a many-body model for the strongly correlated TBLG system.
-DMD is a relatively new method which allows one to systematically downfold the \textit{ab-initio} Hamiltonian for a system to a many-body lattice model.
-While it can be applied to any system, the methods necessary to carry out the downfolding accurately and efficiently have not yet been developed and tested for strong correlated materials.
-Both BLG and SLG provide useful playgrounds for developing methods for DMD since they have moderate interaction effects, with non-interacting theories describing the lowest lying excitations relatively accurately.
-Fitting models for SLG and BLG from DMD will not only provide a useful stepping stone towards understanding TBLG, but will also help mature the DMD method for its application to other strongly correlated systems.
+I propose using a quantum Monte Carlo (QMC) density matrix downfolding (DMD) procedure to systematically develop accurate many-body effective theories for single (SLG) and bi-layer graphene (BLG) systems.
+Recent observations of a fractional quantum Hall effect and plasmarons in SLG as well as unconventional superconductivity in TBLG have spurred an interest in understanding many-body interactions in graphene systems.
+Various attempts at characterizing and quantifying these interactions have been made, but the methods used to construct models typically depend on fitting to experimental data or making strong assumptions about electronic interactions, and usually do not come with a measure of their accuracy.
+The DMD method provides a structure for constructing a model Hamiltonian using only the \textit{ab-initio} Hamiltonian of the system, with the resultant model accompanied with a statistical measure of its ability to accurately describe the low-energy excitations of the system.
+While not considered strongly correlated systems themselves, building models for SLG and BLG using DMD will provide a useful stepping stone towards understanding TBLG and also help mature the DMD method for its application to other strongly correlated systems.
 
 \section{Methods}
 \subsection{Density Matrix Downfolding (DMD)}
