@@ -25,28 +25,32 @@ Committee: Lucas Wagner, ...
 \pagebreak
 
 \section{Introduction}
-Systematically developing model Hamiltonians which can accurately describe the energies and properties of the lowest lying eigenstates for strongly correlated electron systems is a pressing problem in modern condensed matter physics. 
-At the forefront of modern research are materials such as the cuprate supercondutors, heavy fermion systems, and most recently, twisted bilayer graphene (TBLG).
-These materials exhibit various phases of matter which are far from understood, like unconventional superconductivity, psuedogap and bad metal phases, quantum critical points, and stripe ordering.
-While no definitive models for these phases have been introduced, it is expected that strong correlations between electronic degrees of freedom lead to these phases.
+Developing model Hamiltonians for realistic materials is a fundamental problem in modern condensed matter physics.
+A model Hamiltonian is a simplified description of a real material which can accurately reproduce the low-lying eigenstates and energies of the material.
+Accurate models give clear and direct indications of effective interactions within a material and underpin modern theoretical understanding of ideas like emergence and symmetry breaking.
+On a practical level, calculations related to these low-lying eigenstates can be carried out on the much simpler model system and still yield accurate results reflective of reality.
 
-The necessity for non-perturbative, many-body models in describing the low-lying excited states of strongly correlated electron systems poses a difficult challenge when developing effective theories for real world systems.
-Consider for now just the case of TBLG, where for certain magic twist angles, bands near the Fermi surface flatten out to a bandwidth of O(10) meV.
-At these magic angles, a small doping can lead to superconductivity and many-body insulating phases in the material, indicative of electronic interaction effects which cannot be explained by a simple band theory.
-The effects of the interaction are also beyond just simple renormalization of the non-interacting parameters in a band theory.
-A non-perturbative, many-body effective theory is therefore necessary to describe these interesting phases in TBLG.
+Yet unresolved is a paradigm for building many-body model Hamiltonians which can describe realistic systems.
+Band and Fermi liquid theory have been successful in accurately modeling systems where effective interactions are negligible at low energy scales.
+These theories, however, fail in describing the low-energy excitations of strongly correlated systems like high Tc superconductors and twisted bilayer graphene (TBLG).
+Many-body models like the Hubbard, Kanamori, t-J and Heisenberg models have 
+been proposed to describe such strongly correlated systems, but their effectiveness in describing realistic materials is unclear.
 
-Common approaches to building suitable model Hamiltonians for strongly correlated materials involve using single particle theories like density functional theory (DFT).
-One-body terms are typically obtained by projecting the solutions from the DFT band structure onto a localized single-particle basis, giving an estimate of hoppings and occupations on a lattice model.
-Two-body terms in the model are developed by assuming a screened Coulomb interaction based on constrained DFT or RPA.
-Aside from this method, L\''{o}wdin methods coupled to a stochastic method and canonical transformations have also been used to develop effective theories.
-These methods have the drawback that the constructed effective theory typically does not come with any estimate of the quality of the model, therefore making model validation a phenomenological task which can lead to unclear biases in the model construction.
+Common approaches to building many-body theories for real materials involve density functional theory (DFT).
+One-body terms are obtained by projecting the solutions from the DFT band structure onto a single-particle basis.
+Two-body terms are developed by assuming a screened Coulomb interaction based on constrained DFT, RPA, or other methods.
+L\''{o}wdin methods and canonical transformations have also been used to develop effective theories.
+While useful techniques, it is typically impossible to know whether models built from them accurately describe reality, as usually no clear estimate of model quality is provided.
 
-I propose using a quantum Monte Carlo (QMC) density matrix downfolding (DMD) procedure to systematically develop accurate many-body effective theories for single (SLG) and bi-layer graphene (BLG) systems.
-Recent observations of a fractional quantum Hall effect and plasmarons in SLG as well as unconventional superconductivity in TBLG have spurred an interest in understanding many-body interactions in graphene systems.
-Various attempts at characterizing and quantifying these interactions have been made, but the methods used to construct models typically depend on fitting to experimental data or making strong assumptions about electronic interactions, and usually do not come with a measure of their accuracy.
-The DMD method provides a structure for constructing a model Hamiltonian using only the \textit{ab-initio} Hamiltonian of the system, with the resultant model accompanied with a statistical measure of its ability to accurately describe the low-energy excitations of the system.
-While not considered strongly correlated systems themselves, building models for SLG and BLG using DMD will provide a useful stepping stone towards understanding TBLG and also help mature the DMD method for its application to other strongly correlated systems.
+I propose using a quantum Monte Carlo (QMC) density matrix downfolding (DMD) procedure to develop accurate many-body model Hamiltonians for single (SLG) and bi-layer (BLG) graphene systems.
+Recent observations of a fractional quantum Hall effect and plasmarons in SLG as well as unconventional superconductivity in TBLG have spurred an interest in developing many-body models for graphene.
+The DMD procedure provides a framework for developing such a many-body model using QMC calculations and starting from the \textit{ab-initio} Hamiltonian 
+\begin{equation}
+\hat{H}_\text{ab} = -\frac{1}{2} \sum_{i} \nabla_i^2 -\frac{1}{2\mu}\sum_{I} \nabla_I^2 + \frac{1}{2}\sum_{ij} \frac{1}{|r_i - r_j|} + \frac{1}{2}\sum_{IJ} \frac{Z_I Z_J}{|R_I - R_J|} - \sum_{iJ}\frac{Z_J}{|r_i - R_J|},\ \mu = (M/m)
+\end{equation}
+where $i$ index electrons, $I$ ions, and energy in Hartree (Ha).
+The procedure makes no assumptions about the form of microscopic electronic interactions in the system and reports a clear, statistical measure of model quality.
+By developing many-body models for SLG and BLG, I hope to further understanding of interactions in graphene like systems and the maturity of DMD for its application to other strongly correlated systems.
 
 \section{Methods}
 \subsection{Density Matrix Downfolding (DMD)}
