@@ -1,0 +1,47 @@
+\documentclass{article}
+\begin{document}
+\section{Introduction}
+\begin{enumerate}
+\item Developing accurate model Hamiltonians for strongly correlated materials remains an outstanding problem in modern condensed matter physics.
+
+\item To bridge this gap, a framework for model development using solutions from \textit{ab-initio} simulations has emerged.
+
+\item A recently developed density matrix downfolding (DMD) method addresses the need for a more systematic link between \textit{ab-initio} and model Hamiltonians.
+%No QMC here
+
+\item The surge in model development for twisted bilayer graphene (TBLG) exemplifies the necessity for such a systematic framework.
+
+\item I propose using DMD to systematically develop accurate, many-body model Hamiltonians for single- (SLG) and simple bi-layer (BLG) graphene systems.
+%Start this paragraph with the grant proposal, have my thesis statement in the middle makes more sense!
+%Name drop QMC
+\end{enumerate}
+
+\section{Density Matrix Downfolding (DMD)}
+\begin{enumerate}
+\item I will begin by defining carefully the terms model Hamiltonian and Hamiltonian downfolding.
+
+\item The key insight of DMD is that the Hamiltonian downfolding problem is equivalent to a linear regression problem.
+
+\item Being cast to a linear regression, the downfolding problem can be handled highly systematically.
+
+\item Practically, the linear regression is tackled in three steps.
+
+\item The through line to \textit{ab-initio} is maintained via the training data.
+%QMC because accurate + efficient, but details later
+\end{enumerate}
+
+\section{Fixed-node diffusion Monte Carlo (FN-DMC)}
+\begin{enumerate}
+\item Diffusion Monte Carlo (DMC) is a quantum Monte Carlo method which projects out the ground state of a real-space Hamiltonian given some initial trial wave function.
+%Talk about efficiency here 
+
+\item DMC, however, suffers from a fermion sign problem which is alleviated via a fixed-node approximation.
+%Talk about accuracy here, compare to other methods
+
+\item While seemingly disadvantageous, the variational nature of FN-DMC plays a key role in generating the low-energy states needed for DMD.  
+
+\item The training data required for downfolding are extracted from the projected low-energy states via a mixed estimator.
+%Start paragraph with something else, probably the stochastic representation of the wave function
+\end{enumerate}
+
+\end{document}
