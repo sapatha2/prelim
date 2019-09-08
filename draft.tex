@@ -34,27 +34,33 @@ A model Hamiltonian is a simplified description of a real material which can acc
 Accurate models give clear and direct indications of effective interactions within a material and underpin modern theoretical understanding of ideas like emergence and symmetry breaking.
 On a practical level, calculations related to these low-lying eigenstates can be carried out on the much simpler model system and still yield accurate results reflective of reality.
 
-Yet unresolved is a paradigm for building many-body model Hamiltonians which can describe realistic systems.
+Yet unresolved is a paradigm for building many-body model Hamiltonians which can describe strongly correlated systems.
 Band and Fermi liquid theory have been successful in accurately modeling systems where effective interactions are negligible at low energy scales.
 These theories, however, fail in describing the low-energy excitations of strongly correlated systems like high Tc superconductors and twisted bilayer graphene (TBLG).
 Many-body models like the Hubbard \cite{Hubbard1963}, Kanamori \cite{10.1143/PTP.30.275}, t-J \cite{Chao_1977} and Heisenberg models have been proposed to describe such strongly correlated systems, but their effectiveness in describing realistic materials is unclear.
 
-Common approaches to building many-body theories for real materials involve density functional theory (DFT) \cite{PhysRev.140.A1133}.
-One-body terms are obtained by projecting the solutions from the DFT band structure onto a single-particle basis \cite{PhysRevLett.87.047003}.
-Two-body terms are developed by assuming a screened Coulomb interaction based on constrained DFT, RPA, or other methods \cite{PhysRevB.62.R16219, PhysRevB.70.195104, PhysRevB.88.075106}.
+In an attempt to build accurate many-body Hamiltonians for realistic systems, a framework for model development using solutions from \textit{ab-initio} simulations has emerged.
+Common approaches involve density functional theory (DFT) \cite{PhysRev.140.A1133} with one-body terms obtained from the DFT band structure \cite{PhysRevLett.87.047003} and two-body terms developed using constrained DFT, RPA or other methods \cite{PhysRevB.62.R16219, PhysRevB.70.195104, PhysRevB.88.075106}.
 L\"owdin methods and canonical transformations have also been used to develop effective theories \cite{doi:10.1063/1.4802766, PhysRevA.81.013402, doi:10.1063/1.2196410}.
-While useful techniques, it is typically impossible to know whether models built from them accurately describe reality, as usually no clear estimate of model quality is provided.
+While useful, it is typically impossible to know whether models built from these techniques accurately describe reality, as measures of model quality are rarely reported.
+Instead, out-of-method comparisons of model predictions to experiment must be conducted for model validation.
 
-A relatively new technique is density matrix downfolding (DMD), which provides a framework for developing many-body models directly from calculations on the \textit{ab-initio} Hamiltonian
-\begin{equation}
-\hat{H}_\text{ab} = -\frac{1}{2} \sum_{i} \nabla_i^2 -\frac{1}{2\mu}\sum_{I} \nabla_I^2 + \frac{1}{2}\sum_{ij} \frac{1}{|r_i - r_j|} + \frac{1}{2}\sum_{IJ} \frac{Z_I Z_J}{|R_I - R_J|} - \sum_{iJ}\frac{Z_J}{|r_i - R_J|},\ \mu = (M/m)
-\label{Hab}
-\end{equation}
-where $i$ index electrons, $I$ ions, and energy in Hartree (Ha).
-The procedure makes no assumptions about the form of microscopic electronic interactions in the system and reports a clear, statistical measure of model quality.
-I propose using a quantum Monte Carlo (QMC) DMD procedure to develop accurate many-body model Hamiltonians for single (SLG) and bi-layer (BLG) graphene systems.
-Recent observations of a fractional quantum Hall effect \cite {Bolotin2009, Du2009} and plasmarons \cite{Bostwick999} in SLG as well as unconventional superconductivity \cite{Cao2018_2} and many-body insulating states \cite{Cao2018} in TBLG have spurred an interest in developing many-body models for graphene.
-By developing many-body models for SLG and BLG, I hope to further the understanding of interactions in graphene like systems and the maturity of DMD for its application to other strongly correlated systems like TBLG.
+A recently developed density matrix downfolding (DMD) method provides a more direct link between \textit{ab-initio} and many-body effective Hamiltonians.
+Similar to the methods above, DMD uses information from \textit{ab-initio} simulations on the system to fit the best parameters for a given many-body model \textit{ansatz}.
+Unlike the methods above, the resultant fit model is accompanied by a clear measure of model quality, quantifying the ability of the model to reproduce the low-energy spectrum of the system.
+Since model quality is reported, DMD allows for direct comparison between different model \textit{ansatzes} as well, an ability which can be used to learn the most important interaction terms for a given system directly from \textit{ab-initio} calculations.
+For example, DMD calculations on benzene and single layer graphene determined that long-range coulomb interactions are necessary in modeling both systems.
+
+The utility of DMD is made apparent when studying the recent surge in model development for twisted bilayer graphene (TBLG).
+\textit{Ab-initio} model development has so far been restricted to tight-binding models which accurately describe single particle effects like band flattening, but without a report of model quality cannot determine the role of interactions in the system.
+Minimal interacting models have been proposed using traditional theoretical methods, but without a link to \textit{ab-initio} it is unclear whether these simplified models can capture the complexity of the real system.
+Starting with the tight-binding \textit{ansatz}, DMD can be used to learn the most important interactions in the system, resulting in a final many-body model which can accurately describe TBLG.
+
+As such, one portion of a project between research groups at UIUC, UCSB and Rice University is dedicated towards the development of an accurate interacting model for TBLG.
+The model development consists of two layers of downfolding: first, developing an atomic scale lattice model for TBLG using \textit{ab-initio} simulations, and second, downfolding the resultant lattice model to a continuum length scale.
+My thesis will be focused on the first layer of downfolding, which I will conduct within the DMD framework using accurate \textit{ab-initio} fixed-node diffusion Monte Carlo calculations.
+I propose a two year plan which will result in atomic scale, many-body lattice Hamiltonians for single- (SLG) and simple bi-layer (BLG) graphene systems.
+My work will lay the necessary ground work for the development of a fully twist angle dependent lattice model for TBLG, and the eventual continuum model described above.
 
 \subsection{Density Matrix Downfolding (DMD)}
 I begin by defining what a low-energy effective Hamiltonian and downfolding are.
