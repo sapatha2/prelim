@@ -64,7 +64,7 @@ My thesis will lay the necessary ground work for the development of a fully twis
 
 \subsection{Density Matrix Downfolding (DMD)}
 I begin by defining what a low-energy effective Hamiltonian and downfolding are.
-Consider a Hamiltonian $\hat{H}$ defined on a Hilbert space $\mathcal{H}$.
+Consider a high-energy Hamiltonian $\hat{H}$ and Hilbert space $\mathcal{H}$.
 A low-energy effective Hamiltonian is an operator $\hat{H}_\text{eff}$ which can accurately reproduce the spectra, up to a constant, and eigenstates of $\hat{H}$ on a subpsace $\mathcal{LE}$ of the Hilbert space $\mathcal{H}$.
 Here $\mathcal{LE}$ is taken to be the span of the N lowest energy eigenstates of $\hat{H}$, and $\hat{H}_\text{eff}$ is a linear combination of Hermitian operators $\hat{d}_k$ with a constant energy shift $E_0$
 \begin{equation}
@@ -72,43 +72,49 @@ Here $\mathcal{LE}$ is taken to be the span of the N lowest energy eigenstates o
 \label{eq:Heff}
 \end{equation}
 The objective of Hamiltonian downfolding is to construct such an $\hat{H}_\text{eff}$ given $\hat{H}, \mathcal{H}$.
+Throughout this proposal the Hamiltonian $\hat{H}$ will be taken to be the \textit{ab-initio} Hamiltonian under the Born-Oppenheimer approximation
+\begin{equation}
+\hat{H}_\text{ab} = \sum_i -\frac{1}{2} \nabla_i^2 + \sum_{iI}\frac{Z_I}{|r_i - R_I|} + \frac{1}{2} \sum_{ij} \frac{1}{|r_i - r_j|} + E_\text{ion}(\{R_I\})  
+\label{eq:Hab}
+\end{equation} 
+where index $i,j$ correspond to electrons, $I$ to ions, and $E_\text{ion}$ is a constant energy equal to the ionic part of the Hamiltonian. 
+The unit of energy is Hartree (Ha).
 
 The key insight of DMD is that the Hamiltonian downfolding problem can be mapped onto a linear regression problem.
-It has been shown that the above definition of $\hat{H}_\text{eff}$ is equivalent to the following: a low-energy effective Hamiltonian is an operator on a subspace $\mathcal{LE}$ of $\mathcal{H}$ such that 
+It has been shown \cite{Zheng2017} that the above definition of $\hat{H}_\text{eff}$ is equivalent to the following: a low-energy effective Hamiltonian is an operator on a subspace $\mathcal{LE}$ of $\mathcal{H}$ such that 
 \begin{equation}
 \begin{split}
-\forall |\Psi\rangle \in \mathcal{LE},\ (E[\Psi] \equiv \langle \Psi|\hat{H} | \Psi \rangle)  = (E_\text{eff}[\Psi] \equiv \langle \Psi | \hat{H}_\text{eff} | \Psi \rangle) + \epsilon[\Psi]
+\forall |\Psi\rangle \in \mathcal{LE},\ E[\Psi] = E_\text{eff}[\Psi]  + \epsilon[\Psi]
 \end{split}
 \label{eq:DMD}
 \end{equation}
-where $\epsilon[\Psi]$ is the error in the effective theory.
+where $\epsilon[\Psi]$ is the error in the effective theory and the energy functionals are defined as $E[\Psi] \equiv \langle \Psi | \hat{H} |\Psi \rangle,\  E_\text{eff}[\Psi] \equiv \langle \Psi | \hat{H}_\text{eff} |\Psi \rangle$.
 Given the general linear form of $\hat{H}_\text{eff}$ seen in \eqref{eq:Heff}, 
 the task of building an effective Hamiltonian then reduces to fitting a linear model that minimizes the error $\epsilon[\Psi]$ over $\mathcal{LE}$.
 The independent variables (descriptors) in the fitting are expectation values of the operators $d_k[\Psi] \equiv \langle \Psi |\hat{d}_k|\Psi \rangle$ and the target variable is $E[\Psi]$.
 
-This linear regression problem can be tackled in three steps, beginning with sampling states from $\mathcal{LE}$.
-Ideally the linear regression would be conducted over the entire space $\mathcal{LE}$. 
-In practice, the space is too large, and instead a representative sample set is drawn and used for fitting.
-Generally, one cannot sample the true low-energy subspace, and low-energy wave functions are sampled from an approximate subspace $\mathcal{LE}^\prime$.
-For each sampled state $|\Psi_s\rangle$, the quantities $E[\Psi_s], \{d_k[\Psi_s]\}$ are calculated to be used in the linear regression.
-The sampling and calculation are typically done in QMC, but less accurate methods like DFT and Hartree-Fock can be used as well, resulting is less accurate models.
+This linear regression problem can be tackled in three steps.
+First, low-energy states are sampled from the \textit{ab-initio} Hilbert space.
+Next, a pool of candidate operators $\{\hat{d}_k\}$ which may be included in the final model are selected.
+Finally, a linear regression is carried out with descriptor and \textit{ab-initio} energies evaluated on the sampled states as the independent and target variables.
 
-Next, a set of candidate descriptors which form the effective Hamiltonian are selected.
-Descriptors will typically be selected if their values co-vary with the energy over the set of sampled states. 
-Knowledge of the low-energy degrees of the freedom from experiment and physical intuition can help restrict the set of candidate descriptors further.
-In principle there is no restriction on the form of the candidate operators other than Hermiticity, but second quantized operators are commonly used.
+Sampling low-energy states  %Last, hard paragraph!
+
+Candidate descriptors are typically selected using a mix of physical intuition and statistical methods.
+An essential first pass involves selecting a large set of descriptors using knowledge of the low-energy degrees of the freedom from experiment and physical principles like symmetry.
+Further filtering follows by examining the covariance between descriptors and the \textit{ab-initio} energy over the low-energy sampled states: descriptors will typically be discarded if they do not exhibit covariance with the energy.
+Note, while there is no restriction on the form of the candidate operators other than Hermiticity, 1- and 2-body second quantized operators are commonly used.
 If so, an appropriate single particle basis to express the second quantized operators must be constructed.
 
-Finally, the sampled data are used to fit the coefficients $\{g_k\}$ by linear regression.
 A typical fitting workflow involves feature selection, model regression and model validation.
-Feature selection methods for choosing appropriate descriptors can range from wrapper methods like orthogonal matching pursuit \cite{Cai2011} and principal component analysis \cite{pearson_karl_1901_1430636} to embedded methods like LASSO \cite{10.2307/2346178}, ridge \cite{doi:10.1137/S0895479897326432} and elastic net regularizations \cite{Zou05regularizationand}. 
+Feature selection methods for choosing descriptors from a candidate pool can range from wrapper methods like orthogonal matching pursuit \cite{Cai2011} and principal component analysis \cite{pearson_karl_1901_1430636} to embedded methods like LASSO \cite{10.2307/2346178}, ridge \cite{doi:10.1137/S0895479897326432} and elastic net regularizations \cite{Zou05regularizationand}. 
 Fitting the effective Hamiltonian usually involves an ordinary least squares linear regression, but the cost function can be altered.
-Model validation can be carried out by calculating cross validated single parameter measures like R$^2$ scores which carry information about goodness of fit and overfitting.
+Model validation can be carried out by calculating cross validated single parameter measures like $R^2$ scores which carry information about goodness of fit and overfitting.
 
-Importantly, the fit effective Hamiltonian carries with it a quantitative measure of its validity.
-The ability to quantify the accuracy of an effective Hamiltonian sets DMD apart from contemporary downfolding approaches which typically report only a final model.
-Given the statistical nature of the fitting procedure, model quality assessment can be carried out and reported in exhaustive detail if one is interested.
-Typically, however, single parameter measures like cross validated R$^2$ scores are used to quantify the accuracy of the effective Hamiltonian.
+The results of the linear regression are an estimate of the best parameter values $g_k$ for the candidate operators and an estimate of the model error $\epsilon[\Psi]$.
+The error estimate usually takes the form of a goodness of fit, such as a cross-validated $R^2$ score or root mean squared error (RMSE).
+These error estimates present a direct measurement of model quality, ensuring that DMD not only gives the best fit parameters but also an assessment of model validity.
+Further, by quantifying model quality through statistical error estimates, it is possible to compare the accuracy of various low-energy \textit{ansatzes} for a given system.
 
 \subsection{Fixed-node diffusion Monte Carlo (FN-DMC)}
 Diffusion Monte Carlo (DMC) is a quantum Monte Carlo method which projects out the ground state of a real-space Hamiltonian given some initial trial wave function.
@@ -130,12 +136,20 @@ DMC, however, suffers from a fermion sign problem which is alleviated via a fixe
 Under the fixed-node approximation the nodal surface of $\Psi_\text{DMC}(\tau, R)$ is forced to match that of the initial trial wave function for all $\tau$.
 This approximation makes FN-DMC variational, and will only return the exact ground state of $\hat{H}$ if the nodal surfaces of $|\Psi_T\rangle$ and $|\Phi_0\rangle$ are identical.
 
-One can take advantage of the variational nature of FN-DMC to sample the low-energy states necessary for DMD.
+While seemingly disadvantageous, the variational nature of FN-DMC plays
+a key role in generating the low-energy states needed for DMD.
 Consider a set of trial wave functions with varying nodal structures.
 The final projected $\Psi_\text{DMC}$ for these different trial functions will be the lowest energy states in $\mathcal{H}$ for the given nodal structures.
-If the initial trial wave functions are appropriately chosen, the final projected states will be low-energy states within $\mathcal{H}$.
-The expectation values $E[\Psi_\text{DMC}], \{d_k[\Psi_\text{DMC}]\}$ necessary for the model regression are calculated using a mixed estimator.
+If the initial trial wave functions are appropriately chosen, the final projected states will be within the target low-energy subspace or $\mathcal{H}$.
 
+The training data required for downfolding are extracted from the projected low-energy states via a mixed estimator.
+Due to the fixed-node approximation, the final distribution returned by the projection is $f(R) = \Psi_T(R) \Psi_\text{DMC}(\tau \rightarrow \infty, R)$, and Monte Carlo estimates of operator expectation values correspond to the mixed estimator: 
+\begin{equation}
+\frac{\langle \Psi_T | \hat{O} | \Psi_\text{DMC} (\tau \rightarrow \infty, R) \rangle}{\langle \Psi_T | \Psi_\text{DMC} (\tau \rightarrow \infty, R) \rangle}.
+\end{equation}
+which does not equal the expectation value we are after: $\langle \hat{O} \rangle_{\Psi_\text{DMC}(\tau \rightarrow \infty, R)}$.
+This results in a mixed estimator error which can be reduced using the results of an additional variational Monte Carlo calculation.
+Details regarding the mixed estimator error in DMD and evaluation of expectation values for 1- and 2-body second quantized operators can be found in the literature \cite{Wagner2015, Wagner2017}.
 \section{Preliminary Work}
 \subsection{Non-orthogonal determinants in FN-DMC trial wave functions}
 In order to become acquainted with our code QWalk \cite{Wagner2009} and QMC algorithms in general I worked on implementing and testing multi-Slater-Jastrow trial functions with optimized non-orthogonal determinants (MSJ+NO) in FN-DMC \cite{doi:10.1063/1.5052906}.
