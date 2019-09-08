@@ -13,6 +13,14 @@
 \usepackage[utf8]{inputenc}
 \usepackage{etoolbox}
 \patchcmd{\thebibliography}{\section*{\refname}}{}{}{}
+\usepackage{sectsty}
+\sectionfont{\fontsize{12}{15}\selectfont}
+\subsectionfont{\fontsize{12}{15}\selectfont}
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{0.2\baselineskip}{0.2\baselineskip}
+\titlespacing*{\subsection}{0pt}{0.2\baselineskip}{0.2\baselineskip}
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
 \author{Shivesh Pathak}
 \title{Developing effective theories for single and bilayer graphene using density matrix downfolding}
 
@@ -21,7 +29,7 @@
 \begin{abstract}
 Building accurate model Hamiltonians for realistic materials is a fundamental problem in modern condensed matter physics.
 A recently developed density matrix downfolding (DMD) \cite{Zheng2017} method provides a very direct framework for downfolding the \textit{ab-initio} Hamiltonian to a many-body effective Hamiltonian using only \textit{ab-initio} calculations. 
-Here I propose a two year thesis plan for developing atomic scale many-body model Hamiltonians for single- and simple bi-layer graphene systems within the DMD framework using high accuracy \textit{ab-initio} quantum Monte Carlo calculations.
+Here I propose a two year thesis plan for developing atomic scale many-body model Hamiltonians for single- and simple bi-layer graphene systems within the DMD framework using high accuracy \textit{ab-initio} quantum Monte Carlo (QMC) calculations.
 The results of my thesis will lay the groundwork for a continuing four year project to build a twist dependent many-body continuum model for the twisted bilayer graphene (TBLG) system.
 To demonstrate my preparedness I present a model Hamiltonian developed using DMD which accurately reproduces the spectra and properties of the lowest lying excitations of the CuO molecule.
 \end{abstract}
@@ -37,10 +45,10 @@ On a practical level, calculations related to these low-lying eigenstates can be
 Yet unresolved is a paradigm for building many-body model Hamiltonians which can describe strongly correlated systems.
 Band and Fermi liquid theory have been successful in accurately modeling systems where effective interactions are negligible at low energy scales.
 These theories, however, fail in describing the low-energy excitations of strongly correlated systems like high Tc superconductors and TBLG.
-Minimal many-body models like the Hubbard \cite{Hubbard1963}, Kanamori \cite{10.1143/PTP.30.275}, t-J \cite{Chao_1977} and Heisenberg models have been proposed to describe such strongly correlated systems, their effectiveness in describing realistic materials is unclear.
+Minimal many-body models like the Hubbard \cite{Hubbard1963}, Kanamori \cite{10.1143/PTP.30.275}, t-J \cite{Chao_1977} and Heisenberg models have been proposed to describe such systems, their effectiveness in describing realistic materials is unclear.
 
 In an attempt to build accurate many-body Hamiltonians for realistic systems, a framework for model development using solutions from \textit{ab-initio} simulations has emerged.
-Common approaches involve density functional theory (DFT) \cite{PhysRev.140.A1133} with one-body terms obtained from the DFT band structure \cite{PhysRevLett.87.047003} and two-body terms developed using constrained DFT, random phase approximation (RPA) or other methods \cite{PhysRevB.62.R16219, PhysRevB.70.195104, PhysRevB.88.075106}.
+Common approaches involve density functional theory (DFT) \cite{PhysRev.140.A1133, PhysRevLett.87.047003} alongside random phase approximation (RPA) or other methods \cite{PhysRevB.62.R16219, PhysRevB.70.195104, PhysRevB.88.075106}.
 L\"owdin methods and canonical transformations have also been used to develop effective theories \cite{doi:10.1063/1.4802766, PhysRevA.81.013402, doi:10.1063/1.2196410}.
 While useful, it is typically impossible to know whether models built from these techniques accurately describe reality, as measures of model quality are rarely reported.
 Instead, out-of-method comparisons of model predictions to experiment are conducted for model validation.
@@ -48,31 +56,31 @@ Instead, out-of-method comparisons of model predictions to experiment are conduc
 The recently developed DMD \cite{Zheng2017} method provides a more direct link between \textit{ab-initio} and many-body effective Hamiltonians.
 Similar to the methods above, DMD uses information from \textit{ab-initio} simulations on the system to fit the best parameters for a given many-body model \textit{ansatz}.
 Unlike the methods above, the resultant fit model is accompanied by a clear measure of model quality, quantifying the ability of the model to reproduce the low-energy spectrum of the system.
-Since model quality is reported, DMD allows for direct comparison between different model \textit{ansatzes} as well, an ability which can be used to learn the most important interaction terms for a given system directly from \textit{ab-initio} calculations.
-DMD has been used to develop accurate many-body Hamiltonians for benzene, a 1-d hydrogen chain, and a preliminary on-site Hubbard model for graphene \cite{Zheng2017, Wagner2015}.
+Since model quality is reported, DMD allows for direct comparison between different model \textit{ansatzes} as well, an ability which can be used to deduce important model terms using \textit{ab-initio} calculations.
+DMD has been used to develop accurate many-body models for benzene, a 1-d hydrogen chain, and an on-site Hubbard model for graphene \cite{Zheng2017, Wagner2015}.
 
 The utility of DMD is made apparent when studying the recent surge in model development for TBLG.
-\textit{Ab-initio} model development has so far been restricted to tight-binding models which accurately describe single particle effects like band flattening, but without a report of model quality cannot determine the role of interactions in the system \cite{Fang, Fang2016, PhysRevX.8.031088, PhysRevX.8.031087}.
-Minimal interacting models have been proposed using traditional theoretical methods, but without a link to \textit{ab-initio} it is unclear whether these simplified models can capture the complexity of the real system \cite{PhysRevB.98.045103, PhysRevB.100.125116, PhysRevX.8.031089}.
-Starting with the tight-binding \textit{ansatz}, DMD can be used to learn the most important interactions in the system, resulting in a final many-body model which can accurately describe TBLG.
+\textit{Ab-initio} model development has so far been restricted to tight-binding models which accurately describe single particle effects like band flattening, but do not address interactions \cite{Fang, Fang2016, PhysRevX.8.031088, PhysRevX.8.031087}.
+Minimal interacting models have been proposed using traditional theoretical methods, but without a link to \textit{ab-initio} it is unclear whether they can describe the real system \cite{PhysRevB.98.045103, PhysRevB.100.125116, PhysRevX.8.031089}.
+DMD can bridge the gap between these methods by providing a framework to build an accurate many-body model directly from \textit{ab-initio} simulations on TBLG.
 
 As such, one portion of a project between research groups at UIUC, UCSB and Rice University is dedicated towards the development of an accurate continuum-scale interacting model for TBLG.
-The model development consists of two layers of downfolding: first, developing an atomic scale lattice model for TBLG using \textit{ab-initio} simulations, and second, downfolding the resultant lattice model to a continuum length scale.
-My thesis will be focused on the first layer of downfolding, which I will conduct within the DMD framework using accurate \textit{ab-initio} fixed-node diffusion Monte Carlo calculations.
-I propose a two year plan which will result in atomic scale, many-body lattice Hamiltonians for single- (SLG) and simple bi-layer (BLG) graphene systems.
-My thesis will lay the necessary ground work for the development of a fully twist angle dependent lattice model for TBLG, and the eventual continuum model described above.
+The model development consists of two layers of downfolding: first, developing an atomic scale lattice model using \textit{ab-initio} calculations, and second, downfolding the resultant lattice model to a continuum length scale.
+My thesis will be focused on the first layer of downfolding.
+I propose a two year plan for developing many-body lattice models for single- (SLG) and simple bi-layer (BLG) graphene systems using the DMD method and \textit{ab-initio} fixed-node diffusion Monte Carlo (FN-DMC) calculations.
+My thesis will lay the necessary ground work for the development of a fully twist angle dependent lattice model for TBLG, and an eventual continuum model.
 
 \subsection{Density Matrix Downfolding (DMD)}
 I begin by defining what a low-energy effective Hamiltonian and downfolding are.
 Consider a high-energy Hamiltonian $\hat{H}$ and Hilbert space $\mathcal{H}$.
-A low-energy effective Hamiltonian is an operator $\hat{H}_\text{eff}$ which can accurately reproduce the spectra, up to a constant, and eigenstates of $\hat{H}$ on a subpsace $\mathcal{LE}$ of the Hilbert space $\mathcal{H}$.
-Here $\mathcal{LE}$ is taken to be the span of the N lowest energy eigenstates of $\hat{H}$, and $\hat{H}_\text{eff}$ is a linear combination of Hermitian operators $\hat{d}_k$ with a constant energy shift $E_0$
+A low-energy effective Hamiltonian is an operator $\hat{H}_\text{eff}$ which can accurately reproduce the spectra and eigenstates of $\hat{H}$ on a subpsace $\mathcal{LE}$ of the Hilbert space $\mathcal{H}$.
+Here $\mathcal{LE}$ is the span of the N lowest energy eigenstates of $\hat{H}$, and $\hat{H}_\text{eff}$ is a linear combination of Hermitian operators $\hat{d}_k$ with a constant shift $E_0$
 \begin{equation}
 \hat{H}_\text{eff} = \sum_{k} g_k \hat{d}_k  + E_0.
 \label{eq:Heff}
 \end{equation}
 The objective of Hamiltonian downfolding is to construct such an $\hat{H}_\text{eff}$ given $\hat{H}, \mathcal{H}$.
-Throughout this proposal the Hamiltonian $\hat{H}$ will be taken to be the \textit{ab-initio} Hamiltonian under the Born-Oppenheimer approximation
+Throughout this proposal $\hat{H}$ is the \textit{ab-initio} Hamiltonian under the Born-Oppenheimer approximation
 \begin{equation}
 \hat{H}_\text{ab} = \sum_i -\frac{1}{2} \nabla_i^2 + \sum_{iI}\frac{Z_I}{|r_i - R_I|} + \frac{1}{2} \sum_{ij} \frac{1}{|r_i - r_j|} + E_\text{ion}(\{R_I\})  
 \label{eq:Hab}
@@ -81,7 +89,7 @@ where index $i,j$ correspond to electrons, $I$ to ions, and $E_\text{ion}$ is a 
 The unit of energy is Hartree (Ha).
 
 The key insight of DMD is that the Hamiltonian downfolding problem can be mapped onto a linear regression problem.
-It has been shown \cite{Zheng2017} that the above definition of $\hat{H}_\text{eff}$ is equivalent to the following: a low-energy effective Hamiltonian is an operator on a subspace $\mathcal{LE}$ of $\mathcal{H}$ such that 
+It has been shown \cite{Zheng2017} that the above definition of $\hat{H}_\text{eff}$ is equivalent to the following: a low-energy effective Hamiltonian is an operator such that 
 \begin{equation}
 \begin{split}
 \forall |\Psi\rangle \in \mathcal{LE},\ E[\Psi] = E_\text{eff}[\Psi]  + \epsilon[\Psi]
@@ -98,26 +106,28 @@ First, low-energy states are sampled from the \textit{ab-initio} Hilbert space.
 Next, a pool of candidate operators $\{\hat{d}_k\}$ which may be included in the final model are selected.
 Finally, a linear regression is carried out with descriptor and \textit{ab-initio} energies evaluated on the sampled states as the independent and target variables.
 
-Sampling low-energy states  %Last, hard paragraph!
+Low-energy states can be accessed using any wave function based \textit{ab-initio} simulation technique, but two broad principles are used for selecting a method.
+First, the method should be able to generate accurate low-energy wave functions in the \textit{ab-initio} Hilbert space, as the accuracy of the low-energy states dictate the accuracy of the final model.
+Second, the method should be relatively inexpensive, as large amounts of training data is preferred for a more robust regression.
+QMC methods have typically been selected due to their polynomial scaling computational cost and high accuracy, but DFT can also be used as an initial step trading accuracy for computational ease.
 
-Candidate descriptors are typically selected using a mix of physical intuition and statistical methods.
-An essential first pass involves selecting a large set of descriptors using knowledge of the low-energy degrees of the freedom from experiment and physical principles like symmetry.
-Further filtering follows by examining the covariance between descriptors and the \textit{ab-initio} energy over the low-energy sampled states: descriptors will typically be discarded if they do not exhibit covariance with the energy.
+Candidate descriptors are typically selected using both physical intuition and statistical methods.
+An essential first pass involves selecting a large set of descriptors using knowledge of the low-energy degrees of the freedom of the system and physical principles like symmetry.
+Further filtering follows by examining the relationship between descriptors and the \textit{ab-initio} energy over the low-energy sampled states: descriptors will typically be discarded if they do not exhibit covariance with the energy.
 Note, while there is no restriction on the form of the candidate operators other than Hermiticity, 1- and 2-body second quantized operators are commonly used.
-If so, an appropriate single particle basis to express the second quantized operators must be constructed.
 
-A typical fitting workflow involves feature selection, model regression and model validation.
-Feature selection methods for choosing descriptors from a candidate pool can range from wrapper methods like orthogonal matching pursuit \cite{Cai2011} and principal component analysis \cite{pearson_karl_1901_1430636} to embedded methods like LASSO \cite{10.2307/2346178}, ridge \cite{doi:10.1137/S0895479897326432} and elastic net regularizations \cite{Zou05regularizationand}. 
+A standard fitting workflow involves feature selection, model regression and model validation.
+Feature selection methods for choosing descriptors from the candidate pool can range from wrapper methods like principal component analysis \cite{pearson_karl_1901_1430636} to regularized embedded methods LASSO \cite{10.2307/2346178, doi:10.1137/S0895479897326432, Zou05regularizationand}. 
 Fitting the effective Hamiltonian usually involves an ordinary least squares linear regression, but the cost function can be altered.
 Model validation can be carried out by calculating cross validated single parameter measures like $R^2$ scores which carry information about goodness of fit and overfitting.
 
-The results of the linear regression are an estimate of the best parameter values $g_k$ for the candidate operators and an estimate of the model error $\epsilon[\Psi]$.
+The results of the linear regression are an estimate of the parameter values $g_k$ and model error $\epsilon[\Psi]$.
 The error estimate usually takes the form of a goodness of fit, such as a cross-validated $R^2$ score or root mean squared error (RMSE).
 These error estimates present a direct measurement of model quality, ensuring that DMD not only gives the best fit parameters but also an assessment of model validity.
-Further, by quantifying model quality through statistical error estimates, it is possible to compare the accuracy of various low-energy \textit{ansatzes} for a given system.
+Further, by quantifying model quality through statistical error estimates, it is possible to compare the accuracy of various low-energy \textit{ansatzes}.
 
 \subsection{Fixed-node diffusion Monte Carlo (FN-DMC)}
-Diffusion Monte Carlo (DMC) is a quantum Monte Carlo method which projects out the ground state of a real-space Hamiltonian given some initial trial wave function.
+Diffusion Monte Carlo (DMC) is a QMC method which projects out the ground state of a real-space Hamiltonian given some initial trial wave function.
 Consider a trial wave function $|\Psi_T\rangle$ and the Hamiltonian $\hat{H}$ with ground state $|\Phi_0\rangle$. 
 Applying the projector $e^{-\tau \hat{H}}$ as $\tau \rightarrow \infty$ to $|\Psi_T \rangle$
 \begin{equation}
@@ -125,9 +135,7 @@ Applying the projector $e^{-\tau \hat{H}}$ as $\tau \rightarrow \infty$ to $|\Ps
 \equiv \lim_{\tau \rightarrow \infty} |\Psi_\text{DMC}(\tau)\rangle \propto \langle \Phi_0|\Psi_T\rangle |\Phi_0\rangle,
 \end{equation}
 projects out the ground state as long as the trial wave function is not orthogonal to the ground state. 
-DMC provides a stochastic implementation of this projector method and involves moving samples from the trial function $\Psi_T(R)$ using the Green function $G(R, R^\prime, \tau) = \langle R | e^{-\tau(\hat{H} - E_T)} | R^\prime \rangle$. 
-Since $\hat{H} = \hat{T} + \hat{V}$, kinetic and potential energy terms, the Green function is approximated by a Trotter expansion 
-$$G(R, R^\prime, \tau) = \langle R | e^{-\tau(\hat{H} - E_T)} | R^\prime \rangle \sim \Big[e^{-d\tau(\frac{V(R) + V(R^\prime)}{2} - E_T)} \langle R| e^{-d\tau\hat{T}}|R^\prime \rangle + O(d\tau^2) \Big]^N $$ 
+DMC provides a stochastic implementation of the projection by moving samples from $\Psi_T(R)$ using the Green function $G(R, R^\prime, \tau) = \langle R | e^{-\tau(\hat{H} - E_T)} | R^\prime \rangle$, which is approximated using a Trotter expansion $G(R, R^\prime, \tau) \sim \Big[e^{-d\tau(\frac{V(R) + V(R^\prime)}{2} - E_T)} \langle R| e^{-d\tau\hat{T}}|R^\prime \rangle + O(d\tau^2) \Big]^N $ 
 where $d\tau = \tau/N$.
 This expansion can be interpreted as an interative procedure where samples are moved N times with a small timestep $d\tau$ until convergence.
 The constant $E_T$ is a trial energy used to control the normalization of $\Psi_\text{DMC}(\tau, R)$ and is updated at each move.
@@ -140,16 +148,12 @@ While seemingly disadvantageous, the variational nature of FN-DMC plays
 a key role in generating the low-energy states needed for DMD.
 Consider a set of trial wave functions with varying nodal structures.
 The final projected $\Psi_\text{DMC}$ for these different trial functions will be the lowest energy states in $\mathcal{H}$ for the given nodal structures.
-If the initial trial wave functions are appropriately chosen, the final projected states will be within the target low-energy subspace or $\mathcal{H}$.
+If the initial trial wave functions are appropriately chosen, the final projected states will be within the target low-energy subspace of $\mathcal{H}$.
 
 The training data required for downfolding are extracted from the projected low-energy states via a mixed estimator.
-Due to the fixed-node approximation, the final distribution returned by the projection is $f(R) = \Psi_T(R) \Psi_\text{DMC}(\tau \rightarrow \infty, R)$, and Monte Carlo estimates of operator expectation values correspond to the mixed estimator: 
-\begin{equation}
-\frac{\langle \Psi_T | \hat{O} | \Psi_\text{DMC} (\tau \rightarrow \infty, R) \rangle}{\langle \Psi_T | \Psi_\text{DMC} (\tau \rightarrow \infty, R) \rangle}.
-\end{equation}
-which does not equal the expectation value we are after: $\langle \hat{O} \rangle_{\Psi_\text{DMC}(\tau \rightarrow \infty, R)}$.
-This results in a mixed estimator error which can be reduced using the results of an additional variational Monte Carlo calculation.
-Details regarding the mixed estimator error in DMD and evaluation of expectation values for 1- and 2-body second quantized operators can be found in the literature \cite{Wagner2015, Wagner2017}.
+Due to the fixed-node approximation, the final distribution returned by the projection is $f(R) = \Psi_T(R) \Psi_\text{DMC}$, and Monte Carlo estimates of operator expectation values correspond to the mixed estimation $\frac{\langle \Psi_T | \hat{O} | \Psi_\text{DMC} \rangle}{\langle \Psi_T | \Psi_\text{DMC}\rangle}$. 
+This does not equal the target expectation value $\frac{\langle \Psi_\text{DMC} | \hat{O} | \Psi_\text{DMC} \rangle}{\langle \Psi_\text{DMC} | \Psi_\text{DMC}\rangle}$, resulting in a mixed estimator error.
+Details on alleviating this error in DMD and evaluation of expectation values for 1- and 2-body second quantized operators can be found in the literature \cite{Wagner2015, Wagner2017}.
 \section{Preliminary Work}
 \subsection{Non-orthogonal determinants in FN-DMC trial wave functions}
 In order to become acquainted with our code QWalk \cite{Wagner2009} and QMC algorithms in general I worked on implementing and testing multi-Slater-Jastrow trial functions with optimized non-orthogonal determinants (MSJ+NO) in FN-DMC \cite{doi:10.1063/1.5052906}.
@@ -176,6 +180,7 @@ This is followed by details of descriptor selection and single particle basis co
 With the sampled data and candidate descriptors in hand, the feature selection and model fitting procedures are described.
 I will conclude by comparing the solutions of the model Hamiltonian to experiment and previous theoretical calculations.
 
+\vspace{-10pt}
 \paragraph{Sampling low-energy states}
 For the CuO molecule, low-energy states were generated by using FN-DMC projected multi-Slater-Jastrow (MSJ) trial wave functions.
 The trial wave functions took the form
@@ -205,6 +210,7 @@ The FN-DMC calculations were conducted with T-moves to ensure the variational pr
 A timestep of $\tau = 0.01$ was used.
 These calculations were done in QWalk \cite{Wagner2009}.
 
+\vspace{-10pt}
 \paragraph{Selecting candidate descriptors}
 We selected the following set of 1- and 2-body operators to construct our candidate descriptors based on our understanding of the low-energy excitations of the CuO molecule and our sampled states:
 \begin{equation}
@@ -232,6 +238,7 @@ We find that states with a Cu $3d^{10} 4s^{2}$ configuration lie at least 7 eV a
 \label{fig:cuo_regr}
 \end{figure*}
 
+\vspace{-10pt}
 \paragraph{Fitting the model}
 A direct attempt at fitting all eleven terms in \eqref{eq:models} leads to a high goodness of fit, R$^2$ = 0.99, but unexpectedly large coefficients for the fit model, like an enormous occupation energy gap of $\epsilon_{2p_\pi} - \epsilon_{3d_\delta} = $ 5.87 eV, which is 2 $-$ 3 eV in experiment and our sampled data.
 This inflation of model parameters was found to be associated with multicollinearity among the candidate descriptors, quantified by a large condition number (CN) of 1470.
@@ -251,6 +258,7 @@ When trained on all the sampled data this model yields an $R^2$ = 0.98 with a CN
 An inverse PCA transformation was used to map the fit coefficients corresponding to the PC descriptors back into the original eleven coefficients of \eqref{eq:models}.
 These coefficients can be seen in Figure \ref{fig:cuo_regr}c with single standard deviation bootstrap error estimates.
 
+\vspace{-10pt}
 \paragraph{Solutions of the model}
 The model is solved by exact diagonalization, and the solutions agree well with experimental spectra and state assignments.
 Shown in Figure \ref{fig:cuo_regr}d is a comparison between the excitation energies calculated from our model and those seen in the latest anion photoelectron spectroscopy measurements \cite{Wu1997}.
@@ -354,6 +362,7 @@ From a DMD perspective, this can accomplished by first downfolding the \textit{a
 Developing the atomic length scale models requires a strong understanding of intra- and inter-layer interactions in this material.
 The prior will be thoroughly investigated by my model fitting on SLG, and I will begin to answer the latter with the BLG calculations.
 
+\vspace{-10pt}
 \paragraph{Proposed timeline} I believe that developing effective theories for the benzene molecule, SLG, AA and AB stacked BLG should take 2 years. 
 The model fitting for benzene should take no more than four months.
 The goal is to reproduce prior DMD calculations for the same material while benchmarking and familiarizing myself with the new cVMC sampling technique that I will use extensively in my project.
