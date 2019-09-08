@@ -80,13 +80,6 @@ Here $\mathcal{LE}$ is the span of the N lowest energy eigenstates of $\hat{H}$,
 \label{eq:Heff}
 \end{equation}
 The objective of Hamiltonian downfolding is to construct such an $\hat{H}_\text{eff}$ given $\hat{H}, \mathcal{H}$.
-Throughout this proposal $\hat{H}$ is the \textit{ab-initio} Hamiltonian under the Born-Oppenheimer approximation
-\begin{equation}
-\hat{H}_\text{ab} = \sum_i -\frac{1}{2} \nabla_i^2 + \sum_{iI}\frac{Z_I}{|r_i - R_I|} + \frac{1}{2} \sum_{ij} \frac{1}{|r_i - r_j|} + E_\text{ion}(\{R_I\})  
-\label{eq:Hab}
-\end{equation} 
-where index $i,j$ correspond to electrons, $I$ to ions, and $E_\text{ion}$ is a constant energy equal to the ionic part of the Hamiltonian. 
-The unit of energy is Hartree (Ha).
 
 The key insight of DMD is that the Hamiltonian downfolding problem can be mapped onto a linear regression problem.
 It has been shown \cite{Zheng2017} that the above definition of $\hat{H}_\text{eff}$ is equivalent to the following: a low-energy effective Hamiltonian is an operator such that 
@@ -102,13 +95,23 @@ the task of building an effective Hamiltonian then reduces to fitting a linear m
 The independent variables (descriptors) in the fitting are expectation values of the operators $d_k[\Psi] \equiv \langle \Psi |\hat{d}_k|\Psi \rangle$ and the target variable is $E[\Psi]$.
 
 This linear regression problem can be tackled in three steps.
-First, low-energy states are sampled from the \textit{ab-initio} Hilbert space.
+First, low-energy states are sampled from $\mathcal{LE}$.
 Next, a pool of candidate operators $\{\hat{d}_k\}$ which may be included in the final model are selected.
-Finally, a linear regression is carried out with descriptor and \textit{ab-initio} energies evaluated on the sampled states as the independent and target variables.
+Finally, a linear regression is carried out with descriptor and energies evaluated on the sampled states as the independent and target variables.
+
+When developing models for realistic system, $\hat{H}$ is taken to be the \textit{ab-initio} Hamiltonian
+\begin{equation}
+\hat{H}_\text{ab} = \sum_i -\frac{1}{2} \nabla_i^2 + \sum_{iI}\frac{Z_I}{|r_i - R_I|} + \frac{1}{2} \sum_{ij} \frac{1}{|r_i - r_j|} + E_\text{ion}(\{R_I\})  
+\label{eq:Hab}
+\end{equation} 
+where index $i,j$ correspond to electrons, $I$ to ions, and $E_\text{ion}$ corresponds to the ionic kinetic and potential energies. 
+The unit of energy is Hartree (Ha).
+To reduce the computational expense of \textit{ab-initio} calculations one works under the Born-Oppenheimer approximation where $E_\text{ion}$ becomes a constant.
+Ionic effects related to phonon modes can be recovered by altering the ionic geometry and observing the effects on the electronic state.
 
 Low-energy states can be accessed using any wave function based \textit{ab-initio} simulation technique, but two broad principles are used for selecting a method.
 First, the method should be able to generate accurate low-energy wave functions in the \textit{ab-initio} Hilbert space, as the accuracy of the low-energy states dictate the accuracy of the final model.
-Second, the method should be relatively inexpensive, as large amounts of training data is preferred for a more robust regression.
+Second, the method should be relatively inexpensive, as large amounts of training data are preferred for a more robust regression.
 QMC methods have typically been selected due to their polynomial scaling computational cost and high accuracy, but DFT can also be used as an initial step trading accuracy for computational ease.
 
 Candidate descriptors are typically selected using both physical intuition and statistical methods.
@@ -117,7 +120,7 @@ Further filtering follows by examining the relationship between descriptors and 
 Note, while there is no restriction on the form of the candidate operators other than Hermiticity, 1- and 2-body second quantized operators are commonly used.
 
 A standard fitting workflow involves feature selection, model regression and model validation.
-Feature selection methods for choosing descriptors from the candidate pool can range from wrapper methods like principal component analysis \cite{pearson_karl_1901_1430636} to regularized embedded methods LASSO \cite{10.2307/2346178, doi:10.1137/S0895479897326432, Zou05regularizationand}. 
+Feature selection methods for choosing descriptors from the candidate pool can range from wrapper methods like principal component analysis \cite{pearson_karl_1901_1430636} to regularized embedded methods like LASSO \cite{10.2307/2346178, doi:10.1137/S0895479897326432, Zou05regularizationand}. 
 Fitting the effective Hamiltonian usually involves an ordinary least squares linear regression, but the cost function can be altered.
 Model validation can be carried out by calculating cross validated single parameter measures like $R^2$ scores which carry information about goodness of fit and overfitting.
 
