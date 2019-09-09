@@ -43,4 +43,48 @@
 %Start paragraph with something else, probably the stochastic representation of the wave function
 \end{enumerate}
 
+\section{Non-orthogonal determinants in FN-DMC trial wave functions}
+\begin{enumerate}
+\item In order to become acquainted with our code QWalk and QMC algorithms in general I worked on implementing and testing multi-Slater-Jastrow trial functions with optimized nonorthogonal determinants (MSJ+NO) in FN-DMC.
+
+\item We assessed the efficiency and compactness of this new trial function by calculating the ground state energy and single particle densities of a C$_2$ molecule using FN-DMC and comparing to the results when using multi-Slater-Jastrow trial functions with optimized orthogonal determinant trial functions (MSJ+O).
+
+\item Our results indicated that using non-orthogonal determinants may
+lead to more compact multi-Slater-Jastrow trial wave functions for small molecules.
+\end{enumerate}
+
+\section{Effective theory for CuO molecule using DMD}
+\begin{enumerate}
+\item To become acquainted with DMD, I constructed a many-body effective model for the CuO molecule with fixed bond length r$_e$ = 1.725A.
+
+%sampling low energy states
+\item Explain why MSJ was chosen (Probably the hardest one)
+
+\item How determinants selected
+
+\item How coefficients selected 
+
+\item How Jastrow optimized and FN-DMC done
+
+%candidate descriptors 
+\item Physical intuition and symmetry 
+
+\item Statistics
+
+\item Final set and basis elements
+
+%Fitting the model 
+\item A direct attempt at fitting all eleven terms in \textbf{eqref} leads to a high goodness of fit, R$^2$ = 0.99, but unexpectedly large coefficients for the fit model.
+
+\item A principal components analysis (PCA) on the descriptors illustrates the multicollinearity in the data set.
+
+\item To reduce multicollinearity while maintaining a high goodness of fit, I fit a model to these nine PCs.
+
+%Solutions of the model 
+\item The model is solved by exact diagonalization, and the solutions agree well with experimental spectra and state assignments.
+
+\item The model states also agree with recent theoretical calculations like UKS and CCSD(T).
+
+\end{enumerate}
+
 \end{document}

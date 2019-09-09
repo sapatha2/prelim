@@ -159,29 +159,26 @@ This does not equal the target expectation value $\frac{\langle \Psi_\text{DMC} 
 Details on alleviating this error in DMD and evaluation of expectation values for 1- and 2-body second quantized operators can be found in the literature \cite{Wagner2015, Wagner2017}.
 \section{Preliminary Work}
 \subsection{Non-orthogonal determinants in FN-DMC trial wave functions}
-In order to become acquainted with our code QWalk \cite{Wagner2009} and QMC algorithms in general I worked on implementing and testing multi-Slater-Jastrow trial functions with optimized non-orthogonal determinants (MSJ+NO) in FN-DMC \cite{doi:10.1063/1.5052906}.
+In order to become acquainted with QMC algorithms I worked on implementing and testing multi-Slater-Jastrow trial functions with optimized non-orthogonal determinants (MSJ+NO) in FN-DMC \cite{doi:10.1063/1.5052906}.
 The MSJ+NO trial wave functions take the form
 \begin{equation}
 \Psi=e^{J(\vec{\alpha})} \sum_I e^{\hat{\Theta}(\vec{\theta_I})} C_I |D_I (\{ \phi\})\rangle
 \end{equation}
-where the determinants $|D_I\rangle$ are composed of single particle orbitals from a self-consistent field calculation, $e^J$ is a spin-independent Jastrow factor, $e^{\hat{\Theta}}$ is a spin-dependent orbital rotation matrix, and the wave function has variable parameters $\vec{\alpha}, \vec{\theta}, \vec{C}$ which can be optimized.
+where the determinants $|D_I\rangle$ are composed of single particle orbitals from a self-consistent field calculation, $e^J$ is a spin-independent Jastrow factor, and $e^{\hat{\Theta}}$ is a spin-dependent orbital rotation matrix.
+The wave function has variable parameters $\vec{\alpha}, \vec{\theta}, \vec{C}$ which can be optimized.
 
-We assessed the efficiency and compactness of this new trial function by calculating the ground state energy and single particle densities of a C$_2$ molecule using FN-DMC and comparing to the results when using multi-Slater-Jastrow trial functions with optimized orthogonal determinant trial functions (MSJ+O). 
-The workflow involved constructing the un-optimized trial wave functions, optimizing the parameters using an energy optimization method \cite{Toulouse2007}, and finally using the optimized trial functions in both variational Monte Carlo (VMC) and FN-DMC calculations. 
-We found the average improvement in variational energy when using optimized orthogonal determinants is $\langle E_\text{MSJ} - E_\text{MSJ+O} \rangle = $ 0.32 eV with a standard deviation of 0.08 eV, with an additional improvement from the non-orthogonal determinants of 0.031 eV with a standard deviation of 0.021 eV.
-The average improvement in the FN-DMC energy with the MSJ+O trial wave functions was 0.14 eV (standard deviation 0.03 eV) with an additional reduction of 0.032 eV (standard deviation 0.019 eV) when using the MSJ+NO trial wave function.
+I assessed the efficiency and compactness of the new function by calculating the ground state energy of a C$_2$ molecule using FN-DMC and comparing to the results when using multi-Slater-Jastrow trial functions with orthogonal determinants (MSJ+O). 
+The workflow involved constructing the un-optimized trial wave functions, optimizing the parameters using an energy optimization method \cite{Toulouse2007}, and finally using the optimized trial functions in FN-DMC calculations. 
+The average improvement in the FN-DMC energy with the MSJ+O trial wave functions was $\langle E_{MSJ} - E_{MSJ,O}\rangle =$ 0.14eV with an additional reduction of 0.032 eV when using the MSJ+NO trial wave function.
+While the benefit using the MSJ+NO trial wave function seems small, the energy calculated using an MSJ+NO trial function with only 24 determinants was lower than the energy using an MSJ+O trial 
+function with 55 determinants.
 
-While the benefit using the MSJ+NO trial wave function seems small, we saw that the FN-DMC energy calculated using an MSJ+NO trial function with only 24 determinants was lower than the FN-DMC energy using an MSJ+O trial function with 55 determinants.
 Further, the FN-DMC charge density calculated using MSJ+NO trial functions had stronger bonding character than when using MSJ+O trial functions, a reasonable result as introducing correlations into trial functions allows for electrons to avoid each other while still occupying the same bonding region. 
-Our results indicated that using non-orthogonal determinants may lead to more compact multi-Slater-Jastrow trial wave functions for small molecules.
+The results indicated that using non-orthogonal determinants may lead to more compact trial wave functions for small molecules.
 
 \subsection{Effective theory for CuO molecule using DMD}
-As a first step towards developing accurate models for extended systems like solids using DMD, I constructed a many-body effective model for the CuO molecule by downfolding \eqref{Hab} under a Born-Oppenheimer approximation with fixed bond length $r_e$ = 1.725\r{A}.
-In the following four sections I will detail the steps I took towards developing a model for the CuO molecule using DMD.
-First, I discuss how low-energy states were sampled for the model regression.
-This is followed by details of descriptor selection and single particle basis construction.
-With the sampled data and candidate descriptors in hand, the feature selection and model fitting procedures are described.
-I will conclude by comparing the solutions of the model Hamiltonian to experiment and previous theoretical calculations.
+To become acquainted with DMD, I constructed a many-body effective model for the CuO molecule with fixed bond length $r_e$ = 1.725\r{A}.
+In the following three sections I will detail the steps I took towards developing a model for the CuO molecule using DMD, followed by a comparison of model spectra to experiment.
 
 \vspace{-10pt}
 \paragraph{Sampling low-energy states}
@@ -243,23 +240,20 @@ We find that states with a Cu $3d^{10} 4s^{2}$ configuration lie at least 7 eV a
 
 \vspace{-10pt}
 \paragraph{Fitting the model}
-A direct attempt at fitting all eleven terms in \eqref{eq:models} leads to a high goodness of fit, R$^2$ = 0.99, but unexpectedly large coefficients for the fit model, like an enormous occupation energy gap of $\epsilon_{2p_\pi} - \epsilon_{3d_\delta} = $ 5.87 eV, which is 2 $-$ 3 eV in experiment and our sampled data.
+A direct attempt at fitting all eleven terms in \eqref{eq:models} leads to a high goodness of fit, R$^2$ = 0.99, but unexpectedly large coefficients for the fit model.
+This is seen in an enormous occupation energy gap of $\epsilon_{2p_\pi} - \epsilon_{3d_\delta} = $ 5.87 eV, which is 2 $-$ 3 eV in experiment and our sampled data.
 This inflation of model parameters was found to be associated with multicollinearity among the candidate descriptors, quantified by a large condition number (CN) of 1470.
 
-A principal component regression (PCR) was used to alleviate this multicollinearity and fit the effective theory \cite{10.2307/2348005}.
-PCR can be broken into three parts: conducting a principal component analysis (PCA) and selecting candidate principal components to work with (PCs), fitting a linear model to these PCs, and then inverting the coefficients back to the original descriptors.
-If the subset of PCs are chosen appropriately, the final regressed model will have a similar goodness of fit to one fit on the original data matrix but without the consequence of serious multicollinearity.
-
-From the PCA, the nine highest ranked PCs were selected to use in the PCR.
-In Figure \eqref{fig:cuo_regr}b we plot both the cumulative explained variance ratio (CEVR) and CN of a matrix composed of the $N_\text{comp}$ highest ranked PCs varying from one to eleven.
+A principal components analysis (PCA) on the descriptors illustrates the multicollinearity in the data set.
+In Figure \eqref{fig:cuo_regr}b I show the cumulative explained variance ratio (CEVR) and CN of a matrix composed of the $N_\text{comp}$ highest ranked PCs varying from one to eleven.
 The CEVR indicates how much of the variation in the descriptor values a subset of PCs capture, and the CN quantifies the multicollinearity among these PCs.
-The objective in selecting PCs is to the maximize the prior while simultaneously minimizing the latter, ensuring a high goodness of fit with little to no multicollinearity.
-Nine principal components best satisfies the objective above with a CEVR 0.9995 and CN of 257.
+The sharp decrease in the condition number and sustained high CEVR up to nine principal components indicates the presence of only nine linearly independent variations within the descriptor set.
 
-The model fit to these nine PCs maintains an excellent goodness of fit without serious multicollinearity.
+To reduce multicollinearity while maintaining a high goodness of fit, I fit a model to these nine PCs.
 When trained on all the sampled data this model yields an $R^2$ = 0.98 with a CN of 257. 
 An inverse PCA transformation was used to map the fit coefficients corresponding to the PC descriptors back into the original eleven coefficients of \eqref{eq:models}.
 These coefficients can be seen in Figure \ref{fig:cuo_regr}c with single standard deviation bootstrap error estimates.
+The procedure carried out here is well established and called principal components regression (PCR) \cite{10.2307/2348005}.
 
 \vspace{-10pt}
 \paragraph{Solutions of the model}
