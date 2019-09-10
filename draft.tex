@@ -227,12 +227,12 @@ The first chunk of descriptors were selected using physical intuition and symmet
 As described above, the low-lying excitations in CuO observed in experiment involve the Cu 3d, 4s and O 2p atomic orbitals.
 Given that orbitals also hybridize, the occupation energies of and hopping terms between these orbitals were selected as candidate operators.
 Symmetry considerations help narrow down the set as hopping terms are only non-zero between same symmetry orbitals, and occupation energies can be traced over symmetry related orbitals, for example $n_{2p_\pi} = n_{2p_x} + n_{2p_y}$.
-The term $\sum_{i\in {\{\text{xy, xz, ...}}\}} \vec{S}_{4s} \cdot \vec{S}_{3d_i}$ was also considered, motivated by the existence of a $\sim $0.5 eV Hund's coupling observed on the copper atom \textbf{ref}.
+The term $\sum_{i\in {\{\text{xy, xz, ...}}\}} \vec{S}_{4s} \cdot \vec{S}_{3d_i}$ was also considered, motivated by the existence of a $\sim $0.5 eV Hund's coupling observed on the copper atom \cite{Data2009}.
 
 The inclusion of a double occupancy term $n_{4s,\uparrow} n_{4s,\downarrow}$ was motivated directly from the sampled low-energy states.
 Within the sampled data, states with a Cu $4s^{2}$ configuration lie at least 7 eV above the lowest energy sampled state, while the lowest energy state with a $4s^{1}$ configuration lies at 1.6 eV.
 If the double occupancy term was not included, the effective theory would predict the prior state to have an energy of $\sim $ 3eV, an underestimation of 4 eV from the \textit{ab-initio} result.
-The effective on-site Coulomb repulsion $U_s$ can ensure our model places all $4s^{2}$ states high in energy.
+The effective on-site Coulomb repulsion $U_s$ ensures the model places all $4s^{2}$ states high in energy.
 
 \begin{figure*}
 \centering
@@ -253,7 +253,7 @@ In Figure \eqref{fig:cuo_regr}b I show the cumulative explained variance ratio (
 The CEVR indicates how much of the variation in the descriptor values a subset of PCs capture, and the CN quantifies the multicollinearity among these PCs.
 The sharp decrease in the condition number and sustained high CEVR up to nine principal components indicates the presence of only nine linearly independent variations within the descriptor set.
 
-To reduce multicollinearity while maintaining a high goodness of fit, I fit a model to these nine PCs.
+To reduce multicollinearity while maintaining a high goodness of fit, model was fit to these nine PCs.
 When trained on all the sampled data this model yields an $R^2$ = 0.98 with a CN of 257. 
 An inverse PCA transformation was used to map the fit coefficients corresponding to the PC descriptors back into the original eleven coefficients of \eqref{eq:models}.
 These coefficients can be seen in Figure \ref{fig:cuo_regr}c with single standard deviation bootstrap error estimates.
