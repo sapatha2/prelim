@@ -212,7 +212,7 @@ These calculations were done in QWalk \cite{Wagner2009}.
 
 \vspace{-10pt}
 \paragraph{Selecting candidate descriptors}
-We selected the following set of 1- and 2-body operators to construct our candidate descriptors based on our understanding of the low-energy excitations of the CuO molecule and our sampled states:
+The following set of 1- and 2-body operators were selected as candidates for the model based on understanding of the low-energy excitations of the CuO molecule and properties of the sampled low-energy states:
 \begin{equation}
 \begin{split}
 \sum_{\sigma = \uparrow, \downarrow} \Bigg(\epsilon_{3d_\pi}\hat{n}_{3d_\pi,\sigma} + \epsilon_{3d_{z^2}}\hat{n}_{3d_{z^2},\sigma} +  \epsilon_{2p_z} \hat{n}_{2p_z,\sigma} + \epsilon_{2p_\pi}\hat{n}_{2p_\pi,\sigma} + \epsilon_{4s}\hat{n}_{4s,\sigma} +\\
@@ -223,12 +223,16 @@ J_{sd}\sum_{i\in {\{\text{xy, xz, ...}}\}} \vec{S}_{4s} \cdot \vec{S}_{3d_i} + U
 \end{equation}
 The operator subscripts correspond to the intrinsic atomic orbital (IAO) basis elements constructed using the molecular orbitals in \eqref{eq:sampling}, and can be seen in \ref{fig:cuo_regr}a.
 
-The parantheses of \eqref{eq:models} contain the full set of symmetry allowed 1-body operators within the Cu 3d, 4s and O 2p space.
-These operators are required to describe the most basic single particle features seen in molecules like orbital occupations and hybridizations.
-Two 2-body interaction terms are also considered: a Hund's coupling between Cu 4s and 3d orbitals and a Cu 4s Coulomb repulsion.
-The prior term is motivated by the existence of a $\sim $ 0.5 eV Hund's coupling on the neutral copper atom.
-Motivation for the latter comes from the FN-DMC energies of our sampled data.
-We find that states with a Cu $3d^{10} 4s^{2}$ configuration lie at least 7 eV above our lowest energy sampled state, while the highest energy states with a $3d^{10} 4s^{1}$ configuration lie near 2 eV.
+The first chunk of descriptors were selected using physical intuition and symmetry principles.
+As described above, the low-lying excitations in CuO observed in experiment involve the Cu 3d, 4s and O 2p atomic orbitals.
+Given that orbitals also hybridize, the occupation energies of and hopping terms between these orbitals were selected as candidate operators.
+Symmetry considerations help narrow down the set as hopping terms are only non-zero between same symmetry orbitals, and occupation energies can be traced over symmetry related orbitals, for example $n_{2p_\pi} = n_{2p_x} + n_{2p_y}$.
+The term $\sum_{i\in {\{\text{xy, xz, ...}}\}} \vec{S}_{4s} \cdot \vec{S}_{3d_i}$ was also considered, motivated by the existence of a $\sim $0.5 eV Hund's coupling observed on the copper atom \textbf{ref}.
+
+The inclusion of a double occupancy term $n_{4s,\uparrow} n_{4s,\downarrow}$ was motivated directly from the sampled low-energy states.
+Within the sampled data, states with a Cu $4s^{2}$ configuration lie at least 7 eV above the lowest energy sampled state, while the lowest energy state with a $4s^{1}$ configuration lies at 1.6 eV.
+If the double occupancy term was not included, the effective theory would predict the prior state to have an energy of $\sim $ 3eV, an underestimation of 4 eV from the \textit{ab-initio} result.
+The effective on-site Coulomb repulsion $U_s$ can ensure our model places all $4s^{2}$ states high in energy.
 
 \begin{figure*}
 \centering
