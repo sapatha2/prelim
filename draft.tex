@@ -28,8 +28,8 @@
 \maketitle
 \begin{abstract}
 Building accurate model Hamiltonians for realistic materials is a fundamental problem in modern condensed matter physics.
-A recently developed density matrix downfolding (DMD) \cite{Zheng2017} method provides a very direct framework for downfolding the \textit{ab-initio} Hamiltonian to a many-body effective Hamiltonian using only \textit{ab-initio} calculations. 
-Here I propose a two year thesis plan for developing atomic scale many-body model Hamiltonians for single- and simple bi-layer graphene systems within the DMD framework using high accuracy \textit{ab-initio} quantum Monte Carlo (QMC) calculations.
+A recently developed density matrix downfolding (DMD) \cite{Zheng2017} method provides a very direct framework for downfolding the \textit{ab initio} Hamiltonian to a many-body effective Hamiltonian using only \textit{ab initio} calculations. 
+Here I propose a two year thesis plan for developing atomic scale many-body model Hamiltonians for single- and simple bi-layer graphene systems within the DMD framework using high accuracy \textit{ab initio} quantum Monte Carlo (QMC) calculations.
 The results of my thesis will lay the groundwork for a continuing four year project to build a twist dependent many-body continuum model for the twisted bilayer graphene (TBLG) system.
 To demonstrate my preparedness I present a model Hamiltonian developed using DMD which accurately reproduces the spectra and properties of the lowest lying excitations of the CuO molecule.
 \end{abstract}
@@ -40,34 +40,34 @@ Committee: Lucas Wagner, Brian DeMarco, Andre Schleife, Karin Dahmen
 Developing model Hamiltonians for realistic materials is a fundamental problem in modern condensed matter physics.
 A model Hamiltonian is a simplified description of a real material which can accurately reproduce the low-lying eigenstates and energies of the material.
 Accurate models give clear and direct indications of effective interactions within a material and underpin modern theoretical understanding of ideas like emergence and symmetry breaking.
-On a practical level, calculations related to these low-lying eigenstates can be carried out on the much simpler model system and still yield accurate results reflective of reality.
+On a practical level, calculations related to these low-lying eigenstates can be carried out on the much simpler model and still yield accurate results reflective of reality.
 
 Yet unresolved is a paradigm for building many-body model Hamiltonians which can describe strongly correlated systems.
 Band and Fermi liquid theory have been successful in accurately modeling systems where effective interactions are negligible at low energy scales.
 These theories, however, fail in describing the low-energy excitations of strongly correlated systems like high Tc superconductors and TBLG.
 Minimal many-body models like the Hubbard \cite{Hubbard1963}, Kanamori \cite{10.1143/PTP.30.275}, t-J \cite{Chao_1977} and Heisenberg models have been proposed to describe such systems, their effectiveness in describing realistic materials is unclear.
 
-In an attempt to build accurate many-body Hamiltonians for realistic systems, a framework for model development using solutions from \textit{ab-initio} simulations has emerged.
+In an attempt to build accurate many-body Hamiltonians for realistic systems, a framework for model development using solutions from \textit{ab initio} simulations has emerged.
 Common approaches involve density functional theory (DFT) \cite{PhysRev.140.A1133, PhysRevLett.87.047003} alongside random phase approximation (RPA) or other methods \cite{PhysRevB.62.R16219, PhysRevB.70.195104, PhysRevB.88.075106}.
 L\"owdin methods and canonical transformations have also been used to develop effective theories \cite{doi:10.1063/1.4802766, PhysRevA.81.013402, doi:10.1063/1.2196410}.
 While useful, it is typically impossible to know whether models built from these techniques accurately describe reality, as measures of model quality are rarely reported.
-Instead, out-of-method comparisons of model predictions to experiment are conducted for model validation.
+Instead, comparisons of model predictions to experiment are conducted for model validation.
 
-The recently developed DMD \cite{Zheng2017} method provides a more direct link between \textit{ab-initio} and many-body effective Hamiltonians.
-Similar to the methods above, DMD uses information from \textit{ab-initio} simulations on the system to fit the best parameters for a given many-body model \textit{ansatz}.
+The recently developed DMD \cite{Zheng2017} method provides a more direct link between \textit{ab initio} and many-body effective Hamiltonians.
+Similar to the methods above, DMD uses information from \textit{ab initio} simulations on the system to fit the best parameters for a given many-body model \textit{ansatz}.
 Unlike the methods above, the resultant fit model is accompanied by a clear measure of model quality, quantifying the ability of the model to reproduce the low-energy spectrum of the system.
-Since model quality is reported, DMD allows for direct comparison between different model \textit{ansatzes} as well, an ability which can be used to deduce important model terms using \textit{ab-initio} calculations.
+Since model quality is reported, DMD allows for direct comparison between different model \textit{ansatzes} as well, an ability which can be used to deduce important model terms using \textit{ab initio} calculations.
 DMD has been used to develop accurate many-body models for benzene, a 1-d hydrogen chain, and an on-site Hubbard model for graphene \cite{Zheng2017, Wagner2015}.
 
 The utility of DMD is made apparent when studying the recent surge in model development for TBLG.
-\textit{Ab-initio} model development has so far been restricted to tight-binding models which accurately describe single particle effects like band flattening, but do not address interactions \cite{Fang, Fang2016, PhysRevX.8.031088, PhysRevX.8.031087}.
-Minimal interacting models have been proposed using traditional theoretical methods, but without a link to \textit{ab-initio} it is unclear whether they can describe the real system \cite{PhysRevB.98.045103, PhysRevB.100.125116, PhysRevX.8.031089}.
-DMD can bridge the gap between these methods by providing a framework to build an accurate many-body model directly from \textit{ab-initio} simulations on TBLG.
+\textit{ab initio} model development has so far been restricted to tight-binding models which accurately describe single particle effects like band flattening, but do not address interactions \cite{Fang, Fang2016, PhysRevX.8.031088, PhysRevX.8.031087}.
+Minimal interacting models have been proposed using traditional theoretical methods, but without a link to \textit{ab initio} it is unclear whether they can describe the real system \cite{PhysRevB.98.045103, PhysRevB.100.125116, PhysRevX.8.031089}.
+DMD can bridge the gap between these methods by providing a framework to build an accurate many-body model directly from \textit{ab initio} simulations on TBLG.
 
 As such, one portion of a project between research groups at UIUC, UCSB and Rice University is dedicated towards the development of an accurate continuum-scale interacting model for TBLG.
-The model development consists of two layers of downfolding: first, developing an atomic scale lattice model using \textit{ab-initio} calculations, and second, downfolding the resultant lattice model to a continuum length scale.
+The model development consists of two layers of downfolding: first, developing an atomic scale lattice model using \textit{ab initio} calculations, and second, downfolding the resultant lattice model to a continuum length scale.
 My thesis will be focused on the first layer of downfolding.
-I propose a two year plan for developing many-body lattice models for single- (SLG) and simple bi-layer (BLG) graphene systems using the DMD method and \textit{ab-initio} fixed-node diffusion Monte Carlo (FN-DMC) calculations.
+I propose a two year plan for developing many-body lattice models for single- (SLG) and simple bi-layer (BLG) graphene systems using the DMD method and \textit{ab initio} fixed-node diffusion Monte Carlo (FN-DMC) calculations.
 My thesis will lay the necessary ground work for the development of a fully twist angle dependent lattice model for TBLG, and an eventual continuum model.
 
 \subsection{Density Matrix Downfolding (DMD)}
@@ -99,24 +99,24 @@ First, low-energy states are sampled from $\mathcal{LE}$.
 Next, a pool of candidate operators $\{\hat{d}_k\}$ which may be included in the final model are selected.
 Finally, a linear regression is carried out with descriptor and energies evaluated on the sampled states as the independent and target variables.
 
-When developing models for realistic system, $\hat{H}$ is taken to be the \textit{ab-initio} Hamiltonian
+When developing models for realistic system, $\hat{H}$ is taken to be the \textit{ab initio} Hamiltonian
 \begin{equation}
 \hat{H}_\text{ab} = \sum_i -\frac{1}{2} \nabla_i^2 + \sum_{iI}\frac{Z_I}{|r_i - R_I|} + \frac{1}{2} \sum_{ij} \frac{1}{|r_i - r_j|} + E_\text{ion}(\{R_I\})  
 \label{eq:Hab}
 \end{equation} 
 where index $i,j$ correspond to electrons, $I$ to ions, and $E_\text{ion}$ corresponds to the ionic kinetic and potential energies. 
 The unit of energy is Hartree (Ha).
-To reduce the computational expense of \textit{ab-initio} calculations one works under the Born-Oppenheimer approximation where $E_\text{ion}$ becomes a constant.
+To reduce the computational expense of \textit{ab initio} calculations one works under the Born-Oppenheimer approximation where $E_\text{ion}$ becomes a constant.
 Ionic effects related to phonon modes can be recovered by altering the ionic geometry and observing the effects on the electronic state.
 
-Low-energy states can be accessed using any wave function based \textit{ab-initio} simulation technique, but two broad principles are used for selecting a method.
-First, the method should be able to generate accurate low-energy wave functions in the \textit{ab-initio} Hilbert space, as the accuracy of the low-energy states dictate the accuracy of the final model.
+Low-energy states can be accessed using any wave function based \textit{ab initio} simulation technique, but two broad principles are used for selecting a method.
+First, the method should be able to generate accurate low-energy wave functions in the \textit{ab initio} Hilbert space, as the accuracy of the low-energy states dictate the accuracy of the final model.
 Second, the method should be relatively inexpensive, as large amounts of training data are preferred for a more robust regression.
 QMC methods have typically been selected due to their polynomial scaling computational cost and high accuracy, but DFT can also be used as an initial step trading accuracy for computational ease.
 
 Candidate descriptors are typically selected using both physical intuition and statistical methods.
 An essential first pass involves selecting a large set of descriptors using knowledge of the low-energy degrees of the freedom of the system and physical principles like symmetry.
-Further filtering follows by examining the relationship between descriptors and the \textit{ab-initio} energy over the low-energy sampled states: descriptors will typically be discarded if they do not exhibit covariance with the energy.
+Further filtering follows by examining the relationship between descriptors and the \textit{ab initio} energy over the low-energy sampled states: descriptors will typically be discarded if they do not exhibit covariance with the energy.
 Note, while there is no restriction on the form of the candidate operators other than Hermiticity, 1- and 2-body second quantized operators are commonly used.
 
 A standard fitting workflow involves feature selection, model regression and model validation.
@@ -188,35 +188,37 @@ The trial wave functions took the form
 |\Psi_T(\vec{p}) \rangle =  e^{J}\sum_{j} p_j|\text{D}_j\rangle,
 \label{eq:sampling}
 \end{equation}
-where $e^J$ is a Jastrow factor, $|\text{D}_j\rangle$ are selected determinants which we discuss below, and $p_j$ are variable coefficients.
-A single three-body Jastrow factor was used for all sampled states optimized on the lowest energy determinant $|\text{D}_0 \rangle$.
-This significantly reduced the computational cost of the DMD method and is justified by noting that large variations in the Jastrow factor would move the state outside the low-energy space.
+where $e^J$ is a Jastrow factor, $|\text{D}_j\rangle$ are selected determinants, and $p_j$ are variable coefficients.
+By varying $\{p_j\}$ one can move around the low-energy space if the set $\{|\text{D}_j \rangle\}$ is representative of the low-energy excitations in the system.
+The Jastrow factor explicitly introduces electronic correlation and reduces the localization error within FN-DMC \cite{Foulkes2001}.
 
 The determinants $|\text{D}_j \rangle$ were constructed from the orbitals of independent symmetry-targeted unrestricted Kohn Sham (UKS) calculations.
-This choice was made to ensure that the three major low-energy variations seen in the molecule can be captured in our samples: occupancy, spin configuration and relaxation of the Cu 3d, 4s and O 2p orbitals.
-All determinants with at most a single hole in the Cu 3d shell and no doubly occupied Cu 4s orbital were included in \eqref{eq:sampling} to reflect the low-energy excitations seen in experiment.
-Only the lowest energy state with a Cu 4s$^2$ electronic configuration was included, corresponding to a double excitation 2 O ${2p_\pi} \rightarrow$ 2 Cu 4s with an energy $>7$ eV above the UKS ground state.
-Inclusion of this high energy determinant is necessary so our model places similar Cu 4s$^2$ states high in energy.
+This choice was made to ensure that the three major low-energy variations seen in the molecule were captured: occupancy, spin configuration and relaxation of the Cu 3d, 4s and O 2p orbitals.
+Only determinants with electrons in the Cu 3d, 4s, and O 2p orbitals and at most a single hole in the Cu 3d shell were included in \eqref{eq:sampling} to reflect the low-energy excitations seen in experiment.
 The UKS calculations were done using PySCF \cite{Sun2018}, a B3LYP functional \cite{doi:10.1063/1.464304, PhysRevB.37.785}, Trail-Needs psuedopotential and VTZ Trail-Needs basis \cite{doi:10.1063/1.4811651}.
 
-A shell sampling scheme was used to sample states from the selected approximate low-energy space.
+A shell sampling scheme was used to select coefficients $p_j$ for the trial wave functions.
 We began by fixing the coefficient $p_0 = \sqrt{w}$ where $w \in \{1.0, 0.8, ..., 0.2\}$. 
-For each choice of $w$ we sampled n = 5 states by randomly selecting the unassigned coefficients from independent, standard normal distributions such that $\sum_j p_j^2 = 1$. 
+For each choice of $w$, n = 5 states were selected by sampling the unassigned coefficients from independent, standard normal distributions such that $\sum_j p_j^2 = 1$. 
 This procedure generated a uniform set of samples from spherical shells at decreasing radii in determinant space centered at $|\text{D}_0\rangle$.
-We repeated this process centered at every determinant in \eqref{eq:sampling} resulting in a sample set of overlapping shells which fill $\mathcal{LE}^\prime$.
+The process was repeated by centering at every determinant in \eqref{eq:sampling}, resulting in a sample set of overlapping shells which fill the low-energy space.
 
-The final sampled MSJ states were projected using FN-DMC to generate our low-energy states.
-The FN-DMC calculations were conducted with T-moves to ensure the variational principle holds while using pseudopotentials.
-A timestep of $\tau = 0.01$ was used.
-These calculations were done in QWalk \cite{Wagner2009}.
+A single three-body Jastrow factor was used for all trial wave functions, and was optimized on the lowest energy determinant $|\text{D}_0 \rangle$ using an energy optimization scheme \cite{Toulouse2007}.
+This choice significantly reduced the computational cost of sampling low-energy states as linear optimization was not necessary for every sampled state.
+The resulting MSJ trial function remained low in energy as variations of the Jastrow factor among low-energy states is expected to be small.
+
+The sampled MSJ trial wave functions were projected using FN-DMC to generate the final set of low-energy sample states.
+FN-DMC calculations were conducted with T-moves \cite{PhysRevB.74.161102} to ensure the variational principle holds while using pseudopotentials, and a timestep of $\tau = 0.01$.
+All QMC calculations were done in QWalk \cite{Wagner2009}.
 
 \vspace{-10pt}
 \paragraph{Selecting candidate descriptors}
-The following set of 1- and 2-body operators were selected as candidates for the model based on understanding of the low-energy excitations of the CuO molecule and properties of the sampled low-energy states:
+The following set of 1- and 2-body operators were selected as candidates for the model based on an understanding of the low-energy excitations of the CuO molecule and properties of the sampled low-energy states:
 \begin{equation}
 \begin{split}
-\sum_{\sigma = \uparrow, \downarrow} \Bigg(\epsilon_{3d_\pi}\hat{n}_{3d_\pi,\sigma} + \epsilon_{3d_{z^2}}\hat{n}_{3d_{z^2},\sigma} +  \epsilon_{2p_z} \hat{n}_{2p_z,\sigma} + \epsilon_{2p_\pi}\hat{n}_{2p_\pi,\sigma} + \epsilon_{4s}\hat{n}_{4s,\sigma} +\\
-t_\pi \hat{c}_{3d_\pi,\sigma}^\dagger \hat{c}_{2p_\pi,\sigma} + t_{dz} \hat{c}_{3d_{z^2},\sigma}^\dagger \hat{c}_{2p_z,\sigma}  + t_{sz}\hat{c}_{4s,\sigma}^\dagger \hat{c}_{2p_z,\sigma} + t_{sd}\hat{c}_{4s,\sigma}^\dagger \hat{c}_{3d_{z^2},\sigma} + \text{h.c.} + \Bigg)  \\
+\sum_{\sigma = \uparrow, \downarrow} \Bigg(\epsilon_{3d_\pi}\hat{n}_{3d_\pi,\sigma} + \epsilon_{3d_{z^2}}\hat{n}_{3d_{z^2},\sigma} +  \epsilon_{2p_z} \hat{n}_{2p_z,\sigma} + \epsilon_{2p_\pi}\hat{n}_{2p_\pi,\sigma} + \epsilon_{4s}\hat{n}_{4s,\sigma} +
+t_\pi \hat{c}_{3d_\pi,\sigma}^\dagger \hat{c}_{2p_\pi,\sigma} + t_{dz} \hat{c}_{3d_{z^2},\sigma}^\dagger \hat{c}_{2p_z,\sigma}\\
+  + t_{sz}\hat{c}_{4s,\sigma}^\dagger \hat{c}_{2p_z,\sigma} + t_{sd}\hat{c}_{4s,\sigma}^\dagger \hat{c}_{3d_{z^2},\sigma} + \text{h.c.} \Bigg)  +
 J_{sd}\sum_{i\in {\{\text{xy, xz, ...}}\}} \vec{S}_{4s} \cdot \vec{S}_{3d_i} + U_s \hat{n}_{4s,\uparrow}\hat{n}_{4s,\downarrow} + E_0.
 \end{split}
 \label{eq:models}
@@ -231,8 +233,8 @@ The term $\sum_{i\in {\{\text{xy, xz, ...}}\}} \vec{S}_{4s} \cdot \vec{S}_{3d_i}
 
 The inclusion of a double occupancy term $n_{4s,\uparrow} n_{4s,\downarrow}$ was motivated directly from the sampled low-energy states.
 Within the sampled data, states with a Cu $4s^{2}$ configuration lie at least 7 eV above the lowest energy sampled state, while the lowest energy state with a $4s^{1}$ configuration lies at 1.6 eV.
-If the double occupancy term was not included, the effective theory would predict the prior state to have an energy of $\sim $ 3eV, an underestimation of 4 eV from the \textit{ab-initio} result.
-The effective on-site Coulomb repulsion $U_s$ ensures the model places all $4s^{2}$ states high in energy.
+If the double occupancy term was not included, the effective theory would predict the prior state to have an energy of $\sim $ 3eV, an underestimation of 4 eV from the \textit{ab initio} result.
+The effective on-site Coulomb repulsion $U_s$ ensures the model places all such $4s^{2}$ states high in energy.
 
 \begin{figure*}
 \centering
@@ -253,7 +255,7 @@ In Figure \eqref{fig:cuo_regr}b I show the cumulative explained variance ratio (
 The CEVR indicates how much of the variation in the descriptor values a subset of PCs capture, and the CN quantifies the multicollinearity among these PCs.
 The sharp decrease in the condition number and sustained high CEVR up to nine principal components indicates the presence of only nine linearly independent variations within the descriptor set.
 
-To reduce multicollinearity while maintaining a high goodness of fit, model was fit to these nine PCs.
+To reduce multicollinearity while maintaining a high goodness of fit, a model was fit to these nine PCs.
 When trained on all the sampled data this model yields an $R^2$ = 0.98 with a CN of 257. 
 An inverse PCA transformation was used to map the fit coefficients corresponding to the PC descriptors back into the original eleven coefficients of \eqref{eq:models}.
 These coefficients can be seen in Figure \ref{fig:cuo_regr}c with single standard deviation bootstrap error estimates.
@@ -261,16 +263,15 @@ The procedure carried out here is well established and called principal componen
 
 \vspace{-10pt}
 \paragraph{Solutions of the model}
-The model is solved by exact diagonalization, and the solutions agree well with experimental spectra and state assignments.
-Shown in Figure \ref{fig:cuo_regr}d is a comparison between the excitation energies calculated from our model and those seen in the latest anion photoelectron spectroscopy measurements \cite{Wu1997}.
+The final model in \ref{fig:cuo_regr}c was solved by exact diagonalization, and the solutions agree well with experimental spectra and state assignments.
+Shown in Figure \ref{fig:cuo_regr}d is a comparison between the excitation energies calculated from the model and those seen in the latest anion photoelectron spectroscopy measurements \cite{Wu1997}.
 The model energies for these eigenstates are denoted by orange circles and agree with experiment up to a maximum deviation of 0.2 eV.
-The term symbols assigned in experiment also match the term symbols of the model eigenstates, which are constructed by looking at the multiplicity and electronic configuration of each model eigenstate. 
+Further, the term symbols assigned in experiment match the term symbols of the model eigenstates, which are constructed by looking at the multiplicity and electronic configuration of each model eigenstate. 
 
-The model states also agree with recent theoretical calculations like UKS and CCSD(T).
-The energies for the UKS and CCSD(T) \cite{Xian2000} states are shown in Figure \ref{fig:cuo_regr}d as green and red circles, respectively.
+The energies for the UKS and CCSD(T) \cite{Xian2000} states are also shown in Figure \ref{fig:cuo_regr}d as green and red circles, respectively.
 The UKS energies were calculated in this work in en route to constructing the determinants $|\text{D}_j\rangle$ used in our sampling scheme \eqref{eq:sampling}.
-Our model energies agree with both theoretical techniques within errorbars for the first three states shown.
-The energy of the highest energy $^2\Delta$ is severely over estimated using both UKS and CCSD(T), by nearly 1 eV.
+The model energies agree with both theoretical techniques within errorbars for the first three states shown.
+The energy of the highest energy $^2\Delta$, however, is severely over estimated using both UKS and CCSD(T), by nearly 1 eV.
 This over estimation may arise from an inadequate relaxation of the $\sigma$ type orbitals which form a three orbital hybridization complex in this system.
 
 \section{Proposed work}
@@ -359,7 +360,7 @@ The latter can be directly probed by comparing my fit models for benzene and on-
 
 Lastly, my calculations will lay the groundwork for model development for the strongly correlated TBLG system using DMD.
 The final goal for TBLG would be an interacting continuum model on the Moire superlattice length scale.
-From a DMD perspective, this can accomplished by first downfolding the \textit{ab-initio} Hamiltonian with a given twist to an atomic length scale model, and then downfolding a second time to the Moire length scale.
+From a DMD perspective, this can accomplished by first downfolding the \textit{ab initio} Hamiltonian with a given twist to an atomic length scale model, and then downfolding a second time to the Moire length scale.
 Developing the atomic length scale models requires a strong understanding of intra- and inter-layer interactions in this material.
 The prior will be thoroughly investigated by my model fitting on SLG, and I will begin to answer the latter with the BLG calculations.
 
