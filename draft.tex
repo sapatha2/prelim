@@ -21,6 +21,14 @@
 \titlespacing*{\subsection}{0pt}{0.2\baselineskip}{0.2\baselineskip}
 \setlength{\abovedisplayskip}{0pt}
 \setlength{\belowdisplayskip}{0pt}
+\usepackage{etoolbox}
+\patchcmd{\thebibliography}
+  {\settowidth}
+  {\setlength{\itemsep}{0pt plus 0.01pt}\settowidth}
+  {}{}
+\apptocmd{\thebibliography}
+  {\small}
+  {}{}
 \author{Shivesh Pathak}
 \title{Developing effective theories for single and bilayer graphene using density matrix downfolding}
 
@@ -377,9 +385,9 @@ For each stacking, I expect four months will be necessary to build an effective 
 
 \begin{multicols}{2}
 \begin{spacing}{0.5}
-{\fontsize{10}{5}\selectfont
+{\footnotesize
 \bibliography{biblio}
-\bibliographystyle{unsrt}
+\bibliographystyle{prelim}
 }
 \end{spacing}
 \end{multicols}
