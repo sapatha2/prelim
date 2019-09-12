@@ -72,7 +72,7 @@ The utility of DMD is made apparent when studying the recent surge in model deve
 Minimal interacting models have been proposed using traditional theoretical methods, but without a link to \textit{ab initio} it is unclear whether they can describe the real system \cite{PhysRevB.98.045103, PhysRevB.100.125116, PhysRevX.8.031089}.
 DMD can bridge the gap between these methods by providing a framework to build an accurate many-body model directly from \textit{ab initio} simulations on TBLG.
 
-As such, one portion of a project between research groups at UIUC, UCSB and Rice University is dedicated towards the development of an accurate continuum-scale interacting model for TBLG.
+As such, a project named QMC High Accuracy Multiscale Modeling (QMC HAMM) between research groups at UIUC, UCSB and Rice University is dedicated towards the development of an accurate continuum-scale interacting model for TBLG.
 The model development consists of two layers of downfolding: first, developing an atomic scale lattice model using \textit{ab initio} calculations, and second, downfolding the resultant lattice model to a continuum length scale.
 My thesis will be focused on the first layer of downfolding.
 I propose a two year plan for developing many-body lattice models for single- (SLG) and simple bi-layer (BLG) graphene systems using the DMD method and \textit{ab initio} fixed-node diffusion Monte Carlo (FN-DMC) calculations.
@@ -128,7 +128,7 @@ Further filtering follows by examining the relationship between descriptors and 
 Note, while there is no restriction on the form of the candidate operators other than Hermiticity, 1- and 2-body second quantized operators are commonly used.
 
 A standard fitting workflow involves feature selection, model regression and model validation.
-Feature selection methods for choosing descriptors from the candidate pool can range from wrapper methods like principal component analysis \cite{pearson_karl_1901_1430636} to regularized embedded methods like LASSO \cite{10.2307/2346178, doi:10.1137/S0895479897326432, Zou05regularizationand}. 
+Feature selection methods for choosing descriptors from the candidate pool can range from wrapper methods like principal component analysis \cite{pearson_karl_1901_1430636} to regularized embedded methods like LASSO \cite{10.2307/2346178}. 
 Fitting the effective Hamiltonian usually involves an ordinary least squares linear regression, but the cost function can be altered.
 Model validation can be carried out by calculating cross validated single parameter measures like $R^2$ scores which carry information about goodness of fit and overfitting.
 
@@ -283,15 +283,33 @@ The energy of the highest energy $^2\Delta$, however, is severely over estimated
 This over estimation may arise from an inadequate relaxation of the $\sigma$ type orbitals which form a three orbital hybridization complex in this system.
 
 \section{Proposed work}
-My proposed plan involves building a sequence of model Hamiltonians for increasingly complicated graphene-like systems using QMC DMD, ending with BLG.
-The systems I will be interested in are the benzene molecule, single layer graphene, AA stacked bilayer graphene and AB stacked bilayer graphene.
-Conceptually, the benzene molecule is a kind of building block for SLG, and SLG is a building block for BLG, creating a sequence of systems from least to most complex.
+I propose a two year thesis plan for developing atomic scale many-body
+model Hamiltonians for SLG and simple BLG systems within the DMD framework using high accuracy \textit{ab initio} QMC calculations.
+To do so, I will be building a sequence of four many-body model Hamiltonians for increasing complex systems: the benzene molecule, SLG, AA stacked BLG, and AB stacked BLG.
+The following sections detail the sampling scheme and candidate models that will be used for downfolding each system.
+I conclude with a brief statement about the impact of my work within the QMC HAMM project and modeling TBLG and a timeline.
 
+\subsection{Constrained variational Monte Carlo (cVMC)}
+A new constrained cVMC method will be used to sample the low-energy wave functions necessary for DMD.
+The cVMC method works by minimizing the following cost function for a parameterized wave function $|\Psi(\vec{p})\rangle$:
+\begin{equation}
+\vec{p}^* = \text{argmin} \ \langle \Psi(\vec{p}) | \hat{H}_\text{ab} | \Psi(\vec{p}) \rangle - \sum_k [\lambda_k \langle \Psi(\vec{p}) | d_k - d_{k}^0 | \Psi(\vec{p}) \rangle]^2
+\end{equation}
+with respect to the parameters $\vec{p}$.
+The quantity $\vec{d}$ is short hand for a list of candidate descriptors to sample variations in, $\vec{d}^*$ is the target values of those descriptors, and $\vec{\lambda}$ controls the importance of finding a state with low-energy versus one with descriptor values near $\vec{d}^*$.
+This method allows one to target low-energy wave functions which sit near a target point $\vec{d}^*$ in descriptor space, allowing for a more systematic sampling of the low-energy space.
+
+I will use a multi-Slater-Jastrow (MSJ) parameterization in the cVMC sampling.
+The multi-Slater expansion will consist of determinants of single particle orbitals calculated using DFT.
+Given the nature of graphene-like systems, as described below, the determinants will include the DFT ground state as well as molecular orbital excitations among the $\pi$ and $\pi^*$ orbitals which form the active space.
+A three body Jastrow factor will be applied to ensure that correlations are included in the wave function and that the wave function is low in energy.
+The total set of parameters $\vec{p}$ will be Jastrow and determinental coefficients.
+
+\subsection{Benzene}
 The first system I will develop a model for is the benzene molecule, shown in Figure \ref{fig:proposed}a.
 While relatively simple, this molecule shares many similarities with and forms the basic unit of SLG.
 The delocalized $\pi$ orbitals in benzene carry over directly into SLG where they are the primary contributors to the well known Dirac bands.
 Interaction effects seen in the benzene molecule are also reflected in SLG, such as on-site double occupation energies for the carbon atoms \cite{Zheng2017, Wagner2015}.
-As such, developing a model for benzene will help me become familiar with model fitting for 2-D carbon based systems.
 
 \begin{figure*}
 \centering
@@ -301,31 +319,43 @@ As such, developing a model for benzene will help me become familiar with model 
 \label{fig:proposed}
 \end{figure*}
 
-The candidate descriptors I will use for DMD are motivated by a previous calculation on the benzene molecule \cite{Wagner2015}.
-In that study, an extended Hubbard model built on the six $\pi$ orbitals was found to perform well in describing the low-lying excitations of the material.
+My objective will be to reproduce a previously developed many-body model for the benzene molecule using QMC DMD \cite{Wagner2015}.
+In this study, an extended Hubbard model built on the six $\pi$ orbitals was found to perform well in describing the low-lying excitations of the material.
 The final model took the form 
 \begin{equation}
 H_\text{benz} = -\sum_{\langle i,j \rangle} t_{ij}c_i^\dagger c_j + U \sum_i n_{i\uparrow}n_{i\downarrow}  + \sum_{\langle i,j \rangle}V_{ij} n_i n_j + \sum_{\langle \langle i,j \rangle\rangle}V_{ij} n_i n_j
 \label{Hbenz}
 \end{equation}
 where the brackets denote nearest neighbor and next-nearest neighbor summations.
-I will consider at least all the descriptors above and also longer range hopping terms.
+As such, the model \textit{ansatz} that I will try to fit will be \eqref{Hbenz}.
 
-The second system I will be interested in working on is SLG.
+This first stage of model development provides a playground for benchmarking new model fitting procedures.
+Downfolding techniques have advanced significantly since the initial model for benzene was developed in 2015.
+Methods like constrained VMC for low-energy sampling have been posited but not thoroughly tested.
+By comparing models built using new methods directly to the 2015 model, it will be possible to quantify the efficiency and effectiveness of these methods.
+
+\subsection{SLG}
+The second system I will work on is SLG.
 Single layer graphene is composed of a triangular Bravais lattice with two carbon atoms per unit cell.
 In terms of a non-interacting picture, the $\sigma$ orbitals composed of C $2s, 2p_x,$ and $2p_y$ lie below the Fermi level.
 The bands which cross the Fermi level, and compose the distinct Dirac cones seen in SLG, are primary $\pi$ bonded molecular orbitals composed of C $2p_z$ orbitals.
 Further, reduced screening in SLG leads to long range Coulomb interactions in the system \cite{Elias2012, Yu2013}.
 
-In particular, I will work to extend a previous on-site Hubbard model developed for SLG \cite{Zheng2017, Wagner2015} by including long range density-density interactions .
+I will work on extending an on-site Hubbard model for SLG \cite{Zheng2017, Wagner2015} to one with long-range Coulomb interactions.
 The candidate model will be of the form:
 \begin{equation}
 H_\text{SLG} = -\sum_{i,j} t_{ij}c_i^\dagger c_j + U \sum_i n_{i\uparrow}n_{i\downarrow}  + \sum_{i,j} V_{ij} n_i n_j
 \label{Hslg}
 \end{equation}
 where the indices correspond to the $\pi$ orbitals on the copper atoms.
-I will consider both long range hopping and density-density interaction terms extending across the computational unit cell with the final goal of developing position dependent parameter values $t(r), V(r)$.
+I will consider both long range hopping and density-density interaction terms extending across the computational unit cell, with the final goal of developing position dependent parameter values $t(r), V(r)$.
 
+The resultant model will be able to non-parametrically determine the form
+of long-range interactions in graphene.
+This is an important contribution to the study of interaction effects in graphene as many potential properties of the system depend on details of these long-range interactions.
+Such effects include edge magentism \cite{PhysRevB.95.195420} and non-local electrodynamics \cite{PhysRevB.90.045137}.
+
+\subsection{BLG}
 The last systems I will develop models for are AA and AB stacked BLG, shown in Figure \ref{fig:proposed}b.
 AA stacked BLG is simply two sheets of graphene placed on top of one another where each atom is aligned with the atom beneath it.
 In AB stacked BLG, a carbon atom from the lower layer is present in the center of each carbon hexagon of the upper layer, and vice versa.
@@ -337,52 +367,34 @@ As such, the candidate model for BLG would be
 H_\text{BLG} = H_\text{SLG}^{(1)} + H_\text{SLG}^{(2)} - \sum_{i_1, i_2} t_{i_1, i_2}^\prime c_{i_1}^\dagger c_{i_2} + h.c.
 \label{Hblg}
 \end{equation}
-There are two terms for the single layers from \eqref{Hslg} plus an interlayer hopping given by the term $t_{i_1, i_2}^\prime.$
-I suspect that the hopping values will be very different between the AA and AB models as the distance between interlayer neighbors differs greatly between the two stackings.
-This difference in value will provide the first steps into developing model parameters for BLG which depend on the relative orientation of the sheets.
+There are two terms for the single layers from \eqref{Hslg} plus an interlayer hopping given by the term $t_{i_1, i_2}^\prime.$  
+The index $i_1$ refers to layer 1 and $i_2$ to layer two.
+While this is an initial \textit{ansatz}, additional inter- and intra-layer terms can be included if necessary.
 
-A new constrained variational Monte Carlo (cVMC) method will be used to sample the low-energy wave functions necessary for DMD.
-The cVMC method works by minimizing the following cost function for a parameterized wave function $|\Psi(\vec{p})\rangle$:
-\begin{equation}
-\vec{p}^* = \text{argmin} \ \langle \Psi(\vec{p}) | \hat{H}_\text{ab} | \Psi(\vec{p}) \rangle - \sum_k [\lambda_k \langle \Psi(\vec{p}) | d_k - d_{k}^0 | \Psi(\vec{p}) \rangle]^2
-\end{equation}
-with respect to the parameters $\vec{p}$.
-The quantity $\vec{d}$ is short hand for a list of candidate descriptors to sample variations in, $\vec{d}^0$ is the target values of those candidate descriptors, and $\vec{\lambda}$ controls the importance of finding a state with low-energy versus one with descriptor values near $\vec{d}_0$.
-Essentially this method allows us, for a given parameterization of $|\Psi(\vec{p})\rangle$, to generate low-energy wave functions which sit near a target point $\vec{d}^0$ in candidate descriptor space.
+With these two models, one can begin to answer some prominent questions about the inter-layer coupling in TBLG.
+First, one can determine, at least for the simplest orientations, whether the inter-layer coupling takes the form of a hopping or interaction term.
+While current studies tend to assume the prior \cite{Fang, Fang2016, PhysRevX.8.031088, PhysRevX.8.031087}, there is no good reason to discount the latter.
+Further, the quantitative details of spatial dependence, which are intimately related to the strongly correlated behavior in TBLG, can begin to be addressed.
 
-I will use a multi-Slater-Jastrow (MSJ) parameterization in the cVMC sampling for each system.
-The multi-Slater expansion will consist of determinants of single particle orbitals calculated using DFT.
-The determinants will include the DFT ground state as well as molecular orbital excitations among the $\pi$ and $\pi^*$ orbitals which form the active space.
-A three body Jastrow factor will be applied to ensure that correlations are included in the wave function and that the wave function is low in energy.
-The total set of parameters $\vec{p}$ will include both Jastrow and determinental coefficients.
-
-Apart from their individual value, the four models can be used to investigate the transferrability of model parameters between these different carbon-based systems.
-The first question would be whether the parameter values between a finite size system, like benzene, match those seen in the bulk SLG system.
-The second would be whether the intralayer parameter values change in each sheet of SLG when they are brought together in the AA and AB configuration.
-The latter question hints at a broader question, whether the SLG intralayer parameters are transferrable to TBLG, especially near the magic twist angles where interlayer coupling becomes very large \cite{Bistritzer2	011}.
-
-Further, my calculations will help mature methods like cVMC for further usage on strongly correlated systems.
-A few questions of interest include how one should select values like $\vec{\lambda}$ and $\vec{d}_0$, and whether final models fit with cVMC are consistent with those fit previously using a different sampling technique.
-The prior question will be naturally investigated while using cVMC in building models for the systems above.
-The latter can be directly probed by comparing my fit models for benzene and on-site SLG to those which were developed previously using DMD.
-
-Lastly, my calculations will lay the groundwork for model development for the strongly correlated TBLG system using DMD.
-The final goal for TBLG would be an interacting continuum model on the Moire superlattice length scale.
-From a DMD perspective, this can accomplished by first downfolding the \textit{ab initio} Hamiltonian with a given twist to an atomic length scale model, and then downfolding a second time to the Moire length scale.
-Developing the atomic length scale models requires a strong understanding of intra- and inter-layer interactions in this material.
-The prior will be thoroughly investigated by my model fitting on SLG, and I will begin to answer the latter with the BLG calculations.
+\vspace{-10pt}
+\paragraph{QMC HAMM}
+A major goal of the QMC HAMM project is to develop a twist dependent, Moire length scale, interacting model for TBLG using QMC \textit{ab initio} calculations.
+The first step in doing so is developing an atomic scale model for TBLG, and the necessary prerequisites for this step are a strong understanding of effective theories of the basic constituents of the system.
+The models I propose to develop for SLG and AA/AB BLG provide exactly this kind of understanding.
+As such, my work will lay the foundation for the four year QMC HAMM project to build an effective theory for TBLG.
 
 \vspace{-10pt}
 \paragraph{Proposed timeline} I believe that developing effective theories for the benzene molecule, SLG, AA and AB stacked BLG should take 2 years. 
-The model fitting for benzene should take no more than four months.
-The goal is to reproduce prior DMD calculations for the same material while benchmarking and familiarizing myself with the new cVMC sampling technique that I will use extensively in my project.
+The model fitting for benzene should take no more than four months as it is a reproduction of previous work.
 The SLG model fitting should take another eight months.
-This is an extension of a previous work, and the first three months will be dedicate to reproducing the results from that work, namely a single band on-site Hubbard model.
+As an extension of a previous work, the first three months will be dedicate to reproducing the on-site Hubbard model from that work.
 Inclusion of long range Coulomb interactions into the effective theory should take another three months.
 The last two months will be geared towards finite size extrapolation in order to ensure the final model is applicable to bulk systems.
-The last year of the project will be geared towards the AA and AB stacked BLG, with each project taking about six months to complete.
-For each stacking, I expect four months will be necessary to build an effective theory, and the final two months will be dedicated to finite size extrapolation.
+The last year of the project will be focused on the AA and AB BLG, with each project taking six months to complete.
+For each stacking, need four months to build the model and two months for finite size extrapolation.
 
+
+\vspace{-10pt}
 \begin{multicols}{2}
 \begin{spacing}{0.5}
 {\footnotesize

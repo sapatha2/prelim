@@ -84,27 +84,41 @@ lead to more compact multi-Slater-Jastrow trial wave functions for small molecul
 \end{enumerate}
 \section{Proposed Work}
 \begin{enumerate}
-\item Something about broad idea and steps
+\item I propose a two year thesis plan for developing atomic scale many-body
+model Hamiltonians for SLG and simple BLG systems within the DMD framework using high accuracy ab initio quantum Monte Carlo (QMC)
+calculations.
+%Start with some filler
 
-\item Benzene - motivation
+%Benzene molecule
+\item The first system I will develop a model for is the benzene molecule, shown in Figure 2a.
 
-\item SLG - motivation
+\item My objective will be to reproduce the many-body model for the benzene molecule developed in \textbf{ref}.
 
-\item AA/AB - motivation 
+\item This first stage of model development provides a playground for benchmarking new model fitting procedures.
 
-\item Low-energy sampling: CVMC methods 
+%SLG
+\item The second system I will be interested in working on is SLG.
 
-\item Benzene - target model  
+\item I will work on the extension of an on-site Hubbard model for SLG \textbf{ref} to one with long-range Coulomb interactions.
 
-\item SLG - target model 
+\item The resultant model will be able to non-parametrically determine the form of long-range interactions in graphene.
+%Could say something more precise here about necessity of LRI
 
-\item AA/AB - model 
+%BLG
+\item The last systems I will develop models for are AA and AB stacked BLG, shown in Figure 2b.
 
-\item Advancement of cVMC
+\item I anticipate that the candidate descriptors should include interlayer couplings as well as the terms seen in SLG.
 
-\item Transferrability of mode parameters
+\item The BLG models provide a starting point in understanding the position dependence of model parameters in TBLG.
+%Could say something more careful
 
-\item Stepping stone to TBLG
+\item The final four models can also be used to investigate the transferrability
+of model parameters between these different carbon-based systems.
+
+%CVMC
+\item A new constrained variational Monte Carlo (cVMC) method will be used to sample the low-energy wave functions necessary for DMD. 
+
+\item The multi-Slater-Jastrow (MSJ) parameterization of \textbf{eqref} will be used within cVMC for each system.
 \end{enumerate}
 
 
