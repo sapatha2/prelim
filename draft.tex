@@ -56,7 +56,7 @@ These theories, however, fail in describing the low-energy excitations of strong
 Minimal many-body models like the Hubbard \cite{Hubbard1963}, Kanamori \cite{10.1143/PTP.30.275}, t-J \cite{Chao_1977} and Heisenberg models have been proposed to describe such systems, their effectiveness in describing realistic materials is unclear.
 
 In an attempt to build accurate many-body Hamiltonians for realistic systems, a framework for model development using solutions from \textit{ab initio} simulations has emerged.
-Common approaches involve density functional theory (DFT) \cite{PhysRev.140.A1133, PhysRevLett.87.047003} alongside random phase approximation (RPA) or other methods \cite{PhysRevB.62.R16219, PhysRevB.70.195104, PhysRevB.88.075106}.
+Common approaches involve density functional theory (DFT) \cite{PhysRev.140.A1133, PhysRevLett.87.047003} alongside random phase approximation or other methods \cite{PhysRevB.62.R16219, PhysRevB.70.195104, PhysRevB.88.075106}.
 L\"owdin methods and canonical transformations have also been used to develop effective theories \cite{doi:10.1063/1.4802766, PhysRevA.81.013402, doi:10.1063/1.2196410}.
 While useful, it is typically impossible to know whether models built from these techniques accurately describe reality, as measures of model quality are rarely reported.
 Instead, comparisons of model predictions to experiment are conducted for model validation.
@@ -72,7 +72,7 @@ The utility of DMD is made apparent when studying the recent surge in model deve
 Minimal interacting models have been proposed using traditional theoretical methods, but without a link to \textit{ab initio} it is unclear whether they can describe the real system \cite{PhysRevB.98.045103, PhysRevB.100.125116, PhysRevX.8.031089}.
 DMD can bridge the gap between these methods by providing a framework to build an accurate many-body model directly from \textit{ab initio} simulations on TBLG.
 
-As such, a project named QMC High Accuracy Multiscale Modeling (QMC HAMM) between research groups at UIUC, UCSB and Rice University is dedicated towards the development of an accurate continuum-scale interacting model for TBLG.
+As such, a project named QMC High-Accuracy Multiscale Modeling (QMC HAMM) between research groups at UIUC, UCSB and Rice University is dedicated towards the development of an accurate continuum-scale interacting model for TBLG.
 The model development consists of two layers of downfolding: first, developing an atomic scale lattice model using \textit{ab initio} calculations, and second, downfolding the resultant lattice model to a continuum length scale.
 My thesis will be focused on the first layer of downfolding.
 I propose a two year plan for developing many-body lattice models for single- (SLG) and simple bi-layer (BLG) graphene systems using the DMD method and \textit{ab initio} fixed-node diffusion Monte Carlo (FN-DMC) calculations.
@@ -133,7 +133,7 @@ Fitting the effective Hamiltonian usually involves an ordinary least squares lin
 Model validation can be carried out by calculating cross validated single parameter measures like $R^2$ scores which carry information about goodness of fit and overfitting.
 
 The results of the linear regression are an estimate of the parameter values $g_k$ and model error $\epsilon[\Psi]$.
-The error estimate usually takes the form of a goodness of fit, such as a cross-validated $R^2$ score or root mean squared error (RMSE).
+The error estimate usually takes the form of a goodness of fit, such as a cross-validated $R^2$ score or root mean squared error.
 These error estimates present a direct measurement of model quality, ensuring that DMD not only gives the best fit parameters but also an assessment of model validity.
 Further, by quantifying model quality through statistical error estimates, it is possible to compare the accuracy of various low-energy \textit{ansatzes}.
 
@@ -248,7 +248,7 @@ The effective on-site Coulomb repulsion $U_s$ ensures the model places all such 
 \centering
 %\hspace*{-0.25in}
 \includegraphics[width=1.0\linewidth]{./figs/cuo_regr_2.pdf}
-\caption{Figures related to model regression for the CuO molecule: a) Intrinsic atomic orbitals used as a single particle basis for the model Hamiltonian, b) Results of PCA showing the CEVR and CN of a data set containing N$_{comp}$  highest ranked PCs, c) The final regressed parameters from the PCR, d) Comparison of four lowest lying eigenstates of CuO molecule between experiment and three computation methods.}
+\caption{Figures related to model regression for the CuO molecule: a) Intrinsic atomic orbitals used as a single particle basis for the model Hamiltonian, b) Results of PCA showing the CEVR and CN of a data set containing N$_{comp}$  highest ranked PCs, c) The final regressed model parameters, d) Comparison of four lowest lying eigenstates of CuO molecule between experiment and three computation methods.}
 \label{fig:cuo_regr}
 \end{figure*}
 
@@ -297,7 +297,7 @@ The cVMC method works by minimizing the following cost function for a parameteri
 \end{equation}
 with respect to the parameters $\vec{p}$.
 The quantity $\vec{d}$ is short hand for a list of candidate descriptors to sample variations in, $\vec{d}^*$ is the target values of those descriptors, and $\vec{\lambda}$ controls the importance of finding a state with low-energy versus one with descriptor values near $\vec{d}^*$.
-This method allows one to target low-energy wave functions which sit near a target point $\vec{d}^*$ in descriptor space, allowing for a more systematic sampling of the low-energy space.
+This method allows one to target low-energy wave functions which sit near a target point $\vec{d}^*$ in descriptor space, providing a more systematic method for sampling the low-energy space.
 
 I will use a multi-Slater-Jastrow (MSJ) parameterization in the cVMC sampling.
 The multi-Slater expansion will consist of determinants of single particle orbitals calculated using DFT.
@@ -378,7 +378,7 @@ Further, the quantitative details of spatial dependence, which are intimately re
 
 \vspace{-10pt}
 \paragraph{QMC HAMM}
-A major goal of the QMC HAMM project is to develop a twist dependent, Moire length scale, interacting model for TBLG using QMC \textit{ab initio} calculations.
+A major goal of the QMC HAMM project is to develop a twist dependent, Moire length scale, interacting model for TBLG using \textit{ab initio} QMC calculations.
 The first step in doing so is developing an atomic scale model for TBLG, and the necessary prerequisites for this step are a strong understanding of effective theories of the basic constituents of the system.
 The models I propose to develop for SLG and AA/AB BLG provide exactly this kind of understanding.
 As such, my work will lay the foundation for the four year QMC HAMM project to build an effective theory for TBLG.
