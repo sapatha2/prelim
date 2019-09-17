@@ -37,7 +37,7 @@
 \begin{abstract}
 Building accurate model Hamiltonians for realistic materials is a fundamental problem in modern condensed matter physics.
 A recently developed density matrix downfolding (DMD) \cite{Zheng2017} method provides a very direct framework for downfolding the \textit{ab initio} Hamiltonian to a many-body effective Hamiltonian using only \textit{ab initio} calculations. 
-Here I propose a two year thesis plan for developing atomic scale many-body model Hamiltonians for single- and simple bi-layer graphene systems within the DMD framework using high accuracy \textit{ab initio} quantum Monte Carlo (QMC) calculations.
+Here I propose a thesis plan for developing atomic scale many-body model Hamiltonians for single- and simple bi-layer graphene systems within the DMD framework using high accuracy \textit{ab initio} quantum Monte Carlo (QMC) calculations.
 The results of my thesis will lay the groundwork for a continuing four year project to build a twist dependent many-body continuum model for the twisted bilayer graphene (TBLG) system.
 To demonstrate my preparedness I present a model Hamiltonian developed using DMD which accurately reproduces the spectra and properties of the lowest lying excitations of the CuO molecule.
 \end{abstract}
@@ -69,12 +69,12 @@ DMD has been used to develop accurate many-body models for benzene, a 1-d hydrog
 
 The utility of DMD is made apparent when studying the recent surge in model development for TBLG.
 \textit{ab initio} model development has so far been restricted to tight-binding models which accurately describe single particle effects like band flattening, but do not address interactions \cite{Fang, Fang2016, PhysRevX.8.031088, PhysRevX.8.031087}.
-Minimal interacting models have been proposed using traditional theoretical methods, but without a link to \textit{ab initio} it is unclear whether they can describe the real system \cite{PhysRevB.98.045103, PhysRevB.100.125116, PhysRevX.8.031089}.
+Minimal interacting models have been proposed using traditional theoretical methods, but without a link to the \textit{ab initio} Hamiltonian it is unclear whether they can describe the real system \cite{PhysRevB.98.045103, PhysRevB.100.125116, PhysRevX.8.031089}.
 DMD can bridge the gap between these methods by providing a framework to build an accurate many-body model directly from \textit{ab initio} simulations on TBLG.
 
-As such, a project named QMC High-Accuracy Multiscale Modeling (QMC HAMM) between research groups at UIUC, UCSB and Rice University is dedicated towards the development of an accurate continuum-scale interacting model for TBLG.
+As such, a project named QMC High-Accuracy Multiscale Modeling (QMC HAMM) between research groups at UIUC and Rice University is dedicated towards the development of an accurate continuum-scale interacting model for TBLG.
 The model development consists of two layers of downfolding: first, developing an atomic scale lattice model using \textit{ab initio} calculations, and second, downfolding the resultant lattice model to a continuum length scale.
-My thesis will be focused on the first layer of downfolding.
+My thesis will be focused on the first stage of downfolding.
 I propose a two year plan for developing many-body lattice models for single- (SLG) and simple bi-layer (BLG) graphene systems using the DMD method and \textit{ab initio} fixed-node diffusion Monte Carlo (FN-DMC) calculations.
 My thesis will lay the necessary ground work for the development of a fully twist angle dependent lattice model for TBLG, and an eventual continuum model.
 
@@ -102,7 +102,7 @@ Given the general linear form of $\hat{H}_\text{eff}$ seen in \eqref{eq:Heff},
 the task of building an effective Hamiltonian then reduces to fitting a linear model that minimizes the error $\epsilon[\Psi]$ over $\mathcal{LE}$.
 The independent variables (descriptors) in the fitting are expectation values of the operators $d_k[\Psi] \equiv \langle \Psi |\hat{d}_k|\Psi \rangle$ and the target variable is $E[\Psi]$.
 
-This linear regression problem can be tackled in three steps.
+This linear regression problem is tackled in three steps.
 First, low-energy states are sampled from $\mathcal{LE}$.
 Next, a pool of candidate operators $\{\hat{d}_k\}$ which may be included in the final model are selected.
 Finally, a linear regression is carried out with descriptor and energies evaluated on the sampled states as the independent and target variables.
@@ -126,11 +126,6 @@ Candidate descriptors are typically selected using both physical intuition and s
 An essential first pass involves selecting a large set of descriptors using knowledge of the low-energy degrees of the freedom of the system and physical principles like symmetry.
 Further filtering follows by examining the relationship between descriptors and the \textit{ab initio} energy over the low-energy sampled states: descriptors will typically be discarded if they do not exhibit covariance with the energy.
 Note, while there is no restriction on the form of the candidate operators other than Hermiticity, 1- and 2-body second quantized operators are commonly used.
-
-A standard fitting workflow involves feature selection, model regression and model validation.
-Feature selection methods for choosing descriptors from the candidate pool can range from wrapper methods like principal component analysis \cite{pearson_karl_1901_1430636} to regularized embedded methods like LASSO \cite{10.2307/2346178}. 
-Fitting the effective Hamiltonian usually involves an ordinary least squares linear regression, but the cost function can be altered.
-Model validation can be carried out by calculating cross validated single parameter measures like $R^2$ scores which carry information about goodness of fit and overfitting.
 
 The results of the linear regression are an estimate of the parameter values $g_k$ and model error $\epsilon[\Psi]$.
 The error estimate usually takes the form of a goodness of fit, such as a cross-validated $R^2$ score or root mean squared error.
@@ -177,15 +172,15 @@ The wave function has variable parameters $\vec{\alpha}, \vec{\theta}, \vec{C}$ 
 
 I assessed the efficiency and compactness of the new function by calculating the ground state energy of a C$_2$ molecule using FN-DMC and comparing to the results when using multi-Slater-Jastrow trial functions with orthogonal determinants (MSJ+O). 
 The workflow involved constructing the un-optimized trial wave functions, optimizing the parameters using an energy optimization method \cite{Toulouse2007}, and finally using the optimized trial functions in FN-DMC calculations. 
-The average improvement in the FN-DMC energy with the MSJ+O trial wave functions was $\langle E_{MSJ} - E_{MSJ,O}\rangle =$ 0.14eV with an additional reduction of 0.032 eV when using the MSJ+NO trial wave function.
+The average improvement in the FN-DMC energy with the MSJ+O trial wave functions was $\langle E_{MSJ} - E_{MSJ,O}\rangle =$ 0.14 eV with an additional reduction of 0.032 eV when using the MSJ+NO trial wave function.
 While the benefit using the MSJ+NO trial wave function seems small, the energy calculated using an MSJ+NO trial function with only 24 determinants was lower than the energy using an MSJ+O trial 
 function with 55 determinants.
 
-Further, the FN-DMC charge density calculated using MSJ+NO trial functions had stronger bonding character than when using MSJ+O trial functions, a reasonable result as introducing correlations into trial functions allows for electrons to avoid each other while still occupying the same bonding region. 
+Further, the FN-DMC charge density calculated using MSJ+NO trial functions had stronger bonding character than when using MSJ+O trial functions, a reasonable result since introducing correlations into trial functions allows for electrons to avoid each other while still occupying the same bonding region. 
 The results indicated that using non-orthogonal determinants may lead to more compact trial wave functions for small molecules.
 
 \subsection{Effective theory for CuO molecule using DMD}
-To become acquainted with DMD, I constructed a many-body effective model for the CuO molecule with fixed bond length $r_e$ = 1.725\r{A}.
+To become acquainted with DMD, I constructed a many-body effective model for the CuO molecule with fixed bond length $r_e$ = 1.725 \r{A}.
 In the following three sections I will detail the steps I took towards developing a model for the CuO molecule using DMD, followed by a comparison of model spectra to experiment.
 
 \vspace{-10pt}
@@ -287,7 +282,6 @@ I propose a two year thesis plan for developing atomic scale many-body
 model Hamiltonians for SLG and simple BLG systems within the DMD framework using high accuracy \textit{ab initio} QMC calculations.
 To do so, I will be building a sequence of four many-body model Hamiltonians for increasing complex systems: the benzene molecule, SLG, AA stacked BLG, and AB stacked BLG.
 The following sections detail the sampling scheme and candidate models that will be used for downfolding each system.
-I conclude with a brief statement about the impact of my work within the QMC HAMM project and modeling TBLG and a timeline.
 
 \subsection{Constrained variational Monte Carlo (cVMC)}
 A new constrained cVMC method will be used to sample the low-energy wave functions necessary for DMD.
@@ -333,8 +327,7 @@ Downfolding techniques have advanced significantly since the initial model for b
 Methods like constrained VMC for low-energy sampling have been posited but not thoroughly tested.
 By comparing models built using new methods directly to the 2015 model, it will be possible to quantify the efficiency and effectiveness of these methods.
 
-\subsection{SLG}
-The second system I will work on is SLG.
+\subsection{Single layer graphene (SLG)}
 Single layer graphene is composed of a triangular Bravais lattice with two carbon atoms per unit cell.
 In terms of a non-interacting picture, the $\sigma$ orbitals composed of C $2s, 2p_x,$ and $2p_y$ lie below the Fermi level.
 The bands which cross the Fermi level, and compose the distinct Dirac cones seen in SLG, are primary $\pi$ bonded molecular orbitals composed of C $2p_z$ orbitals.
@@ -354,7 +347,7 @@ of long-range interactions in graphene.
 This is an important contribution to the study of interaction effects in graphene as many potential properties of the system depend on details of these long-range interactions.
 Such effects include edge magentism \cite{PhysRevB.95.195420} and non-local electrodynamics \cite{PhysRevB.90.045137}.
 
-\subsection{BLG}
+\subsection{Bilayer graphene (BLG)}
 The last systems I will develop models for are AA and AB stacked BLG, shown in Figure \ref{fig:proposed}b.
 AA stacked BLG is simply two sheets of graphene placed on top of one another where each atom is aligned with the atom beneath it.
 In AB stacked BLG, a carbon atom from the lower layer is present in the center of each carbon hexagon of the upper layer, and vice versa.
@@ -370,7 +363,7 @@ There are two terms for the single layers from \eqref{Hslg} plus an interlayer h
 The index $i_1$ refers to layer 1 and $i_2$ to layer two.
 While this is an initial \textit{ansatz}, additional inter- and intra-layer terms can be included if necessary.
 
-With these two models, one can begin to answer some prominent questions about the inter-layer coupling in TBLG.
+With these two models, one can begin to answer some questions about the inter-layer coupling in TBLG.
 First, one can determine, at least for the simplest orientations, whether the inter-layer coupling takes the form of a hopping or interaction term.
 While current studies tend to assume the prior \cite{Fang, Fang2016, PhysRevX.8.031088, PhysRevX.8.031087}, there is no good reason to discount the latter.
 Further, the quantitative details of spatial dependence, which are intimately related to the strongly correlated behavior in TBLG, can begin to be addressed.
