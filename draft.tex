@@ -155,11 +155,8 @@ a key role in generating the low-energy states needed for DMD.
 Consider a set of trial wave functions with varying nodal structures.
 The final projected $\Psi_\text{DMC}$ for these different trial functions will be the lowest energy states in $\mathcal{H}$ for the given nodal structures.
 If the initial trial wave functions are appropriately chosen, the final projected states will be within the target low-energy subspace of $\mathcal{H}$.
+The training data for DMD are then extracted by evaluating the expectation values of the Hamiltonian and candidate operators using the final distributions of walkers from the FN-DMC calculations \cite{Wagner2015}.
 
-The training data required for downfolding are extracted from the projected low-energy states via a mixed estimator.
-Due to the fixed-node approximation, the final distribution returned by the projection is $f(R) = \Psi_T(R) \Psi_\text{DMC}$, and Monte Carlo estimates of operator expectation values correspond to the mixed estimation $\frac{\langle \Psi_T | \hat{O} | \Psi_\text{DMC} \rangle}{\langle \Psi_T | \Psi_\text{DMC}\rangle}$. 
-This does not equal the target expectation value $\frac{\langle \Psi_\text{DMC} | \hat{O} | \Psi_\text{DMC} \rangle}{\langle \Psi_\text{DMC} | \Psi_\text{DMC}\rangle}$, resulting in a mixed estimator error.
-Details on alleviating this error in DMD and evaluation of expectation values for 1- and 2-body second quantized operators can be found in the literature \cite{Wagner2015, Wagner2017}.
 \section{Preliminary Work}
 \subsection{Non-orthogonal determinants in FN-DMC trial wave functions}
 In order to become acquainted with QMC algorithms I worked on implementing and testing multi-Slater-Jastrow trial functions with optimized non-orthogonal determinants (MSJ+NO) in FN-DMC \cite{doi:10.1063/1.5052906}.
