@@ -59,7 +59,7 @@ In an attempt to build accurate many-body Hamiltonians for realistic systems, a 
 Common approaches involve density functional theory (DFT) \cite{PhysRev.140.A1133, PhysRevLett.87.047003} alongside random phase approximation or other methods \cite{PhysRevB.62.R16219, PhysRevB.70.195104, PhysRevB.88.075106}.
 L\"owdin methods and canonical transformations have also been used to develop effective theories \cite{doi:10.1063/1.4802766, PhysRevA.81.013402, doi:10.1063/1.2196410}.
 While useful, it is typically impossible to know whether models built from these techniques accurately describe reality, as measures of model quality are rarely reported.
-Instead, comparisons of model predictions to experiment are conducted for model validation.
+Instead, model validation rely on comparisons to experiment.
 
 The recently developed DMD \cite{Zheng2017} method provides a more direct link between \textit{ab initio} and many-body effective Hamiltonians.
 Similar to the methods above, DMD uses information from \textit{ab initio} simulations on the system to fit the best parameters for a given many-body model \textit{ansatz}.
@@ -68,15 +68,16 @@ Since model quality is reported, DMD allows for direct comparison between differ
 DMD has been used to develop accurate many-body models for benzene, a 1-d hydrogen chain, and an on-site Hubbard model for graphene \cite{Zheng2017, Wagner2015}.
 
 The utility of DMD is made apparent when studying the recent surge in model development for TBLG.
-\textit{ab initio} model development has so far been restricted to tight-binding models which accurately describe single particle effects like band flattening, but do not address interactions \cite{Fang, Fang2016, PhysRevX.8.031088, PhysRevX.8.031087}.
+\textit{Ab initio} model development has so far been restricted to tight-binding models which accurately describe single particle effects like band flattening, but do not address interactions \cite{Fang, Fang2016, PhysRevX.8.031088, PhysRevX.8.031087}.
 Minimal interacting models have been proposed using traditional theoretical methods, but without a link to the \textit{ab initio} Hamiltonian it is unclear whether they can describe the real system \cite{PhysRevB.98.045103, PhysRevB.100.125116, PhysRevX.8.031089}.
 DMD can bridge the gap between these methods by providing a framework to build an accurate many-body model directly from \textit{ab initio} simulations on TBLG.
 
-As such, a project named QMC High-Accuracy Multiscale Modeling (QMC HAMM) between research groups at UIUC and Rice University is dedicated towards the development of an accurate continuum-scale interacting model for TBLG.
-The model development consists of two layers of downfolding: first, developing an atomic scale lattice model using \textit{ab initio} calculations, and second, downfolding the resultant lattice model to a continuum length scale.
-My thesis will be focused on the first stage of downfolding.
-I propose a two year plan for developing many-body lattice models for single- (SLG) and simple bi-layer (BLG) graphene systems using the DMD method and \textit{ab initio} fixed-node diffusion Monte Carlo (FN-DMC) calculations.
-My thesis will lay the necessary ground work for the development of a fully twist angle dependent lattice model for TBLG, and an eventual continuum model.
+%Rework this paragraph, could be much better with the new idea i have!
+Instead of jumping head on into TBLG, however, I propose a two year plan for modeling the AA and AB stacked BLG systems using DMD with \textit{ab initio} fixed-node diffusion Monte Carlo (FN-DMC) calculations.
+I will first develop a model for single-layer graphene (SLG) with long-range Coulomb and electron-phonon interactions, and then extend this to the BLG systems by introducing inter-layer couplings.
+The SLG model will serve as an important tool in understanding the interplay of electronic and geometric degrees of freedom in graphene, as seen in straining experiments \cite{Naumis_2017}.
+The AA/AB BLG models will address the form and magnitude of inter-layer coupling in the bi-layer, and the effect of a single layer on the intra-layer interactions of its neighbor.
+My work will also provide a baseline for follow-ups on the effects of commensurate twists on inter- and intra-layer coupling in TBLG.
 
 \subsection{Density Matrix Downfolding (DMD)}
 The starting point of model development for materials is the \textit{ab initio} Hamiltonian defined on the Hilbert space $\mathcal{H}$
@@ -151,7 +152,7 @@ a key role in generating the low-energy states needed for DMD.
 Consider a set of trial wave functions with varying nodal structures.
 The final projected $\Psi_\text{DMC}$ for these different trial functions will be the lowest energy states in $\mathcal{H}$ for the given nodal structures.
 If the initial trial wave functions are appropriately chosen, the final projected states will be within the target low-energy subspace of $\mathcal{H}$.
-The training data for DMD are then extracted by evaluating the expectation values of the Hamiltonian and candidate operators using the final distributions of walkers from the FN-DMC calculations \cite{Wagner2015}.
+The training data for DMD are then extracted by evaluating the expectation values of the Hamiltonian and candidate operators using the final distributions of walkers from the FN-DMC calculations \cite{Wagner2017}.
 
 \section{Preliminary Work}
 \subsection{Non-orthogonal determinants in FN-DMC trial wave functions}
@@ -293,8 +294,8 @@ A three body Jastrow factor will be applied to ensure that correlations are incl
 The total set of parameters $\vec{p}$ will be Jastrow and determinental coefficients.
 
 \subsection{Benzene}
-The first system I will develop a model for is the benzene molecule, shown in Figure \ref{fig:proposed}a.
-While relatively simple, this molecule shares many similarities with and forms the basic unit of SLG.
+While relatively simple, the benzene molecule shares many similarities with and forms the basic unit of SLG.
+A schematic drawing of the molecule is shown in Figure \ref{fig:proposed}a.
 The delocalized $\pi$ orbitals in benzene carry over directly into SLG where they are the primary contributors to the well known Dirac bands.
 Interaction effects seen in the benzene molecule are also reflected in SLG, such as on-site double occupation energies for the carbon atoms \cite{Zheng2017, Wagner2015}.
 
@@ -320,8 +321,8 @@ Downfolding techniques have advanced significantly since the initial model for b
 Methods like constrained VMC for low-energy sampling have been posited but not thoroughly tested.
 By comparing models built using new methods directly to the 2015 model, it will be possible to quantify the efficiency and effectiveness of these methods.
 
-\subsection{Single layer graphene (SLG)}
-Single layer graphene is composed of a triangular Bravais lattice with two carbon atoms per unit cell.
+\subsection{Single layer graphene}
+SLG is composed of a triangular Bravais lattice with two carbon atoms per unit cell.
 In terms of a non-interacting picture, the $\sigma$ orbitals composed of C $2s, 2p_x,$ and $2p_y$ lie below the Fermi level.
 The bands which cross the Fermi level, and compose the distinct Dirac cones seen in SLG, are primary $\pi$ bonded molecular orbitals composed of C $2p_z$ orbitals.
 Further, reduced screening in SLG leads to long range Coulomb interactions in the system \cite{Elias2012, Yu2013}.
@@ -340,7 +341,7 @@ of long-range interactions in graphene.
 This is an important contribution to the study of interaction effects in graphene as many potential properties of the system depend on details of these long-range interactions.
 Such effects include edge magentism \cite{PhysRevB.95.195420} and non-local electrodynamics \cite{PhysRevB.90.045137}.
 
-\subsection{Bilayer graphene (BLG)}
+\subsection{Bilayer graphene}
 The last systems I will develop models for are AA and AB stacked BLG, shown in Figure \ref{fig:proposed}b.
 AA stacked BLG is simply two sheets of graphene placed on top of one another where each atom is aligned with the atom beneath it.
 In AB stacked BLG, a carbon atom from the lower layer is present in the center of each carbon hexagon of the upper layer, and vice versa.
