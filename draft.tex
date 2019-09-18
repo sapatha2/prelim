@@ -59,7 +59,7 @@ In an attempt to build accurate many-body Hamiltonians for realistic systems, a 
 Common approaches involve density functional theory (DFT) \cite{PhysRev.140.A1133, PhysRevLett.87.047003} alongside random phase approximation or other methods \cite{PhysRevB.62.R16219, PhysRevB.70.195104, PhysRevB.88.075106}.
 L\"owdin methods and canonical transformations have also been used to develop effective theories \cite{doi:10.1063/1.4802766, PhysRevA.81.013402, doi:10.1063/1.2196410}.
 While useful, it is typically impossible to know whether models built from these techniques accurately describe reality, as measures of model quality are rarely reported.
-Instead, model validation rely on comparisons to experiment.
+Instead, model validation relies on comparisons to experiment.
 
 The recently developed DMD \cite{Zheng2017} method provides a more direct link between \textit{ab initio} and many-body effective Hamiltonians.
 Similar to the methods above, DMD uses information from \textit{ab initio} simulations on the system to fit the best parameters for a given many-body model \textit{ansatz}.
@@ -72,12 +72,11 @@ The utility of DMD is made apparent when studying the recent surge in model deve
 Minimal interacting models have been proposed using traditional theoretical methods, but without a link to the \textit{ab initio} Hamiltonian it is unclear whether they can describe the real system \cite{PhysRevB.98.045103, PhysRevB.100.125116, PhysRevX.8.031089}.
 DMD can bridge the gap between these methods by providing a framework to build an accurate many-body model directly from \textit{ab initio} simulations on TBLG.
 
-%Rework this paragraph, could be much better with the new idea i have!
-Instead of jumping head on into TBLG, however, I propose a two year plan for modeling the AA and AB stacked BLG systems using DMD with \textit{ab initio} fixed-node diffusion Monte Carlo (FN-DMC) calculations.
+Instead of jumping head first into TBLG, however, I propose a two year plan for modeling the AA and AB stacked BLG systems using DMD with \textit{ab initio} fixed-node diffusion Monte Carlo (FN-DMC) calculations.
 I will first develop a model for single-layer graphene (SLG) with long-range Coulomb and electron-phonon interactions, and then extend this to the BLG systems by introducing inter-layer couplings.
-The SLG model will serve as an important tool in understanding the interplay of electronic and geometric degrees of freedom in graphene, as seen in straining experiments \cite{Naumis_2017}.
+The SLG model will demonstrate the importance of long range interactions and geometric relaxation in describing the low-energy excitations of graphene.
 The AA/AB BLG models will address the form and magnitude of inter-layer coupling in the bi-layer, and the effect of a single layer on the intra-layer interactions of its neighbor.
-My work will also provide a baseline for follow-ups on the effects of commensurate twists on inter- and intra-layer coupling in TBLG.
+My work will also provide a baseline for follow-up studies on the effects of commensurate twists on inter- and intra-layer coupling in TBLG.
 
 \subsection{Density Matrix Downfolding (DMD)}
 The starting point of model development for materials is the \textit{ab initio} Hamiltonian defined on the Hilbert space $\mathcal{H}$
