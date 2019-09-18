@@ -93,7 +93,7 @@ $\hat{H}_\text{eff}$ is taken to be a linear operator on $\mathcal{LE}$ and can 
 \end{equation}
 The process of taking $(\hat{H}_\text{ab}, \mathcal{H}) \rightarrow (\hat{H}_\text{eff}, \mathcal{LE})$ is called downfolding of $\hat{H}_\text{ab}$.
 
-DMD provides a framework for this downfolding by considering energy functionals.
+DMD provides a framework for this downfolding using energy functionals.
 In their seminal paper on DMD, Zheng \textit{et al.} \cite{Zheng2017} show that $\hat{H}_\text{eff}$ will exactly reproduce the low-lying eigenstates of $\hat{H}_\text{ab}$ if
 \begin{equation}
 \begin{split}
@@ -101,9 +101,9 @@ In their seminal paper on DMD, Zheng \textit{et al.} \cite{Zheng2017} show that 
 \end{split}
 \label{eq:DMD}
 \end{equation}
-Here $E_\text{ab}[\Psi] \equiv \langle \Psi | \hat{H}_\text{ab} | \Psi \rangle$ is the known \textit{ab initio} energy functional and $E_\text{eff}[\Psi] \equiv \langle \Psi | \hat{H}_\text{eff} | \Psi \rangle$ is the to be determined effective energy functional.
+Here $E_\text{ab}[\Psi] \equiv \langle \Psi | \hat{H}_\text{ab} | \Psi \rangle$ is the known \textit{ab initio} energy functional and $E_\text{eff}[\Psi] \equiv \langle \Psi | \hat{H}_\text{eff} | \Psi \rangle$ is the to-be-determined effective energy functional.
 Deviation from equality manifests as an error $\epsilon[\Psi] \equiv E_\text{ab}[\Psi] - E_\text{eff}[\Psi]$ which quantifies the model quality.
-Therefore, the key insight of DMD is that downfolding $\hat{H}_\text{ab}$ can be cast to a functional appoximation of $E_\text{ab}[\Psi]$ on the low-energy space $\mathcal{LE}$.
+In short, the key insight of DMD is that downfolding $\hat{H}_\text{ab}$ can be cast to a functional appoximation of $E_\text{ab}[\Psi]$ on the low-energy space $\mathcal{LE}$.
 
 Given the general linear form of $\hat{H}_\text{eff}$ seen in \eqref{eq:Heff}, 
 the functional approximation reduces to fitting a linear model that minimizes the error $\epsilon[\Psi]$ over $\mathcal{LE}$.
@@ -112,15 +112,16 @@ First, low-energy states are sampled from $\mathcal{LE}$.
 Next, a pool of candidate operators $\{\hat{d}_k\}$ which may be included in the final model are selected.
 Finally, a linear regression is carried out with the expectation values $\{\langle \Psi | \hat{d}_k|\Psi \rangle, E_\text{ab}[\Psi] \}$  evaluated on the sampled states as the independent and target variables.
 
-Low-energy states can be accessed using any wave function based \textit{ab initio} simulation technique, but two broad principles are used for selecting a method.
+Low-energy states are accessed using any wave function based \textit{ab initio} simulation technique, but two broad principles are used for selecting a method.
 First, the method should be able to generate accurate low-energy wave functions in the \textit{ab initio} Hilbert space, as the accuracy of the low-energy states dictate the accuracy of the final model.
 Second, the method should be relatively inexpensive, as large amounts of training data are preferred for a more robust regression.
-QMC methods have typically been selected due to their polynomial scaling computational cost and high accuracy, but DFT can also be used as an initial step trading accuracy for computational ease.
+QMC methods have been popular choices in previous DMD calculations \cite{Zheng2017, Wagner2015} due to their polynomial scaling computational cost, high accuracy, and applicability to both molecular and lattice systems.
 
-Candidate descriptors are typically selected using both physical intuition and statistical methods.
+Candidate descriptors are selected using both physical intuition and statistical
+methods, seen clearly in a DMD study on the stretched FeSe molecule \cite{Zheng2017}.
 An essential first pass involves selecting a large set of descriptors using knowledge of the low-energy degrees of the freedom of the system and physical principles like symmetry.
-Further filtering follows by examining the relationship between descriptors and the \textit{ab initio} energy over the low-energy sampled states: descriptors will typically be discarded if they do not exhibit covariance with the energy.
-Note, while there is no restriction on the form of the candidate operators other than Hermiticity, 1- and 2-body second quantized operators are commonly used.
+This set is then further reduced by discarding descriptors which do not exhibit covariance with the energy over the low-energy sampled states.
+Note, while there is no restriction on the candidate operators other than Hermiticity, 1- and 2-body second quantized operators are commonly used.
 
 The results of the linear regression are an estimate of the parameter values $g_k$ and model error $\epsilon[\Psi]$.
 The error estimate usually takes the form of a goodness of fit, such as a cross-validated $R^2$ score or root mean squared error.
