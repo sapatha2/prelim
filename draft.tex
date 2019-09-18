@@ -35,7 +35,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Building accurate model Hamiltonians for realistic materials is a fundamental problem in modern condensed matter physics.
+Building accurate model Hamiltonians for materials is a fundamental problem in modern condensed matter physics.
 A recently developed density matrix downfolding (DMD) \cite{Zheng2017} method provides a very direct framework for downfolding the \textit{ab initio} Hamiltonian to a many-body effective Hamiltonian using only \textit{ab initio} calculations. 
 Here I propose a thesis plan for developing atomic scale many-body model Hamiltonians for single- and simple bi-layer graphene systems within the DMD framework using high accuracy \textit{ab initio} quantum Monte Carlo (QMC) calculations.
 The results of my thesis will lay the groundwork for a continuing four year project to build a twist dependent many-body continuum model for the twisted bilayer graphene (TBLG) system.
@@ -45,7 +45,7 @@ Committee: Lucas Wagner, Brian DeMarco, Andre Schleife, Karin Dahmen
 \pagebreak
 
 \section{Introduction}
-Developing model Hamiltonians for realistic materials is a fundamental problem in modern condensed matter physics.
+Developing model Hamiltonians for materials is a fundamental problem in modern condensed matter physics.
 A model Hamiltonian is a simplified description of a real material which can accurately reproduce the low-lying eigenstates and energies of the material.
 Accurate models give clear and direct indications of effective interactions within a material and underpin modern theoretical understanding of ideas like emergence and symmetry breaking.
 On a practical level, calculations related to these low-lying eigenstates can be carried out on the much simpler model and still yield accurate results reflective of reality.
@@ -79,43 +79,38 @@ I propose a two year plan for developing many-body lattice models for single- (S
 My thesis will lay the necessary ground work for the development of a fully twist angle dependent lattice model for TBLG, and an eventual continuum model.
 
 \subsection{Density Matrix Downfolding (DMD)}
-I begin by defining what a low-energy effective Hamiltonian and downfolding are.
-Consider a high-energy Hamiltonian $\hat{H}$ and Hilbert space $\mathcal{H}$.
-A low-energy effective Hamiltonian is an operator $\hat{H}_\text{eff}$ which can accurately reproduce the spectra and eigenstates of $\hat{H}$ on a subpsace $\mathcal{LE}$ of the Hilbert space $\mathcal{H}$.
-Here $\mathcal{LE}$ is the span of the N lowest energy eigenstates of $\hat{H}$, and $\hat{H}_\text{eff}$ is a linear combination of Hermitian operators $\hat{d}_k$ with a constant shift $E_0$
+The starting point of model development for materials is the \textit{ab initio} Hamiltonian defined on the Hilbert space $\mathcal{H}$
+\begin{equation}
+\hat{H}_\text{ab} = \sum_i -\frac{1}{2} \nabla_i^2 + \sum_{iI}\frac{Z_I}{|r_i - R_I|} + \frac{1}{2} \sum_{ij} \frac{1}{|r_i - r_j|} + E_\text{ion}(\{R_I\})  
+\label{eq:Hab}
+\end{equation}
+where index $i,j$ correspond to electrons, $I$ to ions, $E_\text{ion}$ corresponds to the total ionic energy, and the unit of energy is Hartree (Ha).
+The goal is to develop an effective Hamiltonian $\hat{H}_\text{eff}$ defined on a low-energy subspace $\mathcal{LE} \subset \mathcal{H}$ which can accurately reproduce the lowest lying eigenstates and spectra of $\hat{H}_\text{ab}$.
+$\hat{H}_\text{eff}$ is taken to be a linear operator on $\mathcal{LE}$ and can be expressed as a linear combination of Hermitian operators $\hat{d}_k$, with coupling constants $g_k$ and energy offset $E_0$
 \begin{equation}
 \hat{H}_\text{eff} = \sum_{k} g_k \hat{d}_k  + E_0.
 \label{eq:Heff}
 \end{equation}
-The objective of Hamiltonian downfolding is to construct such an $\hat{H}_\text{eff}$ given $\hat{H}, \mathcal{H}$.
+The process of taking $(\hat{H}_\text{ab}, \mathcal{H}) \rightarrow (\hat{H}_\text{eff}, \mathcal{LE})$ is called downfolding of $\hat{H}_\text{ab}$.
 
-The key insight of DMD is that the Hamiltonian downfolding problem can be mapped onto a linear regression problem.
-It has been shown \cite{Zheng2017} that the above definition of $\hat{H}_\text{eff}$ is equivalent to the following: a low-energy effective Hamiltonian is an operator such that 
+DMD provides a framework for this downfolding by considering energy functionals.
+In their seminal paper on DMD, Zheng \textit{et al.} \cite{Zheng2017} show that $\hat{H}_\text{eff}$ will exactly reproduce the low-lying eigenstates of $\hat{H}_\text{ab}$ if
 \begin{equation}
 \begin{split}
-\forall |\Psi\rangle \in \mathcal{LE},\ E[\Psi] = E_\text{eff}[\Psi]  + \epsilon[\Psi]
+\forall |\Psi\rangle \in \mathcal{LE},\ E_\text{ab}[\Psi] = E_\text{eff}[\Psi].
 \end{split}
 \label{eq:DMD}
 \end{equation}
-where $\epsilon[\Psi]$ is the error in the effective theory and the energy functionals are defined as $E[\Psi] \equiv \langle \Psi | \hat{H} |\Psi \rangle,\  E_\text{eff}[\Psi] \equiv \langle \Psi | \hat{H}_\text{eff} |\Psi \rangle$.
-Given the general linear form of $\hat{H}_\text{eff}$ seen in \eqref{eq:Heff}, 
-the task of building an effective Hamiltonian then reduces to fitting a linear model that minimizes the error $\epsilon[\Psi]$ over $\mathcal{LE}$.
-The independent variables (descriptors) in the fitting are expectation values of the operators $d_k[\Psi] \equiv \langle \Psi |\hat{d}_k|\Psi \rangle$ and the target variable is $E[\Psi]$.
+Here $E_\text{ab}[\Psi] \equiv \langle \Psi | \hat{H}_\text{ab} | \Psi \rangle$ is the known \textit{ab initio} energy functional and $E_\text{eff}[\Psi] \equiv \langle \Psi | \hat{H}_\text{eff} | \Psi \rangle$ is the to be determined effective energy functional.
+Deviation from equality manifests as an error $\epsilon[\Psi] \equiv E_\text{ab}[\Psi] - E_\text{eff}[\Psi]$ which quantifies the model quality.
+Therefore, the key insight of DMD is that downfolding $\hat{H}_\text{ab}$ can be cast to a functional appoximation of $E_\text{ab}[\Psi]$ on the low-energy space $\mathcal{LE}$.
 
-This linear regression problem is tackled in three steps.
+Given the general linear form of $\hat{H}_\text{eff}$ seen in \eqref{eq:Heff}, 
+the functional approximation reduces to fitting a linear model that minimizes the error $\epsilon[\Psi]$ over $\mathcal{LE}$.
+The fitting is tackled in three steps.
 First, low-energy states are sampled from $\mathcal{LE}$.
 Next, a pool of candidate operators $\{\hat{d}_k\}$ which may be included in the final model are selected.
-Finally, a linear regression is carried out with descriptor and energies evaluated on the sampled states as the independent and target variables.
-
-When developing models for realistic system, $\hat{H}$ is taken to be the \textit{ab initio} Hamiltonian
-\begin{equation}
-\hat{H}_\text{ab} = \sum_i -\frac{1}{2} \nabla_i^2 + \sum_{iI}\frac{Z_I}{|r_i - R_I|} + \frac{1}{2} \sum_{ij} \frac{1}{|r_i - r_j|} + E_\text{ion}(\{R_I\})  
-\label{eq:Hab}
-\end{equation} 
-where index $i,j$ correspond to electrons, $I$ to ions, and $E_\text{ion}$ corresponds to the ionic kinetic and potential energies. 
-The unit of energy is Hartree (Ha).
-To reduce the computational expense of \textit{ab initio} calculations one works under the Born-Oppenheimer approximation where $E_\text{ion}$ becomes a constant.
-Ionic effects related to phonon modes can be recovered by altering the ionic geometry and observing the effects on the electronic state.
+Finally, a linear regression is carried out with the expectation values $\{\langle \Psi | \hat{d}_k|\Psi \rangle, E_\text{ab}[\Psi] \}$  evaluated on the sampled states as the independent and target variables.
 
 Low-energy states can be accessed using any wave function based \textit{ab initio} simulation technique, but two broad principles are used for selecting a method.
 First, the method should be able to generate accurate low-energy wave functions in the \textit{ab initio} Hilbert space, as the accuracy of the low-energy states dictate the accuracy of the final model.
