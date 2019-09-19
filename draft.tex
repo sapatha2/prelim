@@ -38,8 +38,8 @@
 Building accurate model Hamiltonians for materials is a fundamental problem in modern condensed matter physics.
 A recently developed density matrix downfolding (DMD) \cite{Zheng2017} method provides a very direct framework for downfolding the \textit{ab initio} Hamiltonian to a many-body effective Hamiltonian using only \textit{ab initio} calculations. 
 Here I propose a thesis plan for developing atomic scale many-body model Hamiltonians for single- and simple bi-layer graphene systems within the DMD framework using high accuracy \textit{ab initio} quantum Monte Carlo (QMC) calculations.
-The results of my thesis will lay the groundwork for a continuing four year project to build a twist dependent many-body continuum model for the twisted bilayer graphene (TBLG) system.
-To demonstrate my preparedness I present a model Hamiltonian developed using DMD which accurately reproduces the spectra and properties of the lowest lying excitations of the CuO molecule.
+The results of my thesis will contribute significantly to the understanding of low-energy effective interactions in single and bilayer graphene, and will provide a baseline for continuing study of the twisted bi-layer graphene (TBLG) system.
+To demonstrate my preparedness I present progress on a many-body model for the CuO molecule and my work in QMC methods development.
 \end{abstract}
 Committee: Lucas Wagner, Brian DeMarco, Andre Schleife, Karin Dahmen
 \pagebreak
@@ -221,6 +221,14 @@ J_{sd}\sum_{i\in {\{\text{xy, xz, ...}}\}} \vec{S}_{4s} \cdot \vec{S}_{3d_i} + U
 \end{equation}
 The operator subscripts correspond to the intrinsic atomic orbital (IAO) basis elements constructed using the molecular orbitals in \eqref{eq:sampling}, and can be seen in \ref{fig:cuo_regr}a.
 
+\begin{figure*}
+\centering
+%\hspace*{-0.25in}
+\includegraphics[width=1.0\linewidth]{./figs/cuo_regr_2.pdf}
+\caption{Figures related to model regression for the CuO molecule: a) Intrinsic atomic orbitals used as a single particle basis for the model Hamiltonian, b) Results of PCA showing the CEVR and CN of a data set containing N$_{comp}$  highest ranked PCs, c) The final regressed model parameters, d) Comparison of four lowest lying eigenstates of CuO molecule between experiment and three computation methods.}
+\label{fig:cuo_regr}
+\end{figure*}
+
 The first chunk of descriptors were selected using physical intuition and symmetry principles.
 As described above, the low-lying excitations in CuO observed in experiment involve the Cu 3d, 4s and O 2p atomic orbitals.
 Given that orbitals also hybridize, the occupation energies of and hopping terms between these orbitals were selected as candidate operators.
@@ -232,13 +240,7 @@ Within the sampled data, states with a Cu $4s^{2}$ configuration lie at least 7 
 If the double occupancy term was not included, the effective theory would predict the prior state to have an energy of $\sim $ 3eV, an underestimation of 4 eV from the \textit{ab initio} result.
 The effective on-site Coulomb repulsion $U_s$ ensures the model places all such $4s^{2}$ states high in energy.
 
-\begin{figure*}
-\centering
-%\hspace*{-0.25in}
-\includegraphics[width=1.0\linewidth]{./figs/cuo_regr_2.pdf}
-\caption{Figures related to model regression for the CuO molecule: a) Intrinsic atomic orbitals used as a single particle basis for the model Hamiltonian, b) Results of PCA showing the CEVR and CN of a data set containing N$_{comp}$  highest ranked PCs, c) The final regressed model parameters, d) Comparison of four lowest lying eigenstates of CuO molecule between experiment and three computation methods.}
-\label{fig:cuo_regr}
-\end{figure*}
+
 
 \vspace{-10pt}
 \paragraph{Fitting the model}
@@ -269,6 +271,35 @@ The UKS energies were calculated in this work in en route to constructing the de
 The model energies agree with both theoretical techniques within errorbars for the first three states shown.
 The energy of the highest energy $^2\Delta$, however, is severely over estimated using both UKS and CCSD(T), by nearly 1 eV.
 This over estimation may arise from an inadequate relaxation of the $\sigma$ type orbitals which form a three orbital hybridization complex in this system.
+
+\vspace{-10pt}
+\paragraph{Next steps}
+I have shown that the my model has comparable accuracy to modern computational techniques.
+This poses the question, however: why use DMD if one can reproduce eigenstates with simpler methods? 
+The next steps in the project will address this question by demonstrating the unique interpretability of a model.
+I plan on accomplishing this by refitting my model after dropping specific interactions, like $n_{4s,\uparrow} n_{4s,\downarrow}$, and quantitatively describe the effect on the model spectra and eigenstates, as well as renormalization of non-interacting parameters.
+In doing so, I will be able to categorize the precise effects of certain interactions on the low-energy spectra of CuO, a level of detailed interpretation unavailable to methods like CCSD(T). 
+
+\subsection{Methods development and coding}
+In addition to directly applying DMD, I have worked on the methods and code development needed to efficiently carry out downfolding.
+My first contribution was developing the theory and implementation of an efficient MC estimator for wave function parameter gradients.
+The parameter gradient of a wave function, $\langle \Psi(\vec{p}) | \Psi_p (\vec{p}) \rangle$ where $| \Psi_p (\vec{p}) \rangle \equiv \partial_{p} |\Psi (\vec{p}) \rangle$ , is a quantity that pops up frequently in QMC, from optimization algorithms \cite{Toulouse2007} to density matrix downfolding \cite{2019APS..MARF18008W}.
+Unfortunately, a naive Monte Carlo estimate of the gradient has an infinite fourth moment due to divergences near the nodal surface of $|\Psi \rangle$, so MC error estimates for the gradient are very unstable.
+I proved that the fourth moment can be made finite when using a stable estimator 
+\begin{equation} 
+\hat{\theta}=\begin{cases}
+\frac{\Psi_p(\textbf{r})}{\Psi(\textbf{r})} & \text{away from node} \\
+ \frac{\Psi_p(\textbf{r})-\Psi_p(\textbf{N})}{\Psi(\textbf{r})} & \text{near node}.      
+\end{cases}
+\end{equation}
+where $\vec{N}$ is a nodal point.
+I implemented, tested and integrated this estimator into QWalk.
+A publication with performance details of the estimator is in progress.
+
+I also made significant contributions to a new QMC package called PyQMC. 
+This package is oriented towards methods development, and will be the platform for most of my future DMD calculations.
+I implemented multi-Slater wave functions, ran consistency checks against QWalk, and worked on execution speedups for costly methods like VMC and wave function optimization.
+I plan on implementing 2-body RDM evaluation and Ewald summations too, thus providing the baseline tools for DMD on molecular and periodic systems.
 
 \section{Proposed work}
 I propose a two year thesis plan for developing atomic scale many-body
@@ -326,19 +357,21 @@ In terms of a non-interacting picture, the $\sigma$ orbitals composed of C $2s, 
 The bands which cross the Fermi level, and compose the distinct Dirac cones seen in SLG, are primary $\pi$ bonded molecular orbitals composed of C $2p_z$ orbitals.
 Further, reduced screening in SLG leads to long range Coulomb interactions in the system \cite{Elias2012, Yu2013}.
 
-I will work on extending an on-site Hubbard model for SLG \cite{Zheng2017, Wagner2015} to one with long-range Coulomb interactions.
+I will work on extending an on-site Hubbard model for SLG \cite{Zheng2017, Wagner2015} to one with long-range Coulomb interactions and electron-phonon coupling.
 The candidate model will be of the form:
 \begin{equation}
-H_\text{SLG} = -\sum_{i,j} t_{ij}c_i^\dagger c_j + U \sum_i n_{i\uparrow}n_{i\downarrow}  + \sum_{i,j} V_{ij} n_i n_j
+H_\text{SLG} = -\sum_{i,j} t_{ij}c_i^\dagger c_j + U \sum_i n_{i\uparrow}n_{i\downarrow}  + \sum_{i,j} V_{ij} n_i n_j + E_0
 \label{Hslg}
 \end{equation}
 where the indices correspond to the $\pi$ orbitals on the copper atoms.
 I will consider both long range hopping and density-density interaction terms extending across the computational unit cell, with the final goal of developing position dependent parameter values $t(r), V(r)$.
+Phononic contributions will be incorporated by fitting a sequence of models to altered geometries, leading to displacement dependent parameters similar to a previous spin-phonon calculation \cite{Wagner2014}.
 
-The resultant model will be able to non-parametrically determine the form
-of long-range interactions in graphene.
-This is an important contribution to the study of interaction effects in graphene as many potential properties of the system depend on details of these long-range interactions.
-Such effects include edge magentism \cite{PhysRevB.95.195420} and non-local electrodynamics \cite{PhysRevB.90.045137}.
+An important result from this study would be an accurate evaluation of $V(r)$ directly from \textit{ab initio} simulations.
+This result would be able to validate commonly used models for the spatial dependence, like the Ohno form \cite{Ohno1964}.
+Further, it will help develop understanding of interaction effects in graphene which depend on the details of $V(r)$, like edge magentism \cite{PhysRevB.95.195420} and non-local electrodynamics \cite{PhysRevB.90.045137}.
+Additionally, by introducing displacement dependent parameters, one can determine whether phonons in graphene serve to simply renormalize interactions, or drastically alter them.
+This determination is integral to understanding effects of strain on electronic properties as seen in experiment \cite{Naumis_2017}.
 
 \subsection{Bilayer graphene}
 The last systems I will develop models for are AA and AB stacked BLG, shown in Figure \ref{fig:proposed}b.
@@ -356,17 +389,11 @@ There are two terms for the single layers from \eqref{Hslg} plus an interlayer h
 The index $i_1$ refers to layer 1 and $i_2$ to layer two.
 While this is an initial \textit{ansatz}, additional inter- and intra-layer terms can be included if necessary.
 
-With these two models, one can begin to answer some questions about the inter-layer coupling in TBLG.
+With these two models, one can begin to answer some questions about the inter-layer coupling in BLG.
 First, one can determine, at least for the simplest orientations, whether the inter-layer coupling takes the form of a hopping or interaction term.
-While current studies tend to assume the prior \cite{Fang, Fang2016, PhysRevX.8.031088, PhysRevX.8.031087}, there is no good reason to discount the latter.
 Further, the quantitative details of spatial dependence, which are intimately related to the strongly correlated behavior in TBLG, can begin to be addressed.
-
-\vspace{-10pt}
-\paragraph{QMC HAMM}
-A major goal of the QMC HAMM project is to develop a twist dependent, Moire length scale, interacting model for TBLG using \textit{ab initio} QMC calculations.
-The first step in doing so is developing an atomic scale model for TBLG, and the necessary prerequisites for this step are a strong understanding of effective theories of the basic constituents of the system.
-The models I propose to develop for SLG and AA/AB BLG provide exactly this kind of understanding.
-As such, my work will lay the foundation for the four year QMC HAMM project to build an effective theory for TBLG.
+Lastly, when combined with the SLG model, it will be possible to determine how the intra-layer model is affected by the presence of a neighboring graphene sheet.
+The simple BLG models will also enable follow-up studies on the twist dependence of model parameters for TBLG.
 
 \vspace{-10pt}
 \paragraph{Proposed timeline} I believe that developing effective theories for the benzene molecule, SLG, AA and AB stacked BLG should take 2 years. 
@@ -377,7 +404,7 @@ Inclusion of long range Coulomb interactions into the effective theory should ta
 The last two months will be geared towards finite size extrapolation in order to ensure the final model is applicable to bulk systems.
 The last year of the project will be focused on the AA and AB BLG, with each project taking six months to complete.
 For each stacking, need four months to build the model and two months for finite size extrapolation.
-
+In total, my work will contribute significantly to the understanding of low-energy effective interactions in single and bilayer graphene.
 
 \vspace{-10pt}
 \begin{multicols}{2}
