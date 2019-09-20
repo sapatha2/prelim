@@ -37,10 +37,10 @@
 \begin{abstract}
 \thispagestyle{empty}
 Building accurate model Hamiltonians for materials is a fundamental problem in modern condensed matter physics.
-A recently developed density matrix downfolding (DMD) \cite{Zheng2017} method provides a very direct framework for downfolding the \textit{ab initio} Hamiltonian to a many-body effective Hamiltonian using only \textit{ab initio} calculations. 
+A recently developed density matrix downfolding (DMD) \cite{Zheng2017} method provides a direct framework for downfolding the \textit{ab initio} Hamiltonian to a many-body effective Hamiltonian using only \textit{ab initio} calculations. 
 Here I propose a thesis plan for developing atomic scale many-body model Hamiltonians for single- and simple bi-layer graphene systems within the DMD framework using high accuracy \textit{ab initio} quantum Monte Carlo (QMC) calculations.
-The results of my thesis will contribute significantly to the understanding of low-energy effective interactions in single and bilayer graphene, and will provide a baseline for continuing study of the twisted bi-layer graphene (TBLG) system.
-To demonstrate my preparedness I present progress on a many-body model for the CuO molecule and my work in QMC methods development.
+The results of my thesis will contribute significantly to the understanding of low-energy effective interactions in single and bilayer graphene, and will provide a baseline for a continuing study of the twisted bi-layer graphene (TBLG) system.
+To demonstrate my preparedness, I present progress on a many-body model for the CuO molecule and my work in QMC methods development.
 \end{abstract}
 Committee: Lucas Wagner, Brian DeMarco, Andre Schleife, Karin Dahmen
 \clearpage
@@ -48,7 +48,7 @@ Committee: Lucas Wagner, Brian DeMarco, Andre Schleife, Karin Dahmen
 \setcounter{page}{1}
 \section{Introduction}
 Developing model Hamiltonians for materials is a fundamental problem in modern condensed matter physics.
-A model Hamiltonian is a simplified description of a real material which can accurately reproduce the low-lying eigenstates and energies of the material.
+A model Hamiltonian is a simplified description of a material which can accurately reproduce the low-lying eigenstates and energies of that material.
 Accurate models give clear and direct indications of effective interactions within a material and underpin modern theoretical understanding of ideas like emergence and symmetry breaking.
 On a practical level, calculations related to these low-lying eigenstates can be carried out on the much simpler model and still yield accurate results reflective of reality.
 
@@ -87,7 +87,7 @@ The starting point of model development for materials is the \textit{ab initio} 
 \label{eq:Hab}
 \end{equation}
 where index $i,j$ correspond to electrons, $I$ to ions, $E_\text{ion}$ corresponds to the total ionic energy, and the unit of energy is Hartree (Ha).
-The goal is to develop an effective Hamiltonian $\hat{H}_\text{eff}$ defined on a low-energy subspace $\mathcal{LE} \subset \mathcal{H}$ which can accurately reproduce the lowest lying eigenstates and spectra of $\hat{H}_\text{ab}$.
+The goal is to develop an effective Hamiltonian $\hat{H}_\text{eff}$ defined on a low-energy subspace $\mathcal{LE} \subset \mathcal{H}$ which can accurately reproduce the lowest lying eigenstates and energies of $\hat{H}_\text{ab}$.
 $\hat{H}_\text{eff}$ is taken to be a linear operator on $\mathcal{LE}$ and can be expressed as a linear combination of Hermitian operators $\hat{d}_k$, with coupling constants $g_k$ and energy offset $E_0$
 \begin{equation}
 \hat{H}_\text{eff} = \sum_{k} g_k \hat{d}_k  + E_0.
@@ -105,10 +105,10 @@ In their seminal paper on DMD, Zheng \textit{et al.} \cite{Zheng2017} show that 
 \end{equation}
 Here $E_\text{ab}[\Psi] \equiv \langle \Psi | \hat{H}_\text{ab} | \Psi \rangle$ is the known \textit{ab initio} energy functional and $E_\text{eff}[\Psi] \equiv \langle \Psi | \hat{H}_\text{eff} | \Psi \rangle$ is the to-be-determined effective energy functional.
 Deviation from equality manifests as an error $\epsilon[\Psi] \equiv E_\text{ab}[\Psi] - E_\text{eff}[\Psi]$ which quantifies the model quality.
-In short, the key insight of DMD is that downfolding $\hat{H}_\text{ab}$ can be cast to a functional appoximation of $E_\text{ab}[\Psi]$ on the low-energy space $\mathcal{LE}$.
+In short, the key insight of DMD is that the downfolding $\hat{H}_\text{ab}$ of can be cast to a functional appoximation of $E_\text{ab}[\Psi]$ on $\mathcal{LE}$.
 
 Given the general linear form of $\hat{H}_\text{eff}$ seen in \eqref{eq:Heff}, 
-the functional approximation reduces to fitting a linear model that minimizes the error $\epsilon[\Psi]$ over $\mathcal{LE}$.
+the functional approximation reduces to fitting a linear model that minimizes $\epsilon[\Psi]$ over $\mathcal{LE}$.
 The fitting is tackled in three steps.
 First, low-energy states are sampled from $\mathcal{LE}$.
 Next, a pool of candidate operators $\{\hat{d}_k\}$ which may be included in the final model are selected.
@@ -152,7 +152,7 @@ While seemingly disadvantageous, the variational nature of FN-DMC plays
 a key role in generating the low-energy states needed for DMD.
 Consider a set of trial wave functions with varying nodal structures.
 The final projected $\Psi_\text{DMC}$ for these different trial functions will be the lowest energy states in $\mathcal{H}$ for the given nodal structures.
-If the initial trial wave functions are appropriately chosen, the final projected states will be within the target low-energy subspace of $\mathcal{H}$.
+If the initial trial wave functions are appropriately chosen, the final projected states will be within the target $\mathcal{LE}$.
 The training data for DMD are then extracted by evaluating the expectation values of the Hamiltonian and candidate operators using the final distributions of walkers from the FN-DMC calculations \cite{Wagner2017}.
 
 \section{Preliminary Work}
@@ -195,13 +195,13 @@ Only determinants composed of Cu 3d, 4s, and O 2p orbitals with at most a single
 The UKS calculations were done using PySCF \cite{Sun2018}, a B3LYP functional \cite{doi:10.1063/1.464304}, Trail-Needs psuedopotential and VTZ Trail-Needs basis \cite{doi:10.1063/1.4811651}.
 
 A shell sampling scheme was used to select coefficients $p_j$ for the trial wave functions.
-We began by fixing the coefficient $p_0 = \sqrt{w}$ where $w \in \{1.0, 0.8, ..., 0.2\}$. 
+I began by fixing the coefficient $p_0 = \sqrt{w}$ where $w \in \{1.0, 0.8, ..., 0.2\}$. 
 For each choice of $w$, n = 5 states were selected by sampling the unassigned coefficients from independent, standard normal distributions such that $\sum_j p_j^2 = 1$. 
 This procedure generated a uniform set of samples from spherical shells at decreasing radii in determinant space centered at $|\text{D}_0\rangle$.
 The process was repeated by centering at every determinant in \eqref{eq:sampling}, resulting in a sample set of overlapping shells which fill the low-energy space.
 
 A single three-body Jastrow factor was used for all trial wave functions, and was optimized on the lowest energy determinant using an energy optimization scheme \cite{Toulouse2007}.
-This choice greatly reduced the computational cost of sampling low-energy states as linear optimization was not necessary for every sampled state.
+This choice greatly reduced the computational cost of sampling low-energy states as optimization was not necessary for every sampled state.
 The resulting MSJ trial function remained low in energy as variations of the Jastrow factor among low-energy states is expected to be small.
 
 The sampled MSJ trial wave functions were projected using FN-DMC to generate the final set of low-energy sample states.
@@ -244,16 +244,16 @@ The effective on-site Coulomb repulsion $U_s$ ensures the model places all such 
 \vspace{-10pt}
 \paragraph{Fitting the model}
 A direct attempt at fitting all eleven terms in \eqref{eq:models} leads to a high goodness of fit, R$^2$ = 0.99, but unreasonably large coefficients for model.
-This is seen in a huge energy gap of $\epsilon_{2p_\pi} - \epsilon_{3d_\delta} = $ 5.87 eV, which is 2 $-$ 3 eV in experiment and our sampled data.
+This is seen in a huge energy gap of $\epsilon_{2p_\pi} - \epsilon_{3d_\delta} = $ 5.87 eV, which is 2 $-$ 3 eV in experiment and the sampled data.
 This inflation of model parameters was found to be associated with multicollinearity among the candidate descriptors, quantified by a large condition number (CN) of 1470.
 
 A principal components analysis (PCA) on the descriptors illustrates the multicollinearity in the data set.
 In Figure \eqref{fig:cuo_regr}b I show the cumulative explained variance ratio (CEVR) and CN of a matrix composed of the $N_\text{comp}$ highest ranked PCs varying from one to eleven.
 The CEVR indicates how much of the variation in the descriptor values a subset of PCs capture, and the CN quantifies the multicollinearity among these PCs.
-The sharp decrease in the condition number and sustained high CEVR up to nine principal components indicates the presence of only nine linearly independent variations within the descriptor set.
+The sharp decrease in the condition number and sustained high CEVR up to nine PCs indicates the presence of only nine linearly independent variations within the descriptor set.
 
 To reduce multicollinearity while maintaining a high goodness of fit, a model was fit to these nine PCs.
-When trained on all the sampled data this model yields an $R^2$ = 0.98 with a CN of 257. 
+This model yields an $R^2$ = 0.98 with a CN of 257.
 An inverse PCA transformation was used to map the fit coefficients corresponding to the PC descriptors back into the original eleven coefficients of \eqref{eq:models}.
 These coefficients can be seen in Figure \ref{fig:cuo_regr}c with single standard deviation bootstrap error estimates.
 The procedure carried out here is well established and called principal components regression (PCR) \cite{10.2307/2348005}.
@@ -266,7 +266,7 @@ The model energies for these eigenstates are denoted by orange circles and agree
 Further, the term symbols assigned in experiment match the term symbols of the model eigenstates, which are constructed by looking at the multiplicity and electronic configuration of each model eigenstate. 
 
 The energies for the UKS and CCSD(T) \cite{Xian2000} states are also shown in Figure \ref{fig:cuo_regr}d as green and red circles, respectively.
-The UKS energies were calculated in this work in en route to constructing the determinants $|\text{D}_j\rangle$ used in our sampling scheme \eqref{eq:sampling}.
+The UKS energies were calculated in this work en route to constructing the determinants $|\text{D}_j\rangle$ used in \eqref{eq:sampling}.
 The model energies agree with both theoretical techniques within errorbars for the first three states shown.
 The energy of the highest energy $^2\Delta$, however, is severely over estimated using both UKS and CCSD(T), by nearly 1 eV.
 This over estimation may arise from an inadequate relaxation of the $\sigma$ type orbitals which form a three orbital hybridization complex in this system.
@@ -275,8 +275,8 @@ This over estimation may arise from an inadequate relaxation of the $\sigma$ typ
 \paragraph{Next steps}
 I have shown that my model has comparable accuracy to modern computational techniques.
 This poses the question, however: why use DMD if simpler methods are just as accurate?
-The next steps in the project will address this question by demonstrating the unique interpretability of a model.
-I plan on accomplishing this by refitting my model after dropping specific interactions, like $n_{4s,\uparrow} n_{4s,\downarrow}$, and quantitatively evaluate the effect on the model spectra, eigenstates, and renormalization of non-interacting parameters.
+In the next steps of the project I will address this question by demonstrating the unique interpretability of a model.
+I plan on accomplishing this by refitting my model after dropping specific interactions, like $n_{4s,\uparrow} n_{4s,\downarrow}$, and quantitatively evaluating the effect on the model spectra, eigenstates, and renormalization of non-interacting parameters.
 In doing so, I will be able to describe the precise effects of certain interactions on the low-energy spectra of CuO, a level of detailed interpretation unavailable to methods like CCSD(T). 
 
 \subsection{Methods development and coding}
@@ -308,15 +308,14 @@ The following sections detail the sampling scheme and candidate models that will
 
 \subsection{Constrained variational Monte Carlo (cVMC)}
 A new constrained cVMC method will be used to sample the low-energy wave functions necessary for DMD.
-The cVMC method works by minimizing the following cost function for a parameterized wave function $|\Psi(\vec{p})\rangle$:
+The cVMC method works by minimizing the following cost function for a parameterized wave function $|\Psi(\vec{p})\rangle$ with respect to the parameters $\vec{p}$:
 \begin{equation}
-\vec{p}^* = \text{argmin} \ \langle \Psi(\vec{p}) | \hat{H}_\text{ab} | \Psi(\vec{p}) \rangle - \sum_k [\lambda_k \langle \Psi(\vec{p}) | d_k - d_{k}^0 | \Psi(\vec{p}) \rangle]^2
+\vec{p}^* = \text{argmin} \ \langle \Psi(\vec{p}) | \hat{H}_\text{ab} | \Psi(\vec{p}) \rangle - \sum_k [\lambda_k \langle \Psi(\vec{p}) | d_k - d_{k}^0 | \Psi(\vec{p}) \rangle]^2.
 \end{equation}
-with respect to the parameters $\vec{p}$.
 The quantity $\vec{d}$ is short hand for a list of candidate descriptors to sample variations in, $\vec{d}^*$ is the target values of those descriptors, and $\vec{\lambda}$ controls the importance of finding a state with low-energy versus one with descriptor values near $\vec{d}^*$.
-This method allows one to target low-energy wave functions which sit near a target point $\vec{d}^*$ in descriptor space, providing a more systematic method for sampling the low-energy space.
+This method allows one to target low-energy wave functions which sit near $\vec{d}^*$ in descriptor space, providing a more systematic method for sampling the low-energy space.
 
-I will use a multi-Slater-Jastrow (MSJ) parameterization in the cVMC sampling.
+I will use an MSJ parameterization in the cVMC sampling.
 The multi-Slater expansion will consist of determinants of single particle orbitals calculated using DFT.
 Given the nature of graphene-like systems, as described below, the determinants will include the DFT ground state as well as molecular orbital excitations among the $\pi$ and $\pi^*$ orbitals which form the active space.
 A three body Jastrow factor will be applied to ensure that correlations are included in the wave function and that the wave function is low in energy.
@@ -336,10 +335,10 @@ Interaction effects seen in the benzene molecule are also reflected in SLG, such
 \end{figure*}
 
 My objective will be to reproduce a previously developed many-body model for the benzene molecule using QMC DMD \cite{Wagner2015}.
-In this study, an extended Hubbard model built on the six $\pi$ orbitals was found to perform well in describing the low-lying excitations of the material.
+In that study, an extended Hubbard model built on the six $\pi$ orbitals was found to perform well in describing the low-lying excitations of the material.
 The final model took the form 
 \begin{equation}
-H_\text{benz} = -\sum_{\langle i,j \rangle} t_{ij}c_i^\dagger c_j + U \sum_i n_{i\uparrow}n_{i\downarrow}  + \sum_{\langle i,j \rangle}V_{ij} n_i n_j + \sum_{\langle \langle i,j \rangle\rangle}V_{ij} n_i n_j
+H_\text{benz} = -\sum_{\langle i,j \rangle} t_{ij}c_i^\dagger c_j + U \sum_i n_{i\uparrow}n_{i\downarrow}  + \sum_{\langle i,j \rangle}V_{ij} n_i n_j + \sum_{\langle \langle i,j \rangle\rangle}V_{ij} n_i n_j + E_0
 \label{Hbenz}
 \end{equation}
 where the brackets denote nearest neighbor and next-nearest neighbor summations.
@@ -347,7 +346,7 @@ As such, the model \textit{ansatz} that I will try to fit will be \eqref{Hbenz}.
 
 This first stage of model development provides a playground for benchmarking new model fitting procedures.
 Downfolding techniques have advanced significantly since the initial model for benzene was developed in 2015.
-Methods like constrained VMC for low-energy sampling have been posited but not thoroughly tested.
+For example, methods like constrained VMC for low-energy sampling have been posited, but not thoroughly tested.
 By comparing models built using new methods directly to the 2015 model, it will be possible to quantify the efficiency and effectiveness of these methods.
 
 \subsection{Single layer graphene}
@@ -368,7 +367,7 @@ Phononic contributions will be incorporated by fitting a sequence of models to a
 
 An important result from this study would be an accurate evaluation of $V(r)$ directly from \textit{ab initio} simulations.
 This result would be able to validate commonly used models for the spatial dependence, like the Ohno form \cite{Ohno1964}.
-Further, it will help develop understanding of interaction effects in graphene which depend on the details of $V(r)$, like edge magentism \cite{PhysRevB.95.195420} and non-local electrodynamics \cite{PhysRevB.90.045137}.
+It will also help develop understanding of interaction effects in graphene which depend on the details of $V(r)$, like edge magentism \cite{PhysRevB.95.195420} and non-local electrodynamics \cite{PhysRevB.90.045137}.
 Additionally, by introducing displacement dependent parameters, one can determine whether phonons in graphene serve to simply renormalize interactions, or drastically alter them.
 This determination is integral to understanding effects of strain on electronic properties as seen in experiment \cite{Naumis_2017}.
 
@@ -381,7 +380,7 @@ As such, one can think of AB BLG as a shifted version of AA BLG, where the shift
 I anticipate that the candidate descriptors should include interlayer couplings as well as the terms seen in SLG.
 As such, the candidate model for BLG would be
 \begin{equation}
-H_\text{BLG} = H_\text{SLG}^{(1)} + H_\text{SLG}^{(2)} - \sum_{i_1, i_2} t_{i_1, i_2}^\prime c_{i_1}^\dagger c_{i_2} + h.c.
+H_\text{BLG} = H_\text{SLG}^{(1)} + H_\text{SLG}^{(2)} - \sum_{i_1, i_2} t_{i_1, i_2}^\prime c_{i_1}^\dagger c_{i_2} + h.c. + E_0
 \label{Hblg}
 \end{equation}
 There are two terms for the single layers from \eqref{Hslg} plus an interlayer hopping given by the term $t_{i_1, i_2}^\prime.$  
@@ -389,17 +388,17 @@ The index $i_1$ refers to layer 1 and $i_2$ to layer two.
 While this is an initial \textit{ansatz}, additional inter- and intra-layer terms can be included if necessary.
 
 With these two models, one can begin to answer some questions about the inter-layer coupling in BLG.
-First, one can determine, at least for the simplest orientations, whether the inter-layer coupling takes the form of a hopping or interaction term.
-Further, the quantitative details of spatial dependence, which are intimately related to the strongly correlated behavior in TBLG, can begin to be addressed.
-Lastly, when combined with the SLG model, it will be possible to determine how the intra-layer model is affected by the presence of a neighboring graphene sheet.
-The simple BLG models will also enable follow-up studies on the twist dependence of model parameters for TBLG.
+First, one can determine, at least for the simplest orientations, whether the inter-layer coupling takes the form of a hopping or an interaction term.
+Quantitative details of the interlayer coupling spatial dependence, which are intimately related to the strongly correlated behavior in TBLG, can also begin to be addressed.
+Further, when combined with the SLG model, it will be possible to determine how the intra-layer model is affected by the presence of a neighboring graphene sheet.
+Lastly, the simple BLG models will enable follow-up studies on the twist dependence of model parameters for TBLG.
 
 \vspace{-10pt}
 \paragraph{Proposed timeline} I believe that developing effective theories for the benzene molecule, SLG, AA and AB stacked BLG should take 2 years. 
 The model fitting for benzene should take no more than four months as it is a reproduction of previous work.
 The SLG model fitting should take another eight months.
-The first three months will be dedicate to reproducing the on-site Hubbard model from that work.
-Inclusion of long range Coulomb interactions into the effective theory should take another three months.
+The first two months will be dedicate to reproducing the on-site Hubbard model from that work.
+Including long range Coulomb and electron-phonon interactions should take another four months.
 The last two months will be geared towards finite size extrapolation to ensure the final model is applicable to bulk systems.
 The last year of the project will be focused on the AA and AB BLG, with each project taking six months to complete.
 For each stacking, I will need four months to build the model and two months for finite size extrapolation.
