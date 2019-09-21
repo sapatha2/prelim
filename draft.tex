@@ -30,7 +30,7 @@
   {\small}
   {}{}
 \author{Shivesh Pathak}
-\title{Developing effective theories for single and bilayer graphene using density matrix downfolding}
+\title{Developing model Hamiltonians for single and bilayer graphene using density matrix downfolding}
 
 \begin{document}
 \maketitle
@@ -53,12 +53,13 @@ Accurate models give clear and direct indications of effective interactions with
 On a practical level, calculations related to these low-lying eigenstates can be carried out on the much simpler model and still yield accurate results reflective of reality.
 
 Yet unresolved is a paradigm for building many-body model Hamiltonians which can describe strongly correlated systems.
-Band and Fermi liquid theory have been successful in accurately modeling systems where effective interactions are negligible at low energy scales.
+Band and Fermi liquid theory have been successful in modeling systems where effective interactions are negligible at low energy scales.
 These theories, however, fail in describing the low-energy excitations of strongly correlated systems like high Tc superconductors and TBLG.
-Minimal many-body models like the Hubbard \cite{Hubbard1963}, Kanamori \cite{10.1143/PTP.30.275}, t-J \cite{Chao_1977} and Heisenberg models have been proposed to describe such systems, their effectiveness in describing realistic materials is unclear.
+Minimal many-body models like the Hubbard \cite{Hubbard1963}, Kanamori \cite{10.1143/PTP.30.275},  and t-J \cite{Chao_1977} models have been proposed to describe such systems.
+However, their effectiveness in describing realistic materials is unclear as they have no direct link to the \textit{ab initio} Hamiltonian.
 
 In an attempt to build accurate many-body Hamiltonians for realistic systems, a framework for model development using solutions from \textit{ab initio} simulations has emerged.
-Common approaches involve density functional theory (DFT) \cite{PhysRev.140.A1133, PhysRevLett.87.047003} alongside random phase approximation or other methods \cite{PhysRevB.62.R16219, PhysRevB.70.195104, PhysRevB.88.075106}.
+Common approaches use density functional theory (DFT) \cite{PhysRev.140.A1133, PhysRevLett.87.047003} alongside the random phase approximation \cite{PhysRevB.62.R16219, PhysRevB.70.195104, PhysRevB.88.075106}.
 L\"owdin methods and canonical transformations have also been used to develop effective theories \cite{doi:10.1063/1.4802766, PhysRevA.81.013402, doi:10.1063/1.2196410}.
 While useful, it is typically impossible to know whether models built from these techniques accurately describe reality, as measures of model quality are rarely reported.
 Instead, model validation relies on comparisons to experiment.
@@ -83,10 +84,10 @@ My work will also provide a baseline for follow-up studies on the effects of com
 \subsection{Density Matrix Downfolding (DMD)}
 The starting point of model development for materials is the \textit{ab initio} Hamiltonian defined on the Hilbert space $\mathcal{H}$
 \begin{equation}
-\hat{H}_\text{ab} = \sum_i -\frac{1}{2} \nabla_i^2 + \sum_{iI}\frac{Z_I}{|r_i - R_I|} + \frac{1}{2} \sum_{ij} \frac{1}{|r_i - r_j|} + E_\text{ion}(\{R_I\})  
+\hat{H}_\text{ab} = \sum_i -\frac{1}{2} \nabla_i^2 + \sum_{iI}\frac{Z_I}{|r_i - R_I|} + \frac{1}{2} \sum_{ij} \frac{1}{|r_i - r_j|} + hat{H}_\text{ion}(\{R_I\})  
 \label{eq:Hab}
 \end{equation}
-where index $i,j$ correspond to electrons, $I$ to ions, $E_\text{ion}$ corresponds to the total ionic energy, and the unit of energy is Hartree (Ha).
+where index $i,j$ correspond to electrons, $I$ to ions, $\hat{H}_\text{ion}$ corresponds to the total ionic energy, and the unit of energy is Hartree (Ha).
 The goal is to develop an effective Hamiltonian $\hat{H}_\text{eff}$ defined on a low-energy subspace $\mathcal{LE} \subset \mathcal{H}$ which can accurately reproduce the lowest lying eigenstates and energies of $\hat{H}_\text{ab}$.
 $\hat{H}_\text{eff}$ is taken to be a linear operator on $\mathcal{LE}$ and can be expressed as a linear combination of Hermitian operators $\hat{d}_k$, with coupling constants $g_k$ and energy offset $E_0$
 \begin{equation}
@@ -105,7 +106,7 @@ In their seminal paper on DMD, Zheng \textit{et al.} \cite{Zheng2017} show that 
 \end{equation}
 Here $E_\text{ab}[\Psi] \equiv \langle \Psi | \hat{H}_\text{ab} | \Psi \rangle$ is the known \textit{ab initio} energy functional and $E_\text{eff}[\Psi] \equiv \langle \Psi | \hat{H}_\text{eff} | \Psi \rangle$ is the to-be-determined effective energy functional.
 Deviation from equality manifests as an error $\epsilon[\Psi] \equiv E_\text{ab}[\Psi] - E_\text{eff}[\Psi]$ which quantifies the model quality.
-In short, the key insight of DMD is that the downfolding $\hat{H}_\text{ab}$ of can be cast to a functional appoximation of $E_\text{ab}[\Psi]$ on $\mathcal{LE}$.
+In short, the key insight of DMD is that downfolding $\hat{H}_\text{ab}$ can be cast to a functional appoximation of $E_\text{ab}[\Psi]$ on $\mathcal{LE}$.
 
 Given the general linear form of $\hat{H}_\text{eff}$ seen in \eqref{eq:Heff}, 
 the functional approximation reduces to fitting a linear model that minimizes $\epsilon[\Psi]$ over $\mathcal{LE}$.
@@ -151,7 +152,7 @@ This approximation makes FN-DMC variational, and will only return the exact grou
 While seemingly disadvantageous, the variational nature of FN-DMC plays
 a key role in generating the low-energy states needed for DMD.
 Consider a set of trial wave functions with varying nodal structures.
-The final projected $\Psi_\text{DMC}$ for these different trial functions will be the lowest energy states in $\mathcal{H}$ for the given nodal structures.
+The final projected $\Psi_\text{DMC}$ for these trial functions will be the lowest energy states in $\mathcal{H}$ for the given nodes.
 If the initial trial wave functions are appropriately chosen, the final projected states will be within the target $\mathcal{LE}$.
 The training data for DMD are then extracted by evaluating the expectation values of the Hamiltonian and candidate operators using the final distributions of walkers from the FN-DMC calculations \cite{Wagner2017}.
 
