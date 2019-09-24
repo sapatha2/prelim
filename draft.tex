@@ -39,8 +39,9 @@
 Building accurate model Hamiltonians for materials is a fundamental problem in modern condensed matter physics.
 A recently developed density matrix downfolding (DMD) \cite{Zheng2017} method provides a direct framework for downfolding the \textit{ab initio} Hamiltonian to a many-body effective Hamiltonian using only \textit{ab initio} calculations. 
 Here I propose a thesis plan for developing atomic scale many-body model Hamiltonians for single- and simple bi-layer graphene systems within the DMD framework using high accuracy \textit{ab initio} quantum Monte Carlo (QMC) calculations.
-The results of my thesis will contribute significantly to the understanding of low-energy effective interactions in single and bilayer graphene, and will provide a baseline for a continuing study of the twisted bi-layer graphene (TBLG) system.
-To demonstrate my preparedness, I present progress on a many-body model for the CuO molecule and my work in QMC methods development.
+I present progress on a many-body model for the CuO molecule, development and testing of QMC wave functions and parameter derivatives, and work on a new QMC package PyQMC.
+The results of my thesis will contribute to the understanding of low-energy effective interactions in single and bilayer graphene, and will provide a baseline for a continuing study of the twisted bi-layer graphene (TBLG) system.
+
 \end{abstract}
 Committee: Lucas Wagner, Brian DeMarco, Andre Schleife, Karin Dahmen
 \clearpage
@@ -75,14 +76,14 @@ The utility of DMD is made apparent when studying the recent surge in model deve
 Minimal interacting models have been proposed using traditional theoretical methods, but without a link to the \textit{ab initio} Hamiltonian it is unclear whether they can describe the real system \cite{PhysRevB.98.045103, PhysRevB.100.125116, PhysRevX.8.031089}.
 DMD can bridge the gap between these methods by providing a framework to build an accurate many-body model directly from \textit{ab initio} simulations on TBLG.
 
-Instead of jumping head first into TBLG, however, I propose a two year plan for modeling the AA and AB stacked BLG systems using DMD with \textit{ab initio} fixed-node diffusion Monte Carlo (FN-DMC) calculations.
+To approach this complex problem systematically, I propose a two year plan for modeling the AA and AB stacked BLG systems using DMD with \textit{ab initio} fixed-node diffusion Monte Carlo (FN-DMC) calculations.
 I will first develop a model for single-layer graphene (SLG) and then extend this to the BLG systems by introducing inter-layer couplings.
 The SLG model will provide an accurate evaluation of the effective Coulomb interaction spatial dependence without reliance on analytic forms like Ohno \cite{Ohno1964}, and will describe the role of phonons in modifying these interactions. 
 The AA/AB BLG models will address the form and magnitude of inter-layer coupling in the bi-layer, and the effect of a single layer on the intra-layer interactions of its neighbor.
 My work will also provide a baseline for follow-up studies on the effects of commensurate twists on inter- and intra-layer coupling in TBLG.
 
 \subsection{Density Matrix Downfolding (DMD)}
-The starting point of model development for materials is the \textit{ab initio} Hamiltonian defined on the Hilbert space $\mathcal{H}$
+The starting point of model development for materials is the \textit{ab initio} Hamiltonian defined on the \textit{ab initio} Hilbert space $\mathcal{H}$
 \begin{equation}
 \hat{H}_\text{ab} = \sum_i -\frac{1}{2} \nabla_i^2 + \sum_{iI}\frac{Z_I}{|r_i - R_I|} + \frac{1}{2} \sum_{ij} \frac{1}{|r_i - r_j|} + hat{H}_\text{ion}(\{R_I\})  
 \label{eq:Hab}
@@ -149,7 +150,7 @@ DMC, however, suffers from a fermion sign problem which is alleviated via a fixe
 Under the fixed-node approximation the nodal surface of $\Psi_\text{DMC}(\tau, R)$ is forced to match that of the initial trial wave function for all $\tau$.
 This approximation makes FN-DMC variational, and will only return the exact ground state of $\hat{H}$ if the nodal surfaces of $|\Psi_T\rangle$ and $|\Phi_0\rangle$ are identical.
 
-While seemingly disadvantageous, the variational nature of FN-DMC plays
+While seemingly disadvantageous, the fixed-node approximation plays
 a key role in generating the low-energy states needed for DMD.
 Consider a set of trial wave functions with varying nodal structures.
 The final projected $\Psi_\text{DMC}$ for these trial functions will be the lowest energy states in $\mathcal{H}$ for the given nodes.
@@ -195,7 +196,7 @@ The determinants were constructed from the orbitals of symmetry-targeted unrestr
 Only determinants composed of Cu 3d, 4s, and O 2p orbitals with at most a single hole in the Cu 3d shell were included in \eqref{eq:sampling} to match the low-energy excitations seen in experiment.
 The UKS calculations were done using PySCF \cite{Sun2018}, a B3LYP functional \cite{doi:10.1063/1.464304}, Trail-Needs psuedopotential and VTZ Trail-Needs basis \cite{doi:10.1063/1.4811651}.
 
-A shell sampling scheme was used to select coefficients $p_j$ for the trial wave functions.
+A random sampling scheme was used to select coefficients $p_j$ for the trial wave functions.
 I began by fixing the coefficient $p_0 = \sqrt{w}$ where $w \in \{1.0, 0.8, ..., 0.2\}$. 
 For each choice of $w$, n = 5 states were selected by sampling the unassigned coefficients from independent, standard normal distributions such that $\sum_j p_j^2 = 1$. 
 This procedure generated a uniform set of samples from spherical shells at decreasing radii in determinant space centered at $|\text{D}_0\rangle$.
@@ -284,7 +285,7 @@ In doing so, I will be able to describe the precise effects of certain interacti
 In addition to directly applying DMD, I have worked on the methods and code development needed to efficiently carry out downfolding.
 My first contribution was developing the theory and implementation of an efficient MC estimator for wave function parameter gradients.
 The parameter gradient of a wave function, $\langle \Psi(\vec{p}) | \Psi_p (\vec{p}) \rangle$ where $| \Psi_p (\vec{p}) \rangle \equiv \partial_{p} |\Psi (\vec{p}) \rangle$ , is a quantity that pops up frequently in QMC, from optimization algorithms \cite{Toulouse2007} to density matrix downfolding \cite{2019APS..MARF18008W}.
-Unfortunately, a naive Monte Carlo estimate of the gradient has an infinite fourth moment due to divergences near the nodal surface of $|\Psi \rangle$, so MC error estimates for the gradient are very unstable.
+Unfortunately, a na\"{i}ve Monte Carlo estimate of the gradient has an infinite fourth moment due to divergences near the nodal surface of $|\Psi \rangle$, so MC error estimates for the gradient are very unstable.
 I proved that the fourth moment can be made finite when using a stable estimator 
 \begin{equation} 
 \hat{\theta}=\begin{cases}
@@ -298,7 +299,7 @@ A publication with performance details of the estimator is in progress.
 
 I also made significant contributions to a new QMC package called PyQMC. 
 This package is oriented towards methods development, and will be the platform for most of my future DMD calculations.
-I implemented multi-Slater wave functions, ran consistency checks against QWalk, and worked on execution speedups for costly methods like VMC and wave function optimization.
+I implemented multi-Slater wave functions, ran consistency checks against QWalk, and worked on 2 $-$ 3 fold execution speedups for costly methods like VMC and wave function optimization.
 I plan on implementing 2-body RDM evaluation and Ewald summations too, thus providing the baseline tools for DMD on molecular and periodic systems.
 
 \section{Proposed work}
@@ -390,7 +391,7 @@ While this is an initial \textit{ansatz}, additional inter- and intra-layer term
 
 With these two models, one can begin to answer some questions about the inter-layer coupling in BLG.
 First, one can determine, at least for the simplest orientations, whether the inter-layer coupling takes the form of a hopping or an interaction term.
-Quantitative details of the interlayer coupling spatial dependence, which are intimately related to the strongly correlated behavior in TBLG, can also begin to be addressed.
+Quantitative details of the interlayer coupling spatial dependence, which are intimately related to the strongly correlated behavior in TBLG, can also be addressed.
 Further, when combined with the SLG model, it will be possible to determine how the intra-layer model is affected by the presence of a neighboring graphene sheet.
 Lastly, the simple BLG models will enable follow-up studies on the twist dependence of model parameters for TBLG.
 
