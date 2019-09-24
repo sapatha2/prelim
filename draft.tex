@@ -56,8 +56,8 @@ On a practical level, calculations related to these low-lying eigenstates can be
 Yet unresolved is a paradigm for building many-body model Hamiltonians which can describe strongly correlated systems.
 Band and Fermi liquid theory have been successful in modeling systems where effective interactions are negligible at low energy scales.
 These theories, however, fail in describing the low-energy excitations of strongly correlated systems like high Tc superconductors and TBLG.
-Minimal many-body models like the Hubbard \cite{Hubbard1963}, Kanamori \cite{10.1143/PTP.30.275},  and t-J \cite{Chao_1977} models have been proposed to describe such systems.
-However, their effectiveness in describing realistic materials is unclear as they have no direct link to the \textit{ab initio} Hamiltonian.
+Minimal models like the Hubbard \cite{Hubbard1963}, Kanamori \cite{10.1143/PTP.30.275},  and t-J \cite{Chao_1977} models have been proposed to describe such systems.
+However, their effectiveness in describing materials is unclear as they have no direct link to the \textit{ab initio} Hamiltonian.
 
 In an attempt to build accurate many-body Hamiltonians for realistic systems, a framework for model development using solutions from \textit{ab initio} simulations has emerged.
 Common approaches use density functional theory (DFT) \cite{PhysRev.140.A1133, PhysRevLett.87.047003} alongside the random phase approximation \cite{PhysRevB.62.R16219, PhysRevB.70.195104, PhysRevB.88.075106}.
@@ -69,11 +69,11 @@ The recently developed DMD \cite{Zheng2017} method provides a more direct link b
 Similar to the methods above, DMD uses information from \textit{ab initio} simulations on the system to fit the best parameters for a given many-body model \textit{ansatz}.
 Unlike the methods above, the resultant fit model is accompanied by a clear measure of model quality, quantifying the ability of the model to reproduce the low-energy spectrum of the system.
 Since model quality is reported, DMD allows for direct comparison between different model \textit{ansatzes} as well, an ability which can be used to deduce important model terms using \textit{ab initio} calculations.
-DMD has been used to develop accurate many-body models for benzene, a 1-d hydrogen chain, and an on-site Hubbard model for graphene \cite{Zheng2017, Wagner2015}.
+DMD has been used to develop accurate many-body models for benzene, a 1-d hydrogen chain, and a Hubbard model for graphene \cite{Zheng2017, Wagner2015}.
 
-The utility of DMD is made apparent when studying the recent surge in model development for TBLG.
-\textit{Ab initio} model development has so far been restricted to tight-binding models which accurately describe single particle effects like band flattening, but do not address interactions \cite{Fang, Fang2016, PhysRevX.8.031088, PhysRevX.8.031087}.
-Minimal interacting models have been proposed using traditional theoretical methods, but without a link to the \textit{ab initio} Hamiltonian it is unclear whether they can describe the real system \cite{PhysRevB.98.045103, PhysRevB.100.125116, PhysRevX.8.031089}.
+The utility of DMD is made clear when studying the recent surge in model development for TBLG.
+\textit{Ab initio} models have been restricted to tight-binding models which accurately describe single particle effects like band flattening, but do not address interactions \cite{Fang, PhysRevX.8.031087}.
+Minimal interacting models have been proposed using traditional theoretical methods, but without a link to the \textit{ab initio} Hamiltonian it is unclear whether they can describe the real system \cite{PhysRevB.98.045103, PhysRevB.100.125116}.
 DMD can bridge the gap between these methods by providing a framework to build an accurate many-body model directly from \textit{ab initio} simulations on TBLG.
 
 To approach this complex problem systematically, I propose a two year plan for modeling the AA and AB stacked BLG systems using DMD with \textit{ab initio} fixed-node diffusion Monte Carlo (FN-DMC) calculations.
@@ -147,7 +147,7 @@ This expansion can be interpreted as an interative procedure where samples are m
 The constant $E_T$ is a trial energy used to control the normalization of $\Psi_\text{DMC}(\tau, R)$ and is updated at each move.
 
 DMC, however, suffers from a fermion sign problem which is alleviated via a fixed-node approximation.
-Under the fixed-node approximation the nodal surface of $\Psi_\text{DMC}(\tau, R)$ is forced to match that of the initial trial wave function for all $\tau$.
+Under this approximation the nodal surface of $\Psi_\text{DMC}(\tau, R)$ is forced to match that of $\Psi_T(R)$ for all $\tau$.
 This approximation makes FN-DMC variational, and will only return the exact ground state of $\hat{H}$ if the nodal surfaces of $|\Psi_T\rangle$ and $|\Phi_0\rangle$ are identical.
 
 While seemingly disadvantageous, the fixed-node approximation plays
@@ -163,12 +163,13 @@ In order to become acquainted with QMC algorithms I worked on implementing and t
 The MSJ+NO trial wave functions take the form
 \begin{equation}
 \Psi=e^{J(\vec{\alpha})} \sum_I e^{\hat{\Theta}(\vec{\theta_I})} C_I |D_I (\{ \phi\})\rangle
+\label{eq:MSJNO}
 \end{equation}
 where the determinants $|D_I\rangle$ are composed of single particle orbitals from a self-consistent field calculation, $e^J$ is a spin-independent Jastrow factor, and $e^{\hat{\Theta}}$ is a spin-dependent orbital rotation matrix.
 The wave function has variable parameters $\vec{\alpha}, \vec{\theta}, \vec{C}$ which can be optimized.
 
 I assessed the efficiency and compactness of the new function by calculating the ground state energy of a C$_2$ molecule using FN-DMC and comparing to the results when using multi-Slater-Jastrow trial functions with orthogonal determinants (MSJ+O). 
-The workflow involved constructing the un-optimized trial wave functions, optimizing the parameters using an energy optimization method \cite{Toulouse2007}, and finally using the optimized trial functions in FN-DMC calculations. 
+The workflow involved constructing the state \eqref{eq:MSJNO}, optimizing the parameters using an energy optimization method \cite{Toulouse2007}, and finally using the optimized trial functions in FN-DMC calculations. 
 The average improvement in the FN-DMC energy with the MSJ+O trial wave functions was $\langle E_{MSJ} - E_{MSJ,O}\rangle =$ 0.14 eV with an additional reduction of 0.032 eV when using the MSJ+NO trial wave function.
 While the benefit using the MSJ+NO trial wave function seems small, the energy calculated using an MSJ+NO trial function with only 24 determinants was lower than the energy using an MSJ+O trial 
 function with 55 determinants.
@@ -275,11 +276,16 @@ This over estimation may arise from an inadequate relaxation of the $\sigma$ typ
 
 \vspace{-10pt}
 \paragraph{Next steps}
-I have shown that my model has comparable accuracy to modern computational techniques.
-This poses the question, however: why use DMD if simpler methods are just as accurate?
-In the next steps of the project I will address this question by demonstrating the unique interpretability of a model.
-I plan on accomplishing this by refitting my model after dropping specific interactions, like $n_{4s,\uparrow} n_{4s,\downarrow}$, and quantitatively evaluating the effect on the model spectra, eigenstates, and renormalization of non-interacting parameters.
-In doing so, I will be able to describe the precise effects of certain interactions on the low-energy spectra of CuO, a level of detailed interpretation unavailable to methods like CCSD(T). 
+While PCR was demonstrated here, I also tried feature selection using LASSO and Ridge regression. 
+I found a high quality of fit on the sampled data using all three methods, $R^2$ = 0.96 - 0.98, but the model parameters, eigenstates and energies differed significantly between them.
+I realized this was because portions of the low-energy space were not accessible with the sampling scheme described above.
+%Rephrase
+In particular, the DFT calculations were unable to generate two single particle excitations on the ground state, $\text{Cu } 3d_\pi \rightarrow \text{O } 2p_\pi$ and $\text{Cu } 3d_{z^2} \rightarrow \text{O } 2p_\pi$.
+Therefore, eigenstates corresponding to these excitations were not constrained by the sampled data, leading to large variations in the eigenvalues between different feature selection schemes.
+
+A new variational Monte Carlo algorithm, described later, was developed by our group to address the need for a method which can target such excitations.
+The next step in the project involves using this algorithm to fill in the missing parts of the sample space.
+By doing so, I hope to demonstrate that DMD is robust to the choice of feature selection scheme if the low-energy space is fully sampled.
 
 \subsection{Methods development and coding}
 In addition to directly applying DMD, I have worked on the methods and code development needed to efficiently carry out downfolding.
@@ -297,8 +303,8 @@ where $\vec{N}$ is a nodal point.
 I implemented, tested and integrated this estimator into QWalk.
 A publication with performance details of the estimator is in progress.
 
-I also made significant contributions to a new QMC package called PyQMC. 
-This package is oriented towards methods development, and will be the platform for most of my future DMD calculations.
+I also made significant contributions to the new QMC package PyQMC. 
+This package is oriented towards methods development, and will be the platform for my DMD calculations.
 I implemented multi-Slater wave functions, ran consistency checks against QWalk, and worked on 2 $-$ 3 fold execution speedups for costly methods like VMC and wave function optimization.
 I plan on implementing 2-body RDM evaluation and Ewald summations too, thus providing the baseline tools for DMD on molecular and periodic systems.
 
@@ -364,11 +370,11 @@ H_\text{SLG} = -\sum_{i,j} t_{ij}c_i^\dagger c_j + U \sum_i n_{i\uparrow}n_{i\do
 \label{Hslg}
 \end{equation}
 where the indices correspond to the $\pi$ orbitals on the copper atoms.
-I will consider both long range hopping and density-density interaction terms extending across the computational unit cell, with the final goal of developing position dependent parameter values $t(r), V(r)$.
-Phononic contributions will be incorporated by fitting a sequence of models to altered geometries, leading to displacement dependent parameters similar to a spin-phonon model for the cuprates \cite{Wagner2014}.
+I will consider long range hopping and density-density interaction terms extending across the computational unit cell, with the final goal of developing position dependent parameter values $t(r), V(r)$.
+Phononic contributions will be included by fitting a sequence of models to altered geometries, leading to displacement dependent parameters similar to a spin-phonon model for cuprates \cite{Wagner2014}.
 
 An important result from this study would be an accurate evaluation of $V(r)$ directly from \textit{ab initio} simulations.
-This result would be able to validate commonly used models for the spatial dependence, like the Ohno form \cite{Ohno1964}.
+This result would be able to validate common models like the Ohno form \cite{Ohno1964}.
 It will also help develop understanding of interaction effects in graphene which depend on the details of $V(r)$, like edge magentism \cite{PhysRevB.95.195420} and non-local electrodynamics \cite{PhysRevB.90.045137}.
 Additionally, by introducing displacement dependent parameters, one can determine how phonons affect the effective electronic couplings in graphene.
 This determination is integral to understanding effects of strain on electronic properties as seen in experiment \cite{Naumis_2017}.
@@ -408,8 +414,8 @@ In summary, my work will contribute significantly to the understanding of low-en
 
 \vspace{-10pt}
 \begin{multicols}{2}
-\begin{spacing}{0.5}
-{\footnotesize
+\begin{spacing}{0.2}
+{\fontsize{5}{12}\selectfont
 \bibliography{biblio}
 \bibliographystyle{prelim}
 }
