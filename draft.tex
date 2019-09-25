@@ -29,7 +29,9 @@
 \apptocmd{\thebibliography}
   {\small}
   {}{}
-\author{Shivesh Pathak}
+\usepackage{datetime}
+\newdate{date}{09}{10}{2019}
+\date{\displaydate{date}}
 \title{Developing model Hamiltonians for single and bilayer graphene using density matrix downfolding}
 
 \begin{document}
@@ -85,7 +87,7 @@ My work will also provide a baseline for follow-up studies on the effects of com
 \subsection{Density Matrix Downfolding (DMD)}
 The starting point of model development for materials is the \textit{ab initio} Hamiltonian defined on the \textit{ab initio} Hilbert space $\mathcal{H}$
 \begin{equation}
-\hat{H}_\text{ab} = \sum_i -\frac{1}{2} \nabla_i^2 + \sum_{iI}\frac{Z_I}{|r_i - R_I|} + \frac{1}{2} \sum_{ij} \frac{1}{|r_i - r_j|} + hat{H}_\text{ion}(\{R_I\})  
+\hat{H}_\text{ab} = \sum_i -\frac{1}{2} \nabla_i^2 + \sum_{iI}\frac{Z_I}{|r_i - R_I|} + \frac{1}{2} \sum_{ij} \frac{1}{|r_i - r_j|} + \hat{H}_\text{ion}(\{R_I\})  
 \label{eq:Hab}
 \end{equation}
 where index $i,j$ correspond to electrons, $I$ to ions, $\hat{H}_\text{ion}$ corresponds to the total ionic energy, and the unit of energy is Hartree (Ha).
@@ -263,7 +265,7 @@ The procedure carried out here is well established and called principal componen
 
 \vspace{-10pt}
 \paragraph{Solutions of the model}
-The final model in \ref{fig:cuo_regr}c was solved by exact diagonalization.
+The final model in Figure \ref{fig:cuo_regr}c was solved by exact diagonalization.
 Shown in Figure \ref{fig:cuo_regr}d is a comparison between the excitation energies calculated from the model and those seen in the latest anion photoelectron spectroscopy measurements \cite{Wu1997}.
 The model energies for these eigenstates are denoted by orange circles and agree with experiment up to a maximum deviation of 0.2 eV.
 Further, the term symbols assigned in experiment match the term symbols of the model eigenstates, which are constructed by looking at the multiplicity and electronic configuration of each model eigenstate. 
@@ -279,9 +281,8 @@ This over estimation may arise from an inadequate relaxation of the $\sigma$ typ
 While PCR was demonstrated here, I also tried feature selection using LASSO and Ridge regression. 
 I found a high quality of fit on the sampled data using all three methods, $R^2$ = 0.96 - 0.98, but the model parameters, eigenstates and energies differed significantly between them.
 I realized this was because portions of the low-energy space were not accessible with the sampling scheme described above.
-%Rephrase
-In particular, the DFT calculations were unable to generate two single particle excitations on the ground state, $\text{Cu } 3d_\pi \rightarrow \text{O } 2p_\pi$ and $\text{Cu } 3d_{z^2} \rightarrow \text{O } 2p_\pi$.
-Therefore, eigenstates corresponding to these excitations were not constrained by the sampled data, leading to large variations in the eigenvalues between different feature selection schemes.
+In particular, the DFT method used was unable to generate determinants corresponding to two single particle excitations on the ground state, $\text{Cu } 3d_\pi \rightarrow \text{O } 2p_\pi$ and $\text{Cu } 3d_{z^2} \rightarrow \text{O } 2p_\pi$.
+Therefore, eigenstates corresponding to these excitations were not constrained by sampled data, leading to large variations in the eigenvalues between different feature selection schemes.
 
 A new variational Monte Carlo algorithm, described later, was developed by our group to address the need for a method which can target such excitations.
 The next step in the project involves using this algorithm to fill in the missing parts of the sample space.
